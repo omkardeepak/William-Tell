@@ -135,7 +135,7 @@ const ScrollExpandMedia = ({
                     e.deltaMode === 1 ? e.deltaY * lineHeight : e.deltaY;
 
                 // Accumulate into a smooth target instead of applying instantly
-                const scrollDelta = normalizedDelta * 0.0012;
+                const scrollDelta = normalizedDelta * 0.003;
                 targetProgressRef.current = Math.min(
                     Math.max(targetProgressRef.current + scrollDelta, 0),
                     1
@@ -164,7 +164,7 @@ const ScrollExpandMedia = ({
                 startLerpLoop();
             } else if (!mediaExpandedRef.current) {
                 e.preventDefault();
-                const scrollFactor = deltaY < 0 ? 0.008 : 0.005;
+                const scrollFactor = deltaY < 0 ? 0.018 : 0.012;
                 const scrollDelta = deltaY * scrollFactor;
                 targetProgressRef.current = Math.min(
                     Math.max(targetProgressRef.current + scrollDelta, 0),
@@ -217,12 +217,12 @@ const ScrollExpandMedia = ({
         return () => window.removeEventListener('resize', checkIfMobile);
     }, []);
 
-    const mediaWidth = 450 + scrollProgress * (isMobileState ? 1000 : 1600);
-    const mediaHeight = 500 + scrollProgress * (isMobileState ? 100 : 300);
-    const textTranslateX = scrollProgress * (isMobileState ? 100 : 80);
+    const mediaWidth = 750 + scrollProgress * (isMobileState ? 1000 : 1600);
+    const mediaHeight = 800 + scrollProgress * (isMobileState ? 100 : 300);
+    const textTranslateX = scrollProgress * (isMobileState ? 100 : 130);
 
     // Blur: starts at 12px, clears to 0 as scroll progresses
-    const blurAmount = Math.max(0, 12 * (1 - scrollProgress * 1.5));
+    const blurAmount = Math.max(0, 10 * (1 - scrollProgress * 1.5));
 
     const words = title ? title.split(' ') : [];
     const titleLine1 = words.length > 1 ? words.slice(0, -1).join(' ') : title || '';
@@ -378,7 +378,7 @@ const ScrollExpandMedia = ({
                                 className={`flex items-center justify-center w-full relative z-10 transition-none ${textBlend ? 'mix-blend-difference' : 'mix-blend-normal'}`}
                             >
                                 <div
-                                    className='flex items-center gap-4 md:gap-6 transition-none'
+                                    className='flex items-center  gap-4 md:gap-6 transition-none'
                                     style={{
                                         transform: `scale(${1 - scrollProgress * 0.15})`,
                                     }}
@@ -388,18 +388,17 @@ const ScrollExpandMedia = ({
                                         <motion.img
                                             src={logoSrc}
                                             alt='Logo'
-                                            className='transition-none'
+                                            className='transition-none mb-10'
                                             style={{
-                                                width: isMobileState ? '60px' : '100px',
+                                                width: isMobileState ? '80px' : '140px',
                                                 height: 'auto',
                                                 filter: 'drop-shadow(0 2px 20px rgba(0,0,0,0.8))',
                                                 transform: `translateX(-${textTranslateX}vw)`,
                                             }}
                                         />
                                     )}
-                                    {/* Text on right */}
                                     <div
-                                        className='flex flex-col transition-none'
+                                        className='flex flex-col items-center transition-none'
                                         style={{
                                             transform: `translateX(${textTranslateX}vw)`,
                                         }}
@@ -408,7 +407,7 @@ const ScrollExpandMedia = ({
                                             className='transition-none'
                                             style={{
                                                 fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif",
-                                                fontSize: isMobileState ? '1.6rem' : '3rem',
+                                                fontSize: isMobileState ? '2.2rem' : '4.2rem',
                                                 fontWeight: 400,
                                                 color: 'white',
                                                 letterSpacing: '0.02em',
@@ -423,7 +422,7 @@ const ScrollExpandMedia = ({
                                             className='transition-none'
                                             style={{
                                                 fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif",
-                                                fontSize: isMobileState ? '0.7rem' : '1.1rem',
+                                                fontSize: isMobileState ? '0.85rem' : '1.5rem',
                                                 fontWeight: 400,
                                                 color: 'white',
                                                 letterSpacing: '0.45em',
@@ -441,7 +440,7 @@ const ScrollExpandMedia = ({
                         </div>
 
                         <motion.section
-                            className='flex flex-col w-full px-8 py-10 md:px-16 lg:py-20'
+                            className='flex flex-col w-full px-8 py-4 md:px-16 lg:py-8'
                             initial={{ opacity: 0 }}
                             animate={{ opacity: showContent ? 1 : 0 }}
                             transition={{ duration: 0.7 }}
