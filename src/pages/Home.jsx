@@ -8,7 +8,7 @@ import { WordPullUp } from '../components/ui/word-pull-up';
 
 const sampleMediaContent = {
     video: {
-        src: 'https://www.youtube.com/watch?v=POX8SAX_eVQ',
+        src: 'https://www.youtube.com/watch?v=6TcIzK_E4lQ',
         poster:
             'https://images.pexels.com/videos/5752729/space-earth-universe-cosmos-5752729.jpeg',
         background:
