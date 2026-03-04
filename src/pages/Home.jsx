@@ -19,17 +19,17 @@ const sampleMediaContent = {
 
 };
 
-// Individual line reveal component — animates in/out on every scroll
+// Individual line reveal component — fast fade on viewport entry
 const RevealLine = ({ children, delay = 0 }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: false, margin: '-60px' });
+    const isInView = useInView(ref, { once: false, margin: '-40px' });
 
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 1.2, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, y: 25 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+            transition={{ duration: 0.55, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
             {children}
         </motion.div>
@@ -48,159 +48,176 @@ const AboutSection = () => {
         }
     }, [sectionInView]);
 
+    // Magnetic scroll — when hero finishes expanding, snap viewport to this section
+    useEffect(() => {
+        const onHeroExpanded = () => {
+            // Small delay so the snapping feels intentional rather than instant
+            setTimeout(() => {
+                if (sectionRef.current) {
+                    if (window.__lenis) {
+                        window.__lenis.scrollTo(sectionRef.current, {
+                            offset: -80,      // account for navbar height
+                            duration: 1.4,
+                            easing: (t) => 1 - Math.pow(1 - t, 4), // quartic ease-out
+                        });
+                    } else {
+                        sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }, 200);
+        };
+
+        window.addEventListener('heroExpanded', onHeroExpanded);
+        return () => window.removeEventListener('heroExpanded', onHeroExpanded);
+    }, []);
+
     return (
         <div
             ref={sectionRef}
             style={{
-                padding: '0.5rem 1.5rem',
+                padding: '2rem 1.5rem 3rem',
                 position: 'relative',
+                fontFamily: "'Outfit', sans-serif",
             }}
         >
-            <div className='max-w-4xl mx-auto'>
-                {/* Animated Heading — WordPullUp on viewport entry */}
-                {sectionInView && (
-                    <div style={{ marginBottom: '2.5rem', borderBottom: '1px solid rgba(255,255,255,0.15)', paddingBottom: '1.5rem', fontFamily: "'Outfit', sans-serif" }}>
+            <style>{`
+                .about-left {
+                    padding: 1rem 0 1rem 0;
+                    border-right: none;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                    position: relative;
+                    top: auto;
+                    margin-bottom: 1.5rem;
+                }
+                .about-right {
+                    padding: 1rem 0;
+                }
+                @media (min-width: 768px) {
+                    .about-left {
+                        padding: 1rem 2.5rem 1rem 0;
+                        border-right: 1px solid rgba(255,255,255,0.1);
+                        border-bottom: none;
+                        position: sticky;
+                        top: 100px;
+                        margin-bottom: 0;
+                    }
+                    .about-right {
+                        padding: 1rem 0 1rem 2.5rem;
+                    }
+                }
+            `}</style>
+            {/* Two-column grid: heading left | description right */}
+            <div style={{
+                maxWidth: '1200px',
+                margin: '0 auto',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '0',
+                alignItems: 'flex-start',
+            }}>
+
+                {/* ── LEFT COLUMN — Heading ── */}
+                <div className="about-left">
+                    {sectionInView && (
                         <WordPullUp
-                            words="About Us"
+                            words="What we do."
                             className="text-left text-white font-medium text-3xl md:text-5xl leading-tight tracking-[0.02em] drop-shadow-sm"
                             wrapperFramerProps={{
                                 hidden: { opacity: 0 },
                                 show: {
                                     opacity: 1,
                                     transition: {
-                                        staggerChildren: 0.6,
-                                        delayChildren: 0.3,
+                                        staggerChildren: 0.2,
+                                        delayChildren: 0.1,
                                     },
                                 },
                             }}
                             framerProps={{
-                                hidden: { y: 80, opacity: 0 },
-                                show: { y: 0, opacity: 1, transition: { duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+                                hidden: { y: 40, opacity: 0 },
+                                show: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
                             }}
                         />
-                    </div>
-                )}
+                    )}
+                </div>
 
-                {/* Description — fades in after heading animation completes */}
+                {/* ── RIGHT COLUMN — Description ── */}
                 <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                    transition={{
-                        duration: 1,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                    }}
+                    className="about-right"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                    transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                    {/* Paragraph 1 — line by line reveal */}
-                    <div style={{ marginBottom: '2.5rem' }}>
-                        <RevealLine delay={0}>
-                            <p style={{
-                                fontFamily: "'Outfit', sans-serif",
-                                fontSize: '1.1rem',
-                                lineHeight: 1.9,
-                                color: 'rgba(255,255,255,0.85)',
-                                fontWeight: 300,
-                            }}>
-                                William Tell Productions is a full-service{' '}
-                                <LinkPreview
-                                    url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                    imageSrc="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?w=600&q=80"
-                                    isStatic
-                                    className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                                >
-                                    video production
-                                </LinkPreview>{' '}
-                                company
-                                dedicated to crafting compelling visual stories.
-                            </p>
-                        </RevealLine>
-                        <RevealLine delay={0.15}>
-                            <p style={{
-                                fontFamily: "'Outfit', sans-serif",
-                                fontSize: '1.1rem',
-                                lineHeight: 1.9,
-                                color: 'rgba(255,255,255,0.85)',
-                                fontWeight: 300,
-                            }}>
-                                From concept to final cut, we bring brands to life through{' '}
-                                <LinkPreview
-                                    url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                    imageSrc="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&q=80"
-                                    isStatic
-                                    className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                                >
-                                    cinematic storytelling
-                                </LinkPreview>
-                                , commercials, and immersive digital content.
-                            </p>
-                        </RevealLine>
-                        <RevealLine delay={0.3}>
-                            <p style={{
-                                fontFamily: "'Outfit', sans-serif",
-                                fontSize: '1.1rem',
-                                lineHeight: 1.9,
-                                color: 'rgba(255,255,255,0.85)',
-                                fontWeight: 300,
-                            }}>
-
-                            </p>
-                        </RevealLine>
-                    </div>
-
-                    {/* Paragraph 2 — line by line reveal */}
-                    <div>
-                        <RevealLine delay={0}>
-                            <p style={{
-                                fontFamily: "'Outfit', sans-serif",
-                                fontSize: '1.1rem',
-                                lineHeight: 1.9,
-                                color: 'rgba(255,255,255,0.85)',
-                                fontWeight: 300,
-                            }}>
-                                We believe every project deserves a unique voice. Whether it's a{' '}
-                                <LinkPreview
-                                    url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                    imageSrc="https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?w=600&q=80"
-                                    isStatic
-                                    className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                                >
-                                    brand film
-                                </LinkPreview>
-                                ,{' '}
-                                <LinkPreview
-                                    url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                    imageSrc="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80"
-                                    isStatic
-                                    className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                                >
-                                    documentary
-                                </LinkPreview>
-                                , or{' '}
-                                <LinkPreview
-                                    url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                    imageSrc="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80"
-                                    isStatic
-                                    className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                                >
-                                    social campaign
-                                </LinkPreview>
-                                {' '}— impact is our standard.
-                            </p>
-                        </RevealLine>
-                        <RevealLine delay={0.15}>
-                            <p style={{
-                                fontFamily: "'Outfit', sans-serif",
-                                fontSize: '1.1rem',
-                                lineHeight: 1.9,
-                                color: 'rgba(255,255,255,0.85)',
-                                fontWeight: 300,
-                            }}>
-                                With years of experience across industries, we partner with
-                                visionary clients to turn bold ideas into unforgettable experiences.
-                            </p>
-                        </RevealLine>
-                    </div>
+                    <RevealLine delay={0}>
+                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.05rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.85)', fontWeight: 300, marginBottom: '1.2rem' }}>
+                            William Tell Productions is a full-service{' '}
+                            <LinkPreview
+                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
+                                imageSrc="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?w=600&q=80"
+                                isStatic
+                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
+                            >
+                                video production
+                            </LinkPreview>{' '}
+                            company dedicated to crafting compelling visual stories.
+                        </p>
+                    </RevealLine>
+                    <RevealLine delay={0.1}>
+                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.05rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.85)', fontWeight: 300, marginBottom: '1.2rem' }}>
+                            From concept to final cut, we bring brands to life through{' '}
+                            <LinkPreview
+                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
+                                imageSrc="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&q=80"
+                                isStatic
+                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
+                            >
+                                cinematic storytelling
+                            </LinkPreview>
+                            , commercials, and immersive digital content.
+                        </p>
+                    </RevealLine>
+                    <RevealLine delay={0.2}>
+                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.05rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.85)', fontWeight: 300, marginBottom: '1.2rem' }}>
+                            We believe every project deserves a unique voice. Whether it's a{' '}
+                            <LinkPreview
+                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
+                                imageSrc="https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?w=600&q=80"
+                                isStatic
+                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
+                            >
+                                brand film
+                            </LinkPreview>
+                            ,{' '}
+                            <LinkPreview
+                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
+                                imageSrc="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80"
+                                isStatic
+                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
+                            >
+                                documentary
+                            </LinkPreview>
+                            , or{' '}
+                            <LinkPreview
+                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
+                                imageSrc="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80"
+                                isStatic
+                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
+                            >
+                                social campaign
+                            </LinkPreview>
+                            {' '}— impact is our standard.
+                        </p>
+                    </RevealLine>
+                    <RevealLine delay={0.3}>
+                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.05rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.85)', fontWeight: 300 }}>
+                            With years of experience across industries, we partner with
+                            visionary clients to turn bold ideas into unforgettable experiences.
+                        </p>
+                    </RevealLine>
                 </motion.div>
             </div>
+
+            {/* Bottom divider */}
+            <div style={{ maxWidth: '1200px', margin: '2rem auto 0', height: '1px', background: 'rgba(255,255,255,0.1)' }} />
         </div>
     );
 };

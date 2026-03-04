@@ -14,7 +14,21 @@ import {
 } from 'react';
 import { motion } from 'framer-motion';
 
-const ScrollExpandMedia = ({
+interface ScrollExpandMediaProps {
+    mediaType?: 'video' | 'image';
+    mediaSrc: string;
+    posterSrc?: string;
+    bgImageSrc?: string;
+    bgColor?: string;
+    logoSrc?: string;
+    title?: string;
+    date?: string;
+    scrollToExpand?: string;
+    textBlend?: boolean;
+    children?: React.ReactNode;
+}
+
+const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
     mediaType = 'video',
     mediaSrc,
     posterSrc,
@@ -38,6 +52,24 @@ const ScrollExpandMedia = ({
     const mediaExpandedRef = useRef(false);
     const lerpFrameRef = useRef<number | null>(null);
     const isAnimatingRef = useRef(false);
+    const snapTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Snap to 0 or 1 based on threshold
+    const snapToNearest = () => {
+        if (targetProgressRef.current > 0 && targetProgressRef.current < 1) {
+            if (targetProgressRef.current > 0.4) {
+                targetProgressRef.current = 1;
+            } else {
+                targetProgressRef.current = 0;
+            }
+            startLerpLoop();
+        }
+    };
+
+    const resetSnapTimer = () => {
+        if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
+        snapTimeoutRef.current = setTimeout(snapToNearest, 150);
+    };
 
     // Helper to stop/start Lenis so hero and smooth-scroll don't fight
     const stopLenis = () => {
@@ -101,6 +133,8 @@ const ScrollExpandMedia = ({
                 setShowContent(true);
                 // Media is fully expanded — hand scroll control back to Lenis
                 startLenis();
+                // Signal AboutSection to magnetically snap to it
+                window.dispatchEvent(new Event('heroExpanded'));
             } else if (clamped < 0.75) {
                 setShowContent(false);
             }
@@ -128,6 +162,7 @@ const ScrollExpandMedia = ({
                 // Set target back so lerp animates the collapse
                 targetProgressRef.current = 0;
                 startLerpLoop();
+                resetSnapTimer();
             } else if (!mediaExpandedRef.current) {
                 e.preventDefault();
                 const lineHeight = 16;
@@ -141,6 +176,7 @@ const ScrollExpandMedia = ({
                     1
                 );
                 startLerpLoop();
+                resetSnapTimer();
             }
         };
 
@@ -162,6 +198,7 @@ const ScrollExpandMedia = ({
                 stopLenis();
                 targetProgressRef.current = 0;
                 startLerpLoop();
+                resetSnapTimer();
             } else if (!mediaExpandedRef.current) {
                 e.preventDefault();
                 const scrollFactor = deltaY < 0 ? 0.018 : 0.012;
@@ -171,6 +208,7 @@ const ScrollExpandMedia = ({
                     1
                 );
                 startLerpLoop();
+                resetSnapTimer();
                 touchStartYRef.current = touchY;
             }
         };
@@ -203,6 +241,7 @@ const ScrollExpandMedia = ({
                 lerpFrameRef.current = null;
             }
             isAnimatingRef.current = false;
+            if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
         };
     }, []);
 
@@ -217,8 +256,8 @@ const ScrollExpandMedia = ({
         return () => window.removeEventListener('resize', checkIfMobile);
     }, []);
 
-    const mediaWidth = 750 + scrollProgress * (isMobileState ? 1000 : 1600);
-    const mediaHeight = 800 + scrollProgress * (isMobileState ? 100 : 300);
+    const mediaWidth = (isMobileState ? 320 : 750) + scrollProgress * (isMobileState ? 800 : 1600);
+    const mediaHeight = (isMobileState ? 400 : 800) + scrollProgress * (isMobileState ? 300 : 300);
     const textTranslateX = scrollProgress * (isMobileState ? 100 : 130);
 
     // Blur: starts at 12px, clears to 0 as scroll progresses
@@ -231,7 +270,7 @@ const ScrollExpandMedia = ({
     return (
         <div
             ref={sectionRef}
-            className='transition-colors duration-700 ease-in-out overflow-x-hidden'
+            className={`transition-colors duration-700 ease-in-out overflow-x-hidden ${!mediaFullyExpanded ? 'h-[100dvh] overflow-y-hidden' : 'h-auto'}`}
         >
             <section className='relative flex flex-col items-center justify-start min-h-[100dvh]'>
                 <div className='relative w-full flex flex-col items-center min-h-[100dvh]'>
@@ -439,14 +478,16 @@ const ScrollExpandMedia = ({
                             </div>
                         </div>
 
-                        <motion.section
-                            className='flex flex-col w-full px-8 py-4 md:px-16 lg:py-8'
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: showContent ? 1 : 0 }}
-                            transition={{ duration: 0.7 }}
-                        >
-                            {children}
-                        </motion.section>
+                        {showContent && (
+                            <motion.section
+                                className='flex flex-col w-full px-8 py-4 md:px-16 lg:py-8'
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.7 }}
+                            >
+                                {children}
+                            </motion.section>
+                        )}
                     </div>
                 </div>
             </section>
