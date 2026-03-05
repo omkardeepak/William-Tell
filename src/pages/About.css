@@ -1,89 +1,446 @@
-.about-hero {
-    padding-bottom: 2rem;
+/* ─────────────────────────────────────────────────────────────────
+   About Page — William Tell Productions
+   Dark cinematic aesthetic
+───────────────────────────────────────────────────────────────── */
+
+/* ── Shared ─────────────────────────────────────────────────────── */
+.about-page {
+    min-height: 100vh;
+    background: #060606;
+    color: rgba(255, 255, 255, 0.88);
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
 }
 
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-}
-
-.about-image-wrapper {
+.about-container {
     width: 100%;
-    aspect-ratio: 4/5;
-    overflow: hidden;
-    background-color: var(--color-bg-darker);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
 }
 
-.about-image-wrapper img {
-    width: 100%;
+.section-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.38);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Curtain intro
+───────────────────────────────────────────────────────────────── */
+.curtain-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    pointer-events: none;
+}
+
+.curtain-panel {
+    flex: 1;
     height: 100%;
-    object-fit: cover;
-    filter: grayscale(20%) contrast(110%);
+    background: #060606;
+    transform-origin: top;
 }
 
-.about-subtitle {
-    font-size: 1.2rem;
+.curtain-label {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.curtain-logo {
+    height: 56px;
+    width: auto;
+    opacity: 0.85;
+    filter: brightness(1.1);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Hero
+───────────────────────────────────────────────────────────────── */
+.about-hero {
+    padding: 180px 0 5rem;
+    position: relative;
+}
+
+.about-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.68rem;
     font-weight: 600;
-    color: var(--color-accent);
-    text-transform: uppercase;
     letter-spacing: 0.2em;
-    margin-bottom: 2rem;
-}
-
-.about-description {
-    font-size: 1.4rem;
-    line-height: 1.8;
-    color: var(--color-text);
-    margin-bottom: 4rem;
-    font-weight: 300;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    padding-top: 3rem;
-    border-top: 1px solid var(--color-border);
-}
-
-.stat-item h3 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-}
-
-.stat-item p {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
     text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0 0 1.8rem;
+}
+
+.about-hero-heading {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0 0 3rem;
+}
+
+.about-hero-heading em {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.about-hero-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    transform-origin: left;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Philosophy
+───────────────────────────────────────────────────────────────── */
+.about-philosophy {
+    padding: 5rem 0 5rem;
+}
+
+.philosophy-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .philosophy-row {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 7rem;
+    }
+}
+
+.philosophy-label-col {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .philosophy-label-col {
+        width: 200px;
+        position: sticky;
+        top: 100px;
+    }
+}
+
+.philosophy-content-col {
+    flex: 1;
+}
+
+.philosophy-body {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0;
+}
+
+.about-cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 3px;
+    letter-spacing: 0.02em;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.about-cta-link:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Stats / Services — Interactive Accordion
+───────────────────────────────────────────────────────────────── */
+.about-stats {
+    padding: 5rem 0 6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Header row with hint text */
+.stats-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+}
+
+.stats-hint {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.18);
+}
+
+/* Accordion list container */
+.accordion-list {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Single accordion row ── */
+.accordion-row {
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.35s ease;
+}
+
+.accordion-row:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.accordion-row:hover,
+.accordion-row.is-open {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+/* Gradient top border that sweeps in on hover */
+.accordion-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #a8edea, #fed6e3, #a8edea);
+    transform-origin: left;
+    z-index: 2;
+}
+
+/* Ambient ghost number — sits in the background */
+.accordion-ghost-num {
+    position: absolute;
+    right: -0.05em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(6rem, 16vw, 14rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, rgba(168, 237, 234, 0.07), rgba(254, 214, 227, 0.07));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+/* ── Header button ── */
+.accordion-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.8rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 600px) {
+    .accordion-header {
+        gap: 1rem;
+        padding: 1.4rem 0;
+    }
+}
+
+/* Row index — 01, 02, 03 */
+.accordion-index {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.22);
+    letter-spacing: 0.08em;
+    min-width: 24px;
+    flex-shrink: 0;
+}
+
+/* Gradient animated stat number */
+.accordion-stat-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg,
+            #a8edea 0%,
+            #fed6e3 40%,
+            #a8edea 80%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: holo-shift 5s ease infinite;
+    min-width: 90px;
+    flex-shrink: 0;
+}
+
+@keyframes holo-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Category label */
+.accordion-label {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.88);
+    letter-spacing: -0.01em;
+    flex: 1;
+}
+
+/* Service count pill */
+.accordion-count-pill {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 0.3rem 0.75rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+    .accordion-count-pill {
+        display: none;
+    }
+}
+
+/* Toggle plus icon */
+.accordion-icon {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+    transition: color 0.25s ease;
+}
+
+.accordion-row:hover .accordion-icon,
+.accordion-row.is-open .accordion-icon {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ── Expanded body ── */
+.accordion-body {
+    position: relative;
+    z-index: 1;
+}
+
+.accordion-services {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 2rem;
+}
+
+.accordion-service-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease;
+}
+
+.accordion-service-item:hover {
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.service-dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Mission quote
+───────────────────────────────────────────────────────────────── */
+.about-mission {
+    padding: 6rem 0 7rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    text-align: center;
+}
+
+.mission-quote {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.6rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 800px;
+    margin: 0 auto;
+    border: none;
+    padding: 0;
+    quotes: none;
+}
+
+.mission-attribution {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
     letter-spacing: 0.1em;
-    font-weight: 600;
+    color: rgba(255, 255, 255, 0.28);
+    text-transform: uppercase;
+    margin: 2rem auto 0;
 }
 
-@media (max-width: 992px) {
-    .about-grid {
-        grid-template-columns: 1fr;
-        gap: 4rem;
-    }
-
-    .about-image-wrapper {
-        aspect-ratio: 16/9;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .about-description {
-        font-size: 1.1rem;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
+/* ─────────────────────────────────────────────────────────────────
+   Bottom rule
+───────────────────────────────────────────────────────────────── */
+.about-bottom-rule {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    max-width: 1200px;
+    margin: 0 auto;
 }
