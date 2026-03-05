@@ -1,109 +1,164 @@
+/* ─────────────────────────────────────────
+   Navbar — William Tell Productions
+   Dark cinematic theme
+───────────────────────────────────────── */
+
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem 5%;
     z-index: 1000;
-    transition: all 0.4s ease;
+    padding: 1.6rem 5%;
+    transition: background 0.4s ease, padding 0.3s ease, backdrop-filter 0.4s ease;
+}
+
+.navbar--scrolled {
+    padding: 1rem 5%;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Inner container ── */
+.navbar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+/* ── Logo ── */
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.navbar-logo img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(1);
+    transition: opacity 0.25s ease;
+}
+
+.navbar-logo:hover img {
+    opacity: 0.8;
+}
+
+/* ── Desktop nav columns ── */
+.nav-cols {
+    display: flex;
+    align-items: flex-start;
+    gap: 3.5rem;
+    flex: 1;
     justify-content: center;
 }
 
-.navbar.scrolled {
-    padding: 1.2rem 5%;
-}
-
-.navbar-container {
-    width: 100%;
-    max-width: 1440px;
+.nav-col {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
-.navbar-logo {
-    font-size: 1.1rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.05em;
-    text-transform: uppercase;
+.nav-col__primary {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.25s ease;
+    white-space: nowrap;
 }
 
-.nav-links {
+.nav-col__primary:hover,
+.nav-col__primary.is-active {
+    color: #ffffff;
+}
+
+.nav-col__secondary {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.38);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.25s ease;
+    white-space: nowrap;
+}
+
+.nav-col__secondary:hover {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* ── Contact CTA ── */
+.nav-contact {
     display: flex;
     align-items: center;
-    gap: 3rem;
+    gap: 5px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    padding-bottom: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    transition: color 0.25s ease, border-color 0.25s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
-.nav-link {
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-muted);
-    transition: color 0.3s ease;
-    position: relative;
+.nav-contact:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
-.nav-link:hover,
-.nav-link.active {
-    color: var(--color-text);
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--color-accent);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s ease;
-}
-
-.nav-link.active::after,
-.nav-link:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-}
-
-.nav-btn {
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.8rem 1.8rem;
-    border: 1px solid var(--color-border);
-    border-radius: 40px;
-    transition: all 0.3s ease;
-}
-
-.nav-btn:hover {
-    background-color: var(--color-text);
-    color: var(--color-bg-dark);
-}
-
+/* ── Mobile hamburger toggle ── */
 .mobile-toggle {
     background: transparent;
     border: none;
-    color: var(--color-text);
     cursor: pointer;
+    padding: 4px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.hamburger-line {
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: opacity 0.2s ease;
+}
+
+.mobile-toggle:hover .hamburger-line {
+    opacity: 0.65;
+}
+
+/* ── Responsive ── */
+.desktop-only {
+    display: flex;
 }
 
 .mobile-only {
     display: none;
 }
 
-.mobile-menu-overlay {
+/* ─────────────────────────────────────────
+   Mobile overlay menu
+───────────────────────────────────────── */
+.mobile-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--color-bg-darker);
+    inset: 0;
+    background: #0a0a0a;
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -114,13 +169,17 @@
 
 .mobile-close {
     position: absolute;
-    top: 2rem;
+    top: 1.8rem;
     right: 5%;
     background: transparent;
     border: none;
-    color: var(--color-text);
+    color: rgba(255, 255, 255, 0.85);
     cursor: pointer;
-    z-index: 2001;
+    transition: color 0.2s ease;
+}
+
+.mobile-close:hover {
+    color: #fff;
 }
 
 .mobile-nav-links {
@@ -131,36 +190,48 @@
 }
 
 .mobile-nav-link {
-    font-size: 3rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    transition: color 0.3s ease;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: color 0.25s ease;
+    text-align: center;
 }
 
 .mobile-nav-link:hover {
-    color: var(--color-accent);
+    color: #fff;
 }
 
 .mobile-footer {
     position: absolute;
     bottom: 2rem;
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.25);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
+    text-align: center;
 }
 
+/* ─────────────────────────────────────────
+   Breakpoint
+───────────────────────────────────────── */
 @media (max-width: 768px) {
     .desktop-only {
-        display: none;
+        display: none !important;
     }
 
     .mobile-only {
-        display: block;
+        display: flex !important;
     }
 
     .navbar {
-        padding: 1.5rem 5%;
+        padding: 1.4rem 5%;
+    }
+
+    .navbar-logo img {
+        height: 36px;
     }
 }

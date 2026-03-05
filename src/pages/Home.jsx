@@ -41,7 +41,7 @@ const AboutSection = () => {
     const sectionInView = useInView(sectionRef, { once: true, margin: '-50px' });
     const [showContent, setShowContent] = useState(false);
 
-    // Show description immediately when section enters view
+    // Show description when section enters view OR immediately when hero expands
     useEffect(() => {
         if (sectionInView) {
             setShowContent(true);
@@ -51,6 +51,9 @@ const AboutSection = () => {
     // Magnetic scroll — when hero finishes expanding, snap viewport to this section
     useEffect(() => {
         const onHeroExpanded = () => {
+            // Show content immediately — don't wait for IntersectionObserver
+            setShowContent(true);
+
             // Small delay so the snapping feels intentional rather than instant
             setTimeout(() => {
                 if (sectionRef.current) {
@@ -75,149 +78,132 @@ const AboutSection = () => {
         <div
             ref={sectionRef}
             style={{
-                padding: '2rem 1.5rem 3rem',
+                padding: '5rem 2rem 5rem',
                 position: 'relative',
                 fontFamily: "'Outfit', sans-serif",
             }}
         >
             <style>{`
-                .about-left {
-                    padding: 1rem 0 1rem 0;
-                    border-right: none;
-                    border-bottom: 1px solid rgba(255,255,255,0.1);
-                    position: relative;
-                    top: auto;
-                    margin-bottom: 1.5rem;
+                .about-who-label {
+                    flex-shrink: 0;
+                    width: 100%;
+                    margin-bottom: 2rem;
+                    padding-top: 0.25rem;
                 }
-                .about-right {
-                    padding: 1rem 0;
+                .about-content-col {
+                    width: 100%;
                 }
                 @media (min-width: 768px) {
-                    .about-left {
-                        padding: 1rem 2.5rem 1rem 0;
-                        border-right: 1px solid rgba(255,255,255,0.1);
-                        border-bottom: none;
+                    .about-who-label {
+                        width: 220px;
+                        margin-bottom: 0;
                         position: sticky;
                         top: 100px;
-                        margin-bottom: 0;
                     }
-                    .about-right {
-                        padding: 1rem 0 1rem 2.5rem;
+                    .about-content-col {
+                        width: auto;
+                        flex: 1;
+                    }
+                    .about-row {
+                        flex-direction: row !important;
+                        align-items: flex-start !important;
+                        gap: 7rem !important;
                     }
                 }
+                .learn-more-link {
+                    display: inline-block;
+                    margin-top: 2.5rem;
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 0.95rem;
+                    font-weight: 400;
+                    color: rgba(255,255,255,0.75);
+                    letter-spacing: 0.03em;
+                    border-bottom: 1px solid rgba(255,255,255,0.4);
+                    padding-bottom: 3px;
+                    text-decoration: none;
+                    transition: color 0.25s ease, border-color 0.25s ease;
+                }
+                .learn-more-link:hover {
+                    color: #fff;
+                    border-color: #fff;
+                }
             `}</style>
-            {/* Two-column grid: heading left | description right */}
-            <div style={{
-                maxWidth: '1200px',
-                margin: '0 auto',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '0',
-                alignItems: 'flex-start',
-            }}>
 
-                {/* ── LEFT COLUMN — Heading ── */}
-                <div className="about-left">
-                    {sectionInView && (
-                        <WordPullUp
-                            words="What we do."
-                            className="text-left text-white font-medium text-3xl md:text-5xl leading-tight tracking-[0.02em] drop-shadow-sm"
-                            wrapperFramerProps={{
-                                hidden: { opacity: 0 },
-                                show: {
-                                    opacity: 1,
-                                    transition: {
-                                        staggerChildren: 0.2,
-                                        delayChildren: 0.1,
-                                    },
-                                },
-                            }}
-                            framerProps={{
-                                hidden: { y: 40, opacity: 0 },
-                                show: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
-                            }}
-                        />
-                    )}
-                </div>
-
-                {/* ── RIGHT COLUMN — Description ── */}
-                <motion.div
-                    className="about-right"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={showContent ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                    transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                {/* Row: label left | content right */}
+                <div
+                    className="about-row"
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        gap: '1.5rem',
+                    }}
                 >
-                    <RevealLine delay={0}>
-                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.05rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.85)', fontWeight: 300, marginBottom: '1.2rem' }}>
-                            William Tell Productions is a full-service{' '}
-                            <LinkPreview
-                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                imageSrc="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?w=600&q=80"
-                                isStatic
-                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                            >
-                                video production
-                            </LinkPreview>{' '}
-                            company dedicated to crafting compelling visual stories.
-                        </p>
-                    </RevealLine>
-                    <RevealLine delay={0.1}>
-                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.05rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.85)', fontWeight: 300, marginBottom: '1.2rem' }}>
-                            From concept to final cut, we bring brands to life through{' '}
-                            <LinkPreview
-                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                imageSrc="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&q=80"
-                                isStatic
-                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                            >
-                                cinematic storytelling
-                            </LinkPreview>
-                            , commercials, and immersive digital content.
-                        </p>
-                    </RevealLine>
-                    <RevealLine delay={0.2}>
-                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.05rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.85)', fontWeight: 300, marginBottom: '1.2rem' }}>
-                            We believe every project deserves a unique voice. Whether it's a{' '}
-                            <LinkPreview
-                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                imageSrc="https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?w=600&q=80"
-                                isStatic
-                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                            >
-                                brand film
-                            </LinkPreview>
-                            ,{' '}
-                            <LinkPreview
-                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                imageSrc="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80"
-                                isStatic
-                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                            >
-                                documentary
-                            </LinkPreview>
-                            , or{' '}
-                            <LinkPreview
-                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                imageSrc="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80"
-                                isStatic
-                                className="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                            >
-                                social campaign
-                            </LinkPreview>
-                            {' '}— impact is our standard.
-                        </p>
-                    </RevealLine>
-                    <RevealLine delay={0.3}>
-                        <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.05rem', lineHeight: 1.9, color: 'rgba(255,255,255,0.85)', fontWeight: 300 }}>
-                            With years of experience across industries, we partner with
-                            visionary clients to turn bold ideas into unforgettable experiences.
-                        </p>
-                    </RevealLine>
-                </motion.div>
+                    {/* ── LEFT — WHO WE ARE label ── */}
+                    <motion.div
+                        className="about-who-label"
+                        initial={{ opacity: 0 }}
+                        animate={showContent ? { opacity: 1 } : { opacity: 0 }}
+                        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    >
+                        <span style={{
+                            fontFamily: "'Outfit', sans-serif",
+                            fontSize: '0.7rem',
+                            fontWeight: 600,
+                            letterSpacing: '0.18em',
+                            textTransform: 'uppercase',
+                            color: 'rgba(255,255,255,0.45)',
+                        }}>
+                            Who We Are
+                        </span>
+                    </motion.div>
+
+                    {/* ── RIGHT — Statement + link ── */}
+                    <div className="about-content-col">
+                        <RevealLine delay={0}>
+                            <p style={{
+                                fontFamily: "'Outfit', sans-serif",
+                                fontSize: 'clamp(1.5rem, 3vw, 1.9rem)',
+                                fontWeight: 300,
+                                lineHeight: 1.45,
+                                color: 'rgba(255,255,255,0.92)',
+                                letterSpacing: '-0.01em',
+                                margin: 0,
+                            }}>
+                                We are creatives who focus on crafting{' '}
+                                <LinkPreview
+                                    url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
+                                    imageSrc="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?w=600&q=80"
+                                    isStatic
+                                    className="font-normal text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
+                                >
+                                    compelling visual stories
+                                </LinkPreview>
+                                {' '}that offer powerful impact — combining{' '}
+                                <LinkPreview
+                                    url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
+                                    imageSrc="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&q=80"
+                                    isStatic
+                                    className="font-normal text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
+                                >
+                                    cinematic direction
+                                </LinkPreview>
+                                {' '}with purposeful storytelling.
+                            </p>
+                        </RevealLine>
+
+                        <RevealLine delay={0.2}>
+                            <a href="/about" className="learn-more-link">
+                                Learn More About Us
+                            </a>
+                        </RevealLine>
+                    </div>
+                </div>
             </div>
 
             {/* Bottom divider */}
-            <div style={{ maxWidth: '1200px', margin: '2rem auto 0', height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+            <div style={{ maxWidth: '1200px', margin: '4rem auto 0', height: '1px', background: 'rgba(255,255,255,0.1)' }} />
         </div>
     );
 };

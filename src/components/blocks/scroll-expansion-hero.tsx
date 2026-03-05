@@ -256,8 +256,8 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
         return () => window.removeEventListener('resize', checkIfMobile);
     }, []);
 
-    const mediaWidth = (isMobileState ? 320 : 750) + scrollProgress * (isMobileState ? 800 : 1600);
-    const mediaHeight = (isMobileState ? 400 : 800) + scrollProgress * (isMobileState ? 300 : 300);
+    const mediaWidth = (isMobileState ? 280 : 1200) + scrollProgress * (isMobileState ? 800 : 1600);
+    const mediaHeight = (isMobileState ? 380 : 1900) + scrollProgress * (isMobileState ? 300 : 300);
     const textTranslateX = scrollProgress * (isMobileState ? 100 : 130);
 
     // Blur: starts at 12px, clears to 0 as scroll progresses
@@ -300,7 +300,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                     width: `${mediaWidth}px`,
                                     height: `${mediaHeight}px`,
                                     maxWidth: '95vw',
-                                    maxHeight: '85vh',
+                                    maxHeight: '90vh',
                                     boxShadow: '0px 0px 50px rgba(0, 0, 0, 0.3)',
                                     filter: `blur(${blurAmount}px)`,
                                 }}
@@ -417,7 +417,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                 className={`flex items-center justify-center w-full relative z-10 transition-none ${textBlend ? 'mix-blend-difference' : 'mix-blend-normal'}`}
                             >
                                 <div
-                                    className='flex items-center  gap-4 md:gap-6 transition-none'
+                                    className='flex items-center gap-4 md:gap-8 transition-none'
                                     style={{
                                         transform: `scale(${1 - scrollProgress * 0.15})`,
                                     }}
@@ -429,7 +429,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                             alt='Logo'
                                             className='transition-none mb-10'
                                             style={{
-                                                width: isMobileState ? '80px' : '140px',
+                                                width: isMobileState ? '90px' : '180px',
                                                 height: 'auto',
                                                 filter: 'drop-shadow(0 2px 20px rgba(0,0,0,0.8))',
                                                 transform: `translateX(-${textTranslateX}vw)`,
@@ -446,7 +446,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                             className='transition-none'
                                             style={{
                                                 fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif",
-                                                fontSize: isMobileState ? '2.2rem' : '4.2rem',
+                                                fontSize: isMobileState ? '2.2rem' : '6.2rem',
                                                 fontWeight: 400,
                                                 color: 'white',
                                                 letterSpacing: '0.02em',
@@ -461,7 +461,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                             className='transition-none'
                                             style={{
                                                 fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif",
-                                                fontSize: isMobileState ? '0.85rem' : '1.5rem',
+                                                fontSize: isMobileState ? '1rem' : '2.8rem',
                                                 fontWeight: 400,
                                                 color: 'white',
                                                 letterSpacing: '0.45em',
