@@ -79,6 +79,23 @@
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.35);
     margin: 0 0 1.8rem;
+
+    /* Pure CSS Page Load Animation */
+    opacity: 0;
+    animation: aboutPageLoad 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.3s;
+}
+
+@keyframes aboutPageLoad {
+    0% {
+        opacity: 0;
+        transform: translate(100vw, 100vh);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
 }
 
 .about-hero-heading {
@@ -89,6 +106,27 @@
     letter-spacing: -0.02em;
     color: #fff;
     margin: 0 0 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-line {
+    display: block;
+    opacity: 0;
+    animation: aboutPageLoad 1.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-line-1 {
+    animation-delay: 0.4s;
+}
+
+.hero-line-2 {
+    animation-delay: 1s;
+    /* Starts sooner, while line 1 is half-way */
+}
+
+.hero-line-3 {
+    animation-delay: 1.6s;
 }
 
 .about-hero-heading em {
@@ -407,7 +445,6 @@
 ───────────────────────────────────────────────────────────────── */
 .about-mission {
     padding: 6rem 0 7rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
     text-align: center;
 }
 

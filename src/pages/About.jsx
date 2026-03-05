@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Plus, Minus } from 'lucide-react';
+import ClientsSection from '../components/ClientsSection';
 import './About.css';
 
 /* ─── Cinematic page-intro curtain ──────────────────────────────── */
@@ -237,29 +238,16 @@ export default function About() {
             {/* ── HERO ────────────────────────────────────────── */}
             <section className="about-hero">
                 <div className="about-container">
-                    <motion.p
-                        className="about-eyebrow"
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    >
-                        About Us
-                    </motion.p>
-                    <motion.h1
-                        className="about-hero-heading"
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.85, delay: 0.65, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    >
-                        We don't just produce.
-                        <br />
-                        <em>We reinvent.</em>
-                    </motion.h1>
+                    <h1 className="about-hero-heading">
+                        <span className="hero-line hero-line-1">We don't just</span>
+                        <span className="hero-line hero-line-2">produce.</span>
+                        <em className="hero-line hero-line-3">We reinvent.</em>
+                    </h1>
                     <motion.div
                         className="about-hero-divider"
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: 1 }}
-                        transition={{ duration: 1, delay: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        transition={{ duration: 2.2, delay: 4.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                     />
                 </div>
             </section>
@@ -316,6 +304,9 @@ export default function About() {
                     </div>
                 </div>
             </section>
+
+            {/* ── CLIENTS SECTION ──────────────────────────────── */}
+            <ClientsSection />
 
             {/* ── MISSION STATEMENT ───────────────────────────── */}
             <section className="about-mission">
