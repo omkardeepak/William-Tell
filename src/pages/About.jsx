@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Plus, Minus } from 'lucide-react';
 import ClientsSection from '../components/ClientsSection';
@@ -51,6 +51,32 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
         >
             {children}
         </motion.div>
+    );
+};
+
+/* ─── Counter Component ────────────────────────────────────────── */
+const Counter = ({ targetString }) => {
+    const numericPart = parseInt(targetString.replace(/\D/g, '')) || 0;
+    const suffix = targetString.replace(/[0-9]/g, '');
+    const count = useMotionValue(0);
+    const rounded = useTransform(count, (latest) => Math.round(latest));
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true, margin: '-50px' });
+
+    useEffect(() => {
+        if (inView) {
+            animate(count, numericPart, {
+                duration: 2,
+                ease: [0.16, 1, 0.3, 1]
+            });
+        }
+    }, [inView, numericPart, count]);
+
+    return (
+        <span ref={ref}>
+            <motion.span>{rounded}</motion.span>
+            {suffix}
+        </span>
     );
 };
 
@@ -150,7 +176,7 @@ const AccordionRow = ({ stat, index }) => {
                         transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                         aria-hidden="true"
                     >
-                        {stat.number}
+                        <Counter targetString={stat.number} />
                     </motion.span>
                 )}
             </AnimatePresence>
@@ -174,15 +200,12 @@ const AccordionRow = ({ stat, index }) => {
                 </span>
 
                 {/* Stat count */}
-                <span className="accordion-stat-num">{stat.number}</span>
+                <span className="accordion-stat-num"><Counter targetString={stat.number} /></span>
 
                 {/* Label */}
                 <span className="accordion-label">{stat.label}</span>
 
-                {/* Service count pill */}
-                <span className="accordion-count-pill">
-                    {stat.services.length} services
-                </span>
+
 
                 {/* Toggle icon */}
                 <motion.span
@@ -228,6 +251,66 @@ const AccordionRow = ({ stat, index }) => {
     );
 };
 
+/* ─── Mobile Stats Carousel ─────────────────────────────────────── */
+const StatsCarousel = ({ stats }) => {
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setIndex((prev) => (prev + 1) % stats.length);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, [stats.length]);
+
+    return (
+        <div className="stats-carousel-container">
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={index}
+                    className="carousel-slide"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                    <div className="carousel-header">
+                        <span className="carousel-index">
+                            {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="carousel-stat-num"><Counter targetString={stats[index].number} /></span>
+                        <h3 className="carousel-label">{stats[index].label}</h3>
+                    </div>
+
+                    <ul className="carousel-services">
+                        {stats[index].services.map((s, i) => (
+                            <motion.li
+                                key={s}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 + i * 0.05 }}
+                                className="carousel-service-item"
+                            >
+                                <span className="service-dot" />
+                                {s}
+                            </motion.li>
+                        ))}
+                    </ul>
+                </motion.div>
+            </AnimatePresence>
+
+            <div className="carousel-dots">
+                {stats.map((_, i) => (
+                    <div
+                        key={i}
+                        className={`carousel-dot ${i === index ? 'active' : ''}`}
+                        onClick={() => setIndex(i)}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
+
 /* ─── Main Component ─────────────────────────────────────────────── */
 export default function About() {
     return (
@@ -238,16 +321,79 @@ export default function About() {
             {/* ── HERO ────────────────────────────────────────── */}
             <section className="about-hero">
                 <div className="about-container">
-                    <h1 className="about-hero-heading">
-                        <span className="hero-line hero-line-1">We don't just</span>
-                        <span className="hero-line hero-line-2">produce.</span>
-                        <em className="hero-line hero-line-3">We reinvent.</em>
-                    </h1>
+                    <motion.div
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.7 }}
+                    >
+                        <span className="about-eyebrow">Production Company</span>
+                    </motion.div>
+
+                    <motion.h1
+                        className="about-hero-heading"
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                            visible: {
+                                transition: {
+                                    staggerChildren: 0.12,
+                                    delayChildren: 0.8,
+                                },
+                            },
+                        }}
+                    >
+                        <span className="hero-line-mask">
+                            <motion.span
+                                className="hero-line hero-line-1"
+                                variants={{
+                                    hidden: { y: '105%', rotate: 2 },
+                                    visible: {
+                                        y: 0,
+                                        rotate: 0,
+                                        transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
+                                    }
+                                }}
+                            >
+                                We don't just
+                            </motion.span>
+                        </span>
+                        <span className="hero-line-mask">
+                            <motion.span
+                                className="hero-line hero-line-2"
+                                variants={{
+                                    hidden: { y: '105%', rotate: 2 },
+                                    visible: {
+                                        y: 0,
+                                        rotate: 0,
+                                        transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
+                                    }
+                                }}
+                            >
+                                produce.
+                            </motion.span>
+                        </span>
+                        <span className="hero-line-mask">
+                            <motion.em
+                                className="hero-line hero-line-3"
+                                variants={{
+                                    hidden: { y: '105%', rotate: 2 },
+                                    visible: {
+                                        y: 0,
+                                        rotate: 0,
+                                        transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
+                                    }
+                                }}
+                            >
+                                We reinvent.
+                            </motion.em>
+                        </span>
+                    </motion.h1>
+
                     <motion.div
                         className="about-hero-divider"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 2.2, delay: 4.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        animate={{ scaleX: 1, opacity: 1 }}
+                        transition={{ duration: 2, delay: 1.4, ease: [0.19, 1, 0.22, 1] }}
                     />
                 </div>
             </section>
@@ -302,6 +448,8 @@ export default function About() {
                             <AccordionRow key={stat.label} stat={stat} index={i} />
                         ))}
                     </div>
+
+                    <StatsCarousel stats={stats} />
                 </div>
             </section>
 
