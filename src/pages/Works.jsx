@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Works.css';
 
@@ -16,6 +16,20 @@ const projects = [
 
 export default function Works() {
     const [activeCategory, setActiveCategory] = useState("All");
+
+    // Pre-select category from URL query param ?category=Films
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get('category');
+        if (cat && categories.includes(cat)) {
+            setActiveCategory(cat);
+            // Scroll to filter section after a short delay so the page renders first
+            setTimeout(() => {
+                const el = document.getElementById('category-filter');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 400);
+        }
+    }, []);
 
     const filteredProjects = activeCategory === "All"
         ? projects
@@ -37,7 +51,7 @@ export default function Works() {
                     </motion.h1>
                 </section>
 
-                <div className="category-filter">
+                <div id="category-filter" className="category-filter">
                     {categories.map((cat, i) => (
                         <button
                             key={i}

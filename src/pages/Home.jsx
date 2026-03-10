@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
 import ScrollExpandMedia from '../components/blocks/scroll-expansion-hero';
 import { LinkPreview } from '../components/ui/link-preview';
 import { WordPullUp } from '../components/ui/word-pull-up';
+import FilmReelSection from '../components/FilmReelSection';
 
 const sampleMediaContent = {
     video: {
@@ -19,55 +19,29 @@ const sampleMediaContent = {
 
 };
 
-// Individual line reveal component — fast fade on viewport entry
-const RevealLine = ({ children, delay = 0 }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: false, margin: '-40px' });
-
-    return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 25 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
-            transition={{ duration: 0.55, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-            {children}
-        </motion.div>
-    );
-};
-
 const AboutSection = () => {
     const sectionRef = useRef(null);
-    const sectionInView = useInView(sectionRef, { once: true, margin: '-50px' });
-    const [showContent, setShowContent] = useState(false);
+    const [visible, setVisible] = useState(false);
 
-    // Show description when section enters view OR immediately when hero expands
-    useEffect(() => {
-        if (sectionInView) {
-            setShowContent(true);
-        }
-    }, [sectionInView]);
-
-    // Magnetic scroll — when hero finishes expanding, snap viewport to this section
+    // Show content immediately when hero finishes expanding
     useEffect(() => {
         const onHeroExpanded = () => {
-            // Show content immediately — don't wait for IntersectionObserver
-            setShowContent(true);
+            setVisible(true);
 
-            // Small delay so the snapping feels intentional rather than instant
+            // Snap viewport to this section
             setTimeout(() => {
                 if (sectionRef.current) {
                     if (window.__lenis) {
                         window.__lenis.scrollTo(sectionRef.current, {
-                            offset: -80,      // account for navbar height
-                            duration: 1.4,
-                            easing: (t) => 1 - Math.pow(1 - t, 4), // quartic ease-out
+                            offset: -80,
+                            duration: 1.2,
+                            easing: (t) => 1 - Math.pow(1 - t, 4),
                         });
                     } else {
                         sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 }
-            }, 200);
+            }, 50);
         };
 
         window.addEventListener('heroExpanded', onHeroExpanded);
@@ -130,7 +104,6 @@ const AboutSection = () => {
             `}</style>
 
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                {/* Row: label left | content right */}
                 <div
                     className="about-row"
                     style={{
@@ -138,15 +111,13 @@ const AboutSection = () => {
                         flexDirection: 'column',
                         alignItems: 'flex-start',
                         gap: '1.5rem',
+                        opacity: visible ? 1 : 0,
+                        transform: visible ? 'translateY(0)' : 'translateY(20px)',
+                        transition: 'opacity 0.5s ease, transform 0.5s ease',
                     }}
                 >
                     {/* ── LEFT — WHO WE ARE label ── */}
-                    <motion.div
-                        className="about-who-label"
-                        initial={{ opacity: 0 }}
-                        animate={showContent ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    >
+                    <div className="about-who-label">
                         <span style={{
                             fontFamily: "'Outfit', sans-serif",
                             fontSize: '0.7rem',
@@ -157,53 +128,46 @@ const AboutSection = () => {
                         }}>
                             Who We Are
                         </span>
-                    </motion.div>
+                    </div>
 
                     {/* ── RIGHT — Statement + link ── */}
                     <div className="about-content-col">
-                        <RevealLine delay={0}>
-                            <p style={{
-                                fontFamily: "'Outfit', sans-serif",
-                                fontSize: 'clamp(1.5rem, 3vw, 1.9rem)',
-                                fontWeight: 300,
-                                lineHeight: 1.45,
-                                color: 'rgba(255,255,255,0.92)',
-                                letterSpacing: '-0.01em',
-                                margin: 0,
-                            }}>
-                                We are creatives who focus on crafting{' '}
-                                <LinkPreview
-                                    url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                    imageSrc="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?w=600&q=80"
-                                    isStatic
-                                    className="font-normal text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                                >
-                                    compelling visual stories
-                                </LinkPreview>
-                                {' '}that offer powerful impact — combining{' '}
-                                <LinkPreview
-                                    url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                    imageSrc="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&q=80"
-                                    isStatic
-                                    className="font-normal text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                                >
-                                    cinematic direction
-                                </LinkPreview>
-                                {' '}with purposeful storytelling.
-                            </p>
-                        </RevealLine>
+                        <p style={{
+                            fontFamily: "'Outfit', sans-serif",
+                            fontSize: 'clamp(1.5rem, 3vw, 1.9rem)',
+                            fontWeight: 300,
+                            lineHeight: 1.45,
+                            color: 'rgba(255,255,255,0.92)',
+                            letterSpacing: '-0.01em',
+                            margin: 0,
+                        }}>
+                            We are creatives who focus on crafting{' '}
+                            <LinkPreview
+                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
+                                imageSrc="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?w=600&q=80"
+                                isStatic
+                                className="font-normal text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
+                            >
+                                compelling visual stories
+                            </LinkPreview>
+                            {' '}that offer powerful impact — combining{' '}
+                            <LinkPreview
+                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
+                                imageSrc="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&q=80"
+                                isStatic
+                                className="font-normal text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
+                            >
+                                cinematic direction
+                            </LinkPreview>
+                            {' '}with purposeful storytelling.
+                        </p>
 
-                        <RevealLine delay={0.2}>
-                            <a href="/about" className="learn-more-link">
-                                Learn More About Us
-                            </a>
-                        </RevealLine>
+                        <a href="/about" className="learn-more-link">
+                            Learn More About Us
+                        </a>
                     </div>
                 </div>
             </div>
-
-            {/* Bottom divider */}
-            <div style={{ maxWidth: '1200px', margin: '4rem auto 0', height: '1px', background: 'rgba(255,255,255,0.1)' }} />
         </div>
     );
 };
@@ -234,6 +198,7 @@ export const VideoExpansionTextBlend = () => {
                 scrollToExpand={currentMedia.scrollToExpand}
             >
                 <AboutSection />
+                <FilmReelSection />
             </ScrollExpandMedia>
         </div>
     );
@@ -263,6 +228,7 @@ export const ImageExpansionTextBlend = () => {
                 textBlend
             >
                 <AboutSection />
+                <FilmReelSection />
             </ScrollExpandMedia>
         </div>
     );
@@ -292,6 +258,7 @@ export const VideoExpansion = () => {
                 scrollToExpand={currentMedia.scrollToExpand}
             >
                 <AboutSection />
+                <FilmReelSection />
             </ScrollExpandMedia>
         </div>
     );
@@ -320,6 +287,7 @@ export const ImageExpansion = () => {
                 scrollToExpand={currentMedia.scrollToExpand}
             >
                 <AboutSection />
+                <FilmReelSection />
             </ScrollExpandMedia>
         </div>
     );
@@ -349,6 +317,7 @@ const Demo = () => {
                 scrollToExpand={currentMedia.scrollToExpand}
             >
                 <AboutSection />
+                <FilmReelSection />
             </ScrollExpandMedia>
         </div>
     );

@@ -41,7 +41,6 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
     children,
 }) => {
     const [scrollProgress, setScrollProgress] = useState(0);
-    const [showContent, setShowContent] = useState(false);
     const [mediaFullyExpanded, setMediaFullyExpanded] = useState(false);
     const [isMobileState, setIsMobileState] = useState(false);
 
@@ -89,16 +88,19 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
 
     useEffect(() => {
         setScrollProgress(0);
-        setShowContent(false);
         setMediaFullyExpanded(false);
         targetProgressRef.current = 0;
         scrollProgressRef.current = 0;
     }, [mediaType]);
 
-    // On mount: pause Lenis so hero controls scroll. On unmount: resume it.
+    // On mount: pause Lenis and lock body scroll so hero controls everything.
     useEffect(() => {
         stopLenis();
-        return () => startLenis();
+        document.body.style.overflow = 'hidden';
+        return () => {
+            startLenis();
+            document.body.style.overflow = '';
+        };
     }, []);
 
     // Smooth lerp animation loop — runs continuously while current ≠ target
@@ -130,13 +132,11 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
             if (clamped >= 1) {
                 setMediaFullyExpanded(true);
                 mediaExpandedRef.current = true;
-                setShowContent(true);
                 // Media is fully expanded — hand scroll control back to Lenis
                 startLenis();
+                document.body.style.overflow = '';
                 // Signal AboutSection to magnetically snap to it
                 window.dispatchEvent(new Event('heroExpanded'));
-            } else if (clamped < 0.75) {
-                setShowContent(false);
             }
 
             // Keep looping if we haven't converged
@@ -157,8 +157,9 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                 setMediaFullyExpanded(false);
                 e.preventDefault();
                 mediaExpandedRef.current = false;
-                // Collapsing — take scroll control away from Lenis
+                // Collapsing — take scroll control away from Lenis and lock body
                 stopLenis();
+                document.body.style.overflow = 'hidden';
                 // Set target back so lerp animates the collapse
                 targetProgressRef.current = 0;
                 startLerpLoop();
@@ -196,6 +197,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                 mediaExpandedRef.current = false;
                 e.preventDefault();
                 stopLenis();
+                document.body.style.overflow = 'hidden';
                 targetProgressRef.current = 0;
                 startLerpLoop();
                 resetSnapTimer();
@@ -219,7 +221,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
 
         const handleScroll = () => {
             if (!mediaExpandedRef.current) {
-                window.scrollTo(0, 0);
+                window.scrollTo({ top: 0, behavior: 'instant' });
             }
         };
 
@@ -478,16 +480,15 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                             </div>
                         </div>
 
-                        {showContent && (
-                            <motion.section
-                                className='flex flex-col w-full px-8 py-4 md:px-16 lg:py-8'
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.7 }}
-                            >
-                                {children}
-                            </motion.section>
-                        )}
+                        <section
+                            className='flex flex-col w-full px-8 py-4 md:px-16 lg:py-8'
+                            style={{
+                                opacity: mediaFullyExpanded ? 1 : 0,
+                                transition: 'opacity 0.15s ease',
+                            }}
+                        >
+                            {children}
+                        </section>
                     </div>
                 </div>
             </section>
