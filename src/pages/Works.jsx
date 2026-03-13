@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import CurtainIntro from '../components/CurtainIntro';
 import './Works.css';
 
 const categories = ["All", "Films", "Hoardings", "Metro Pillars", "Magazines", "Rebranding", "Digital Marketing", "Social Media"];
@@ -37,6 +38,7 @@ export default function Works() {
 
     return (
         <div className="works-page">
+            <CurtainIntro />
             <div style={{ height: '120px' }}></div>
             <div className="container">
 

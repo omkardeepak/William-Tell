@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import CurtainIntro from '../components/CurtainIntro';
 import './Contact.css';
 
 export default function Contact() {
@@ -25,6 +26,7 @@ export default function Contact() {
 
     return (
         <div className="contact-page">
+            <CurtainIntro />
             <div style={{ height: '120px' }}></div>
             <div className="container">
 

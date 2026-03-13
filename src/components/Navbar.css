@@ -27,8 +27,10 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    /* Ensures logo, nav-cols, and contact are on the same middle axis */
     justify-content: space-between;
     gap: 2rem;
+    height: 100%;
 }
 
 /* ── Logo ── */
@@ -54,8 +56,8 @@
 /* ── Desktop nav columns ── */
 .nav-cols {
     display: flex;
-    align-items: flex-start;
-    gap: 3.5rem;
+    align-items: center;
+    gap: 4rem;
     flex: 1;
     justify-content: center;
 }
@@ -63,18 +65,24 @@
 .nav-col {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
 }
 
 .nav-col__primary {
     font-family: 'Outfit', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.82);
+    /* slightly reduced brightness */
     text-decoration: none;
-    letter-spacing: 0.01em;
-    transition: color 0.25s ease;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
+    display: block;
+    overflow: hidden;
 }
 
 .nav-col__primary:hover,
@@ -84,17 +92,39 @@
 
 .nav-col__secondary {
     font-family: 'Outfit', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.38);
+    color: rgba(255, 255, 255, 0.42);
+    /* slightly increased brightness */
     text-decoration: none;
-    letter-spacing: 0.01em;
-    transition: color 0.25s ease;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
+    display: block;
 }
 
 .nav-col__secondary:hover {
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Navbar Alt Mode (Stories in Motion) ── */
+.navbar--alt-mode .nav-col__primary {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: -0.4rem;
+    /* Neutralizes the flex gap */
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+.navbar--alt-mode .nav-col__secondary {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    opacity: 1;
+    transform: translateY(0);
+    /* Sits at natural vertical center now */
 }
 
 /* ── Contact CTA ── */
@@ -202,6 +232,23 @@
 
 .mobile-nav-link:hover {
     color: #fff;
+}
+
+.mobile-nav-sublink {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.25s ease;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.mobile-nav-sublink:hover {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .mobile-footer {

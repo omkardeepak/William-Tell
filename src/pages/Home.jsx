@@ -5,6 +5,8 @@ import ScrollExpandMedia from '../components/blocks/scroll-expansion-hero';
 import { LinkPreview } from '../components/ui/link-preview';
 import { WordPullUp } from '../components/ui/word-pull-up';
 import FilmReelSection from '../components/FilmReelSection';
+import ArtSection from '../components/ArtSection';
+import CurtainIntro from '../components/CurtainIntro';
 
 const sampleMediaContent = {
     video: {
@@ -26,6 +28,9 @@ const AboutSection = () => {
     // Show content immediately when hero finishes expanding
     useEffect(() => {
         const onHeroExpanded = () => {
+            // DO NOT snap to about section if we are targeting a specific hash (like films)
+            if (window.location.hash) return;
+
             setVisible(true);
 
             // Snap viewport to this section
@@ -199,6 +204,7 @@ export const VideoExpansionTextBlend = () => {
             >
                 <AboutSection />
                 <FilmReelSection />
+                <ArtSection />
             </ScrollExpandMedia>
         </div>
     );
@@ -229,6 +235,7 @@ export const ImageExpansionTextBlend = () => {
             >
                 <AboutSection />
                 <FilmReelSection />
+                <ArtSection />
             </ScrollExpandMedia>
         </div>
     );
@@ -259,6 +266,7 @@ export const VideoExpansion = () => {
             >
                 <AboutSection />
                 <FilmReelSection />
+                <ArtSection />
             </ScrollExpandMedia>
         </div>
     );
@@ -288,6 +296,7 @@ export const ImageExpansion = () => {
             >
                 <AboutSection />
                 <FilmReelSection />
+                <ArtSection />
             </ScrollExpandMedia>
         </div>
     );
@@ -306,18 +315,19 @@ const Demo = () => {
 
     return (
         <div className='min-h-screen'>
+            <CurtainIntro />
             <ScrollExpandMedia
                 mediaType={mediaType}
                 mediaSrc={currentMedia.src}
                 posterSrc={mediaType === 'video' ? currentMedia.poster : undefined}
                 bgImageSrc={currentMedia.background}
-                logoSrc="/images/wt-logo.png"
                 title={currentMedia.title}
                 date={currentMedia.date}
                 scrollToExpand={currentMedia.scrollToExpand}
             >
                 <AboutSection />
                 <FilmReelSection />
+                <ArtSection />
             </ScrollExpandMedia>
         </div>
     );

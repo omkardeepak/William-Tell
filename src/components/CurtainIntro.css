@@ -1,0 +1,35 @@
+/* ─────────────────────────────────────────────────────────────────
+   Curtain intro component styles
+   Shared across all pages for cinematic entry
+───────────────────────────────────────────────────────────────── */
+.curtain-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    pointer-events: none;
+}
+
+.curtain-panel {
+    flex: 1;
+    height: 100%;
+    background: #060606;
+    transform-origin: top;
+}
+
+.curtain-label {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.curtain-logo {
+    height: 56px;
+    width: auto;
+    opacity: 0.85;
+    filter: brightness(1.1);
+}

@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 /* ─── Reel video data from the channel ────────────────────────── */
 const reelVideos = [
-    { id: '7zEUImqBxLY', title: 'Work 01' },
-    { id: '3-1PyFj1h7Y', title: 'Work 02' },
-    { id: 'Kkb-ogpelIo', title: 'Work 03' },
-    { id: 'H9FNmeSnbQY', title: 'Work 04' },
-    { id: 'vdDbyddtEsE', title: 'Work 05' },
-    { id: 'MWepSouX1Es', title: 'Work 06' },
+    { id: '7zEUImqBxLY', title: 'Kalyan Silks' },
+    { id: '3-1PyFj1h7Y', title: 'Salve Maria' },
+    { id: 'Kkb-ogpelIo', title: 'Salve Maria' },
+    { id: 'H9FNmeSnbQY', title: 'Salve Maria' },
+    { id: 'vdDbyddtEsE', title: 'Kalyan Silks' },
+    { id: 'MWepSouX1Es', title: 'Therefore Im' },
 ];
 
 // Frame dimensions are computed dynamically based on container width (see frameDims state)
@@ -160,7 +160,7 @@ const FilmReelSection = () => {
                 setPhase('spinning');
                 phaseRef.current = 'spinning';
             }
-        }, { threshold: 0.2 });
+        }, { threshold: 0.5 });
 
         if (sectionRef.current) observer.observe(sectionRef.current);
         return () => observer.disconnect();
@@ -240,7 +240,7 @@ const FilmReelSection = () => {
                 <h2 className="film-reel-title">Stories in Motion</h2>
             </div>
 
-            <div className="film-strip-viewport" ref={viewportRef}>
+            <div className="film-strip-viewport" id="stories-in-motion" ref={viewportRef}>
                 {/* Full-width dark background — always edge to edge */}
                 <div className="film-strip-bg" />
 
@@ -303,28 +303,27 @@ const FilmReelSection = () => {
             </div>
 
             {/* Dot indicators + View More button below reel */}
-            {phase === 'stopped' && (
-                <div className="film-controls">
-                    <div className="dots">
-                        {reelVideos.map((_, i) => (
-                            <div
-                                key={i}
-                                className={`dot ${i === activeIndex ? 'active' : ''}`}
-                                onClick={() => setActiveIndex(i)}
-                            />
-                        ))}
-                    </div>
-                    <button
-                        className="view-more-btn"
-                        onClick={() => navigate('/works?category=Films')}
-                    >
-                        <span>View All Films</span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </button>
+            <div className="film-controls">
+                <div className="dots">
+                    {reelVideos.map((_, i) => (
+                        <div
+                            key={i}
+                            className={`dot ${i === activeIndex ? 'active' : ''}`}
+                            onClick={() => setActiveIndex(i)}
+                        />
+                    ))}
                 </div>
-            )}
+                <button
+                    id="stories-in-motion"
+                    className="view-more-btn"
+                    onClick={() => navigate('/works?category=Films')}
+                >
+                    <span>View All Films</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
         </section>
     );
 };
@@ -333,7 +332,7 @@ const FilmReelSection = () => {
 const filmReelStyles = `
 .film-reel-section {
     padding: 8rem 0;
-    background: #000;
+    background: transparent;
     overflow: hidden;
     color: #fff;
     font-family: 'Outfit', sans-serif;
@@ -362,29 +361,17 @@ const filmReelStyles = `
 .film-strip-viewport {
     position: relative;
     width: 100%;
-    background: #111;
-    border-top: 2px solid #1e1e1e;
-    border-bottom: 2px solid #1e1e1e;
+    background: transparent;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding: 0;          /* no extra padding — sprockets control spacing */
     overflow: hidden;
     border-radius: 16px; /* rounded reel edges */
-    box-shadow: 0 0 0 2px #222, 0 24px 60px rgba(0,0,0,0.7);
 }
 
-/* Full-width dark background that always fills edge to edge */
+/* Full-width dark background removed to show page background */
 .film-strip-bg {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        180deg,
-        #1a1a1a 0%,
-        #111 8%,
-        #0d0d0d 20%,
-        #0d0d0d 80%,
-        #111 92%,
-        #1a1a1a 100%
-    );
-    z-index: 0;
+    display: none;
 }
 
 /* ── Strip ────────────────────── */
@@ -419,11 +406,11 @@ const filmReelStyles = `
 .sprocket-hole {
     width: 24px;
     height: 15px;
-    background: #000;
+    background: rgba(0,0,0,0.6);
     border-radius: 4px;
     flex-shrink: 0;
-    border: 1px solid rgba(255,255,255,0.07);
-    box-shadow: inset 0 1px 4px rgba(0,0,0,0.9);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.4);
 }
 
 /* ── Frames ───────────────────── */
@@ -528,13 +515,13 @@ const filmReelStyles = `
     left: 0;
     background: linear-gradient(
         to right,
-        #000000  0%,
-        rgba(0,0,0,0.96) 8%,
-        rgba(0,0,0,0.88) 18%,
-        rgba(0,0,0,0.72) 32%,
-        rgba(0,0,0,0.48) 50%,
-        rgba(0,0,0,0.22) 68%,
-        rgba(0,0,0,0.07) 82%,
+        rgba(10,10,10,0.9) 0%,
+        rgba(10,10,10,0.8) 8%,
+        rgba(10,10,10,0.7) 18%,
+        rgba(10,10,10,0.6) 32%,
+        rgba(10,10,10,0.4) 50%,
+        rgba(10,10,10,0.2) 68%,
+        rgba(10,10,10,0.1) 82%,
         transparent      100%
     );
 }
@@ -542,13 +529,13 @@ const filmReelStyles = `
     right: 0;
     background: linear-gradient(
         to left,
-        #000000  0%,
-        rgba(0,0,0,0.96) 8%,
-        rgba(0,0,0,0.88) 18%,
-        rgba(0,0,0,0.72) 32%,
-        rgba(0,0,0,0.48) 50%,
-        rgba(0,0,0,0.22) 68%,
-        rgba(0,0,0,0.07) 82%,
+        rgba(10,10,10,0.9) 0%,
+        rgba(10,10,10,0.8) 8%,
+        rgba(10,10,10,0.7) 18%,
+        rgba(10,10,10,0.6) 32%,
+        rgba(10,10,10,0.4) 50%,
+        rgba(10,10,10,0.2) 68%,
+        rgba(10,10,10,0.1) 82%,
         transparent      100%
     );
 }
@@ -630,31 +617,39 @@ const filmReelStyles = `
 .view-more-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.18);
-    color: rgba(255,255,255,0.55);
+    gap: 0.7rem;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
     font-family: 'Outfit', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     padding: 0.65rem 1.6rem;
     border-radius: 100px;
     cursor: pointer;
-    transition: border-color 0.3s ease, color 0.3s ease, gap 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
+
 .view-more-btn:hover {
-    border-color: rgba(255,255,255,0.5);
-    color: #fff;
-    gap: 0.9rem;
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    gap: 1rem;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
 }
+
 .view-more-btn svg {
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
     flex-shrink: 0;
 }
+
 .view-more-btn:hover svg {
-    transform: translateX(3px);
+    transform: translateX(4px);
+    stroke: #000;
 }
 @media (max-width: 768px) {
     .film-reel-section { padding: 4rem 0 3rem; }

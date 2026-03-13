@@ -97,7 +97,34 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
     useEffect(() => {
         stopLenis();
         document.body.style.overflow = 'hidden';
+
+        // Direct jump if landing with a hash
+        if (window.location.hash === '#stories-in-motion') {
+            targetProgressRef.current = 1;
+            setScrollProgress(1);
+            setMediaFullyExpanded(true);
+            mediaExpandedRef.current = true;
+            // Hand control back immediately
+            startLenis();
+            document.body.style.overflow = '';
+            // Signal dependencies
+            setTimeout(() => window.dispatchEvent(new Event('heroExpanded')), 50);
+        }
+
+        const handleForceExpand = () => {
+            targetProgressRef.current = 1;
+            setScrollProgress(1);
+            setMediaFullyExpanded(true);
+            mediaExpandedRef.current = true;
+            startLenis();
+            document.body.style.overflow = '';
+            window.dispatchEvent(new Event('heroExpanded'));
+        };
+
+        window.addEventListener('forceExpandHero', handleForceExpand);
+
         return () => {
+            window.removeEventListener('forceExpandHero', handleForceExpand);
             startLenis();
             document.body.style.overflow = '';
         };
@@ -152,7 +179,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
     };
 
     useEffect(() => {
-        const handleWheel = (e) => {
+        const handleWheel = (e: WheelEvent) => {
             if (mediaExpandedRef.current && e.deltaY < 0 && window.scrollY <= 5) {
                 setMediaFullyExpanded(false);
                 e.preventDefault();
@@ -181,12 +208,12 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
             }
         };
 
-        const handleTouchStart = (e) => {
+        const handleTouchStart = (e: TouchEvent) => {
             const initialY = e.touches[0].clientY;
             touchStartYRef.current = initialY;
         };
 
-        const handleTouchMove = (e) => {
+        const handleTouchMove = (e: TouchEvent) => {
             if (!touchStartYRef.current) return;
 
             const touchY = e.touches[0].clientY;
@@ -272,7 +299,10 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
     return (
         <div
             ref={sectionRef}
-            className={`transition-colors duration-700 ease-in-out overflow-x-hidden ${!mediaFullyExpanded ? 'h-[100dvh] overflow-y-hidden' : 'h-auto'}`}
+            className={`transition-colors duration-700 ease-in-out min-h-[100dvh] ${scrollProgress > 0.9 ? '' : 'overflow-hidden'}`}
+            style={{
+                height: mediaFullyExpanded ? 'auto' : '100dvh'
+            }}
         >
             <section className='relative flex flex-col items-center justify-start min-h-[100dvh]'>
                 <div className='relative w-full flex flex-col items-center min-h-[100dvh]'>
@@ -419,63 +449,44 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                 className={`flex items-center justify-center w-full relative z-10 transition-none ${textBlend ? 'mix-blend-difference' : 'mix-blend-normal'}`}
                             >
                                 <div
-                                    className='flex items-center gap-4 md:gap-8 transition-none'
+                                    className='flex flex-col items-center justify-center transition-none'
                                     style={{
                                         transform: `scale(${1 - scrollProgress * 0.15})`,
                                     }}
                                 >
-                                    {/* Logo on left */}
-                                    {logoSrc && (
-                                        <motion.img
-                                            src={logoSrc}
-                                            alt='Logo'
-                                            className='transition-none mb-10'
-                                            style={{
-                                                width: isMobileState ? '90px' : '180px',
-                                                height: 'auto',
-                                                filter: 'drop-shadow(0 2px 20px rgba(0,0,0,0.8))',
-                                                transform: `translateX(-${textTranslateX}vw)`,
-                                            }}
-                                        />
-                                    )}
-                                    <div
-                                        className='flex flex-col items-center transition-none'
+                                    <motion.h2
+                                        className='transition-none text-center'
                                         style={{
+                                            fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif",
+                                            fontSize: isMobileState ? '2.2rem' : '6.2rem',
+                                            fontWeight: 400,
+                                            color: 'white',
+                                            letterSpacing: '0.02em',
+                                            lineHeight: 1.15,
+                                            textShadow: '0 2px 30px rgba(0,0,0,0.9), 0 4px 60px rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.6)',
+                                            whiteSpace: 'nowrap',
                                             transform: `translateX(${textTranslateX}vw)`,
                                         }}
                                     >
-                                        <motion.h2
-                                            className='transition-none'
-                                            style={{
-                                                fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif",
-                                                fontSize: isMobileState ? '2.2rem' : '6.2rem',
-                                                fontWeight: 400,
-                                                color: 'white',
-                                                letterSpacing: '0.02em',
-                                                lineHeight: 1.15,
-                                                textShadow: '0 2px 30px rgba(0,0,0,0.9), 0 4px 60px rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.6)',
-                                                whiteSpace: 'nowrap',
-                                            }}
-                                        >
-                                            William Tell
-                                        </motion.h2>
-                                        <motion.p
-                                            className='transition-none'
-                                            style={{
-                                                fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif",
-                                                fontSize: isMobileState ? '1rem' : '2.8rem',
-                                                fontWeight: 400,
-                                                color: 'white',
-                                                letterSpacing: '0.45em',
-                                                lineHeight: 1.2,
-                                                textShadow: '0 2px 30px rgba(0,0,0,0.9), 0 4px 60px rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.6)',
-                                                textTransform: 'uppercase',
-                                                whiteSpace: 'nowrap',
-                                            }}
-                                        >
-                                            Productions
-                                        </motion.p>
-                                    </div>
+                                        William Tell
+                                    </motion.h2>
+                                    <motion.p
+                                        className='transition-none text-center'
+                                        style={{
+                                            fontFamily: "'Playfair Display', Georgia, 'Times New Roman', serif",
+                                            fontSize: isMobileState ? '1rem' : '2.8rem',
+                                            fontWeight: 400,
+                                            color: 'white',
+                                            letterSpacing: '0.45em',
+                                            lineHeight: 1.2,
+                                            textShadow: '0 2px 30px rgba(0,0,0,0.9), 0 4px 60px rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.6)',
+                                            textTransform: 'uppercase',
+                                            whiteSpace: 'nowrap',
+                                            transform: `translateX(-${textTranslateX}vw)`,
+                                        }}
+                                    >
+                                        Productions
+                                    </motion.p>
                                 </div>
                             </div>
                         </div>
@@ -483,8 +494,9 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                         <section
                             className='flex flex-col w-full px-8 py-4 md:px-16 lg:py-8'
                             style={{
-                                opacity: mediaFullyExpanded ? 1 : 0,
-                                transition: 'opacity 0.15s ease',
+                                opacity: Math.max(0, (scrollProgress - 0.6) * 2.5), // Fades in gracefully from 60% progress
+                                transition: 'opacity 0.2s ease-out',
+                                pointerEvents: scrollProgress > 0.85 ? 'auto' : 'none',
                             }}
                         >
                             {children}
