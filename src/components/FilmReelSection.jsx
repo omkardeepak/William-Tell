@@ -682,7 +682,7 @@ const filmReelStyles = `
     stroke: #000;
 }
 @media (max-width: 768px) {
-    .film-reel-section { padding: 4rem 0 3rem; }
+    .film-reel-section { padding: 2rem 0; }
     .film-reel-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
     .glass-edge { width: 14vw; }
     .reel-nav-left  { left: 1vw; }
@@ -698,7 +698,7 @@ const filmReelStyles = `
 }
 
 @media (max-width: 480px) {
-    .film-reel-section { padding: 3rem 0 2.5rem; }
+    .film-reel-section { padding: 1.5rem 0; }
     .film-reel-header { margin-bottom: 2.5rem; }
     .film-reel-title { font-size: 1.5rem; }
     .glass-edge { width: 10vw; }

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
@@ -28,8 +28,10 @@ const ArtCard = ({ art, index, total, radius, sceneRotateY }) => {
     const range = [activeAngle - 45, activeAngle, activeAngle + 45];
 
     // Scale up massively, pop way forward in Z space, and brighten exactly when front-facing
-    const scale = useTransform(sceneRotateY, range, [0.65, 1.6, 0.65], { clamp: true });
-    const zOffset = useTransform(sceneRotateY, range, [-60, 100, -60], { clamp: true });
+    // Increase prominence for mobile where radius is smaller
+    const isMobile = radius < 500;
+    const scale = useTransform(sceneRotateY, range, [0.65, isMobile ? 1.8 : 1.6, 0.65], { clamp: true });
+    const zOffset = useTransform(sceneRotateY, range, [-60, isMobile ? 150 : 100, -60], { clamp: true });
     const opacity = useTransform(sceneRotateY, range, [0.3, 1, 0.3], { clamp: true });
 
     // 2 & 3. Blur and Silhouette effect: clear and bright in center, blurred and dark (silhouette) at sides
@@ -100,8 +102,20 @@ const ArtSection = () => {
         [0, -(360 - 360 / totalCards)]
     );
 
-    // Make circle wider for larger photos
-    const radius = 650;
+    // Responsive radius calculation
+    const [radius, setRadius] = useState(650);
+
+    useEffect(() => {
+        const updateRadius = () => {
+            const width = window.innerWidth;
+            if (width < 480) setRadius(300);
+            else if (width < 768) setRadius(450);
+            else setRadius(650);
+        };
+        updateRadius();
+        window.addEventListener('resize', updateRadius);
+        return () => window.removeEventListener('resize', updateRadius);
+    }, []);
 
     return (
         <div ref={wrapperRef} className="art-wrapper">
@@ -203,18 +217,19 @@ font-family: 'Outfit', sans-serif;
 .art-sticky{
 position:sticky;
 top:0;
-height:100vh;
+height: 100dvh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 overflow:hidden;
 perspective:1600px;
+padding-top: 80px; /* Space for Navbar */
 }
 
 .art-section-header{
 text-align:center;
-margin-bottom:4rem;
+margin-bottom:2rem;
 z-index:20;
 }
 
@@ -280,6 +295,10 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:450px;
+}
+
+@media(max-width:768px){
+.circular-queue-container{ height: 350px; }
 }
 
 .circular-queue-scene{
@@ -351,14 +370,17 @@ pointer-events:none;
 }
 
 @media(max-width:768px){
-.art-wrapper{height:250vh;}
+.art-wrapper{height:300vh;}
+.art-section-header{ margin-bottom: 3rem; }
 .circular-queue-scene{width:280px;height:180px;}
 .art-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
 .art-view-btn { font-size: 0.65rem; padding: 0.45rem 1.1rem; }
 }
 
 @media(max-width:480px){
-.circular-queue-scene{width:220px;height:140px;}
+.art-wrapper{height:350vh;}
+.art-section-header{ margin-bottom: 2.5rem; }
+.circular-queue-scene{width:260px;height:160px;}
 .art-view-btn { font-size: 0.6rem; padding: 0.4rem 1rem; }
 }
 
