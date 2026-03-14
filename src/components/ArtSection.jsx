@@ -125,7 +125,7 @@ const ArtSection = () => {
             <div className="art-sticky">
 
                 <div id="archives" className="art-section-header">
-                    <motion.span 
+                    <motion.span
                         className="art-eyebrow"
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -142,10 +142,10 @@ const ArtSection = () => {
                                 initial={{ y: "100%" }}
                                 whileInView={{ y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ 
-                                    duration: 0.8, 
-                                    delay: i * 0.1, 
-                                    ease: [0.21, 1, 0.36, 1] 
+                                transition={{
+                                    duration: 0.8,
+                                    delay: i * 0.1,
+                                    ease: [0.21, 1, 0.36, 1]
                                 }}
                                 style={{ display: "inline-block", marginRight: "0.4em" }}
                             >
@@ -209,7 +209,7 @@ const artSectionStyles = `
 
 .art-wrapper{
 position:relative;
-height:250vh;
+height:250svh;
 background:transparent;
 color:#fff;
 font-family: 'Outfit', sans-serif;
