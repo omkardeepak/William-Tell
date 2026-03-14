@@ -318,8 +318,8 @@ height:450px;
 @media(max-width: 480px) {
     .art-sticky {
         /* Tweak pinning further for smaller phones if needed */
-        top: 12vh;
-        height: 88dvh;
+        top: 5vh;
+        height: 95dvh;
     }
 
     /* Your existing small mobile styles... */
