@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 /* ─── Reel video data from the channel ────────────────────────── */
 const reelVideos = [
@@ -236,8 +237,33 @@ const FilmReelSection = () => {
             <style>{filmReelStyles}</style>
 
             <div className="film-reel-header">
-                <span className="film-reel-eyebrow">Production</span>
-                <h2 className="film-reel-title">Stories in Motion</h2>
+                <motion.span 
+                    className="film-reel-eyebrow"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                    Production
+                </motion.span>
+                <h2 className="film-reel-title" style={{ overflow: 'hidden' }}>
+                    {"Stories in Motion".split(" ").map((word, i) => (
+                        <motion.span
+                            key={i}
+                            initial={{ y: "100%" }}
+                            whileInView={{ y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ 
+                                duration: 0.8, 
+                                delay: i * 0.1, 
+                                ease: [0.21, 1, 0.36, 1] 
+                            }}
+                            style={{ display: "inline-block", marginRight: "0.4em" }}
+                        >
+                            {word}
+                        </motion.span>
+                    ))}
+                </h2>
             </div>
 
             <div className="film-strip-viewport" id="stories-in-motion" ref={viewportRef}>
@@ -313,16 +339,20 @@ const FilmReelSection = () => {
                         />
                     ))}
                 </div>
-                <button
+                <motion.button
                     id="stories-in-motion"
                     className="view-more-btn"
                     onClick={() => navigate('/works?category=Films')}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
                 >
                     <span>View All Films</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
-                </button>
+                </motion.button>
             </div>
         </section>
     );

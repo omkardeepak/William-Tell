@@ -125,11 +125,11 @@ const AboutSection = () => {
                     <div className="about-who-label">
                         <span style={{
                             fontFamily: "'Outfit', sans-serif",
-                            fontSize: '0.7rem',
-                            fontWeight: 600,
-                            letterSpacing: '0.18em',
+                            fontSize: '0.8rem',
+                            fontWeight: 500,
+                            letterSpacing: '0.2em',
                             textTransform: 'uppercase',
-                            color: 'rgba(255,255,255,0.45)',
+                            color: 'rgba(255,255,255,0.4)',
                         }}>
                             Who We Are
                         </span>
@@ -139,11 +139,11 @@ const AboutSection = () => {
                     <div className="about-content-col">
                         <p style={{
                             fontFamily: "'Outfit', sans-serif",
-                            fontSize: 'clamp(1.5rem, 3vw, 1.9rem)',
+                            fontSize: 'clamp(1.6rem, 3.5vw, 2.1rem)',
                             fontWeight: 300,
-                            lineHeight: 1.45,
-                            color: 'rgba(255,255,255,0.92)',
-                            letterSpacing: '-0.01em',
+                            lineHeight: 1.4,
+                            color: 'rgba(255,255,255,0.95)',
+                            letterSpacing: '-0.02em',
                             margin: 0,
                         }}>
                             We are creatives who focus on crafting{' '}

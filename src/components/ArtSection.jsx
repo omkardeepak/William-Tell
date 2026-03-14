@@ -111,21 +111,48 @@ const ArtSection = () => {
             <div className="art-sticky">
 
                 <div id="archives" className="art-section-header">
+                    <motion.span 
+                        className="art-eyebrow"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                    >
+                        Portfolio
+                    </motion.span>
 
-                    <span className="art-eyebrow">Portfolio</span>
+                    <h2 className="art-title" style={{ overflow: 'hidden' }}>
+                        {"Browse Our Archives".split(" ").map((word, i) => (
+                            <motion.span
+                                key={i}
+                                initial={{ y: "100%" }}
+                                whileInView={{ y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ 
+                                    duration: 0.8, 
+                                    delay: i * 0.1, 
+                                    ease: [0.21, 1, 0.36, 1] 
+                                }}
+                                style={{ display: "inline-block", marginRight: "0.4em" }}
+                            >
+                                {word}
+                            </motion.span>
+                        ))}
+                    </h2>
 
-                    <h2 className="art-title">Browse Our Archives</h2>
-
-                    <button
+                    <motion.button
                         className="art-view-btn"
                         onClick={() => navigate("/works")}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
                     >
                         <span>View All Works</span>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
-                    </button>
-
+                    </motion.button>
                 </div>
 
                 <div className="circular-queue-container">
