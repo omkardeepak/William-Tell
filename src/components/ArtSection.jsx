@@ -88,34 +88,51 @@ const ArtSection = () => {
         return index / (totalCards - 1);
     });
 
-    /* smooth physics driving the snappy ticks */
-    const smoothProgress = useSpring(snappedProgress, {
-        stiffness: 90,
-        damping: 20,
-        mass: 0.8
-    });
-
-    /* rotation depends on the smoothed stair-step scroll */
-    const rotateY = useTransform(
-        smoothProgress,
-        [0, 1],
-        [0, -(360 - 360 / totalCards)]
-    );
-
     // Responsive radius calculation
     const [radius, setRadius] = useState(650);
+    const [isMobileView, setIsMobileView] = useState(false);
+    const [autoIndex, setAutoIndex] = useState(0);
 
     useEffect(() => {
-        const updateRadius = () => {
+        const updateLayout = () => {
             const width = window.innerWidth;
-            if (width < 480) setRadius(300);
+            const mobile = width < 768;
+            setIsMobileView(mobile);
+            
+            if (width < 480) setRadius(340);
             else if (width < 768) setRadius(450);
             else setRadius(650);
         };
-        updateRadius();
-        window.addEventListener('resize', updateRadius);
-        return () => window.removeEventListener('resize', updateRadius);
+        updateLayout();
+        window.addEventListener('resize', updateLayout);
+        return () => window.removeEventListener('resize', updateLayout);
     }, []);
+
+    // Automatic rotation for mobile
+    useEffect(() => {
+        if (!isMobileView) return;
+        const interval = setInterval(() => {
+            setAutoIndex(prev => prev + 1);
+        }, 2000); // Rotate every 2 seconds
+        return () => clearInterval(interval);
+    }, [isMobileView]);
+
+    // UseSpring for smooth transitions on either input
+    const targetRotateProgress = isMobileView 
+        ? autoIndex / (totalCards - 1) 
+        : snappedProgress;
+
+    const smoothProgress = useSpring(targetRotateProgress, {
+        stiffness: isMobileView ? 40 : 90,
+        damping: isMobileView ? 15 : 20,
+        mass: 0.8
+    });
+
+    // Derived rotation 
+    const rotateY = useTransform(
+        smoothProgress,
+        p => -(p * (360 - 360 / totalCards))
+    );
 
     return (
         <div ref={wrapperRef} className="art-wrapper">
@@ -209,7 +226,7 @@ const artSectionStyles = `
 
 .art-wrapper{
 position:relative;
-height:250vh;
+height: 250vh;
 background:transparent;
 color:#fff;
 font-family: 'Outfit', sans-serif;
@@ -299,35 +316,6 @@ align-items:center;
 height:450px;
 }
 
-@media(max-width: 768px) {
-    .art-sticky {
-        /* Adjust where it pins ONLY on mobile */
-        top: 5vh; 
-        height: 95dvh; 
-    }
-    
-    /* Your existing mobile styles... */
-    .art-wrapper{height:300vh;}
-    .art-section-header{ margin-bottom: 3rem; }
-    .circular-queue-scene{width:280px;height:180px;}
-    .art-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
-    .art-view-btn { font-size: 0.65rem; padding: 0.45rem 1.1rem; }
-}
-
-/* 3. SMALL MOBILE OVERRIDES: Only for phones */
-@media(max-width: 480px) {
-    .art-sticky {
-        /* Tweak pinning further for smaller phones if needed */
-        top: 5vh;
-        height: 95dvh;
-    }
-
-    /* Your existing small mobile styles... */
-    .art-wrapper{height:350vh;}
-    .art-section-header{ margin-bottom: 2.5rem; }
-    .circular-queue-scene{width:260px;height:160px;}
-    .art-view-btn { font-size: 0.6rem; padding: 0.4rem 1rem; }
-}
 .circular-queue-scene{
 position:relative;
 width:420px;
@@ -396,19 +384,37 @@ transform:rotateX(80deg);
 pointer-events:none;
 }
 
-@media(max-width:768px){
-.art-wrapper{height:300vh;}
-.art-section-header{ margin-bottom: 3rem; }
-.circular-queue-scene{width:280px;height:180px;}
-.art-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
-.art-view-btn { font-size: 0.65rem; padding: 0.45rem 1.1rem; }
+@media(max-width: 1024px) {
+    .art-sticky { padding-top: 100px; }
+    .circular-queue-container { height: 400px; }
 }
 
-@media(max-width:480px){
-.art-wrapper{height:350vh;}
-.art-section-header{ margin-bottom: 2.5rem; }
-.circular-queue-scene{width:260px;height:160px;}
-.art-view-btn { font-size: 0.6rem; padding: 0.4rem 1rem; }
+@media(max-width: 768px) {
+    .art-wrapper { 
+        height: auto !important; 
+        padding: 4rem 0;
+    }
+    .art-sticky {
+        position: relative !important;
+        top: 0 !important;
+        height: auto !important;
+        padding: 2rem 1rem !important;
+        perspective: 1000px;
+    }
+    .art-section-header { margin-bottom: 3rem; }
+    .circular-queue-container { height: 350px; }
+    .circular-queue-scene { width: 280px; height: 180px; }
+    .art-title { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+    .art-view-btn { font-size: 0.65rem; padding: 0.45rem 1.1rem; }
+}
+
+@media(max-width: 480px) {
+    .art-wrapper { padding: 3rem 0; }
+    .art-sticky { padding: 1rem 1rem !important; }
+    .art-section-header { margin-bottom: 2rem; }
+    .circular-queue-container { height: 300px; }
+    .circular-queue-scene { width: 240px; height: 140px; }
+    .art-view-btn { font-size: 0.6rem; padding: 0.4rem 1rem; }
 }
 
 `;
