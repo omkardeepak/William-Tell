@@ -215,10 +215,10 @@ color:#fff;
 font-family: 'Outfit', sans-serif;
 }
 .art-sticky {
-    position: -webkit-sticky; /* CRITICAL: Fix for iOS Safari */
+    position: -webkit-sticky; /* Safe for desktop, needed for iOS */
     position: sticky;
-    top: 0;
-    height: 100dvh;
+    top: 0;                   /* Desktop sticks exactly at the top */
+    height: 100dvh;           /* Desktop takes full height */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -226,10 +226,9 @@ font-family: 'Outfit', sans-serif;
     align-items: center;
     overflow: hidden;
     perspective: 1600px;
-    padding-top: 80px; /* Space for Navbar */
-    box-sizing: border-box; /* CRITICAL: keeps padding inside the 100dvh limit */
+    padding-top: 80px; 
+    box-sizing: border-box;   /* Safe for desktop, prevents overflow bugs */
 }
-
 .art-section-header{
 text-align:center;
 margin-bottom:2rem;
@@ -300,10 +299,35 @@ align-items:center;
 height:450px;
 }
 
-@media(max-width:768px){
-.circular-queue-container{ height: 350px; }
+@media(max-width: 768px) {
+    .art-sticky {
+        /* Adjust where it pins ONLY on mobile */
+        top: 10vh; 
+        height: 90dvh; 
+    }
+    
+    /* Your existing mobile styles... */
+    .art-wrapper{height:300vh;}
+    .art-section-header{ margin-bottom: 3rem; }
+    .circular-queue-scene{width:280px;height:180px;}
+    .art-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+    .art-view-btn { font-size: 0.65rem; padding: 0.45rem 1.1rem; }
 }
 
+/* 3. SMALL MOBILE OVERRIDES: Only for phones */
+@media(max-width: 480px) {
+    .art-sticky {
+        /* Tweak pinning further for smaller phones if needed */
+        top: 12vh;
+        height: 88dvh;
+    }
+
+    /* Your existing small mobile styles... */
+    .art-wrapper{height:350vh;}
+    .art-section-header{ margin-bottom: 2.5rem; }
+    .circular-queue-scene{width:260px;height:160px;}
+    .art-view-btn { font-size: 0.6rem; padding: 0.4rem 1rem; }
+}
 .circular-queue-scene{
 position:relative;
 width:420px;
