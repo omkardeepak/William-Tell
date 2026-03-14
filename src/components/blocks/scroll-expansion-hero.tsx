@@ -26,6 +26,7 @@ interface ScrollExpandMediaProps {
     scrollToExpand?: string;
     textBlend?: boolean;
     children?: React.ReactNode;
+    onReady?: () => void;
 }
 
 const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
@@ -39,6 +40,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
     scrollToExpand,
     textBlend,
     children,
+    onReady,
 }) => {
     const [scrollProgress, setScrollProgress] = useState(0);
     const [mediaFullyExpanded, setMediaFullyExpanded] = useState(false);
@@ -346,6 +348,10 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                             <iframe
                                                 width='100%'
                                                 height='100%'
+                                                onLoad={() => {
+                                                    // Small delay to ensure player is truly initializing
+                                                    setTimeout(() => onReady?.(), 800);
+                                                }}
                                                 src={
                                                     mediaSrc.includes('embed')
                                                         ? mediaSrc +
@@ -390,6 +396,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                                 loop
                                                 playsInline
                                                 preload='auto'
+                                                onLoadedData={() => onReady?.()}
                                                 className='w-full h-full object-cover rounded-xl'
                                                 controls={false}
                                                 disablePictureInPicture
@@ -413,6 +420,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                         <img
                                             src={mediaSrc}
                                             alt={title || 'Media content'}
+                                            onLoad={() => onReady?.()}
                                             className='w-full h-full object-cover rounded-xl'
                                         />
 

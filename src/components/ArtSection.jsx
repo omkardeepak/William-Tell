@@ -195,7 +195,7 @@ const artSectionStyles = `
 
 .art-wrapper{
 position:relative;
-height:350vh;
+height:250vh;
 background:transparent;
 color:#fff;
 font-family: 'Outfit', sans-serif;
@@ -351,10 +351,15 @@ pointer-events:none;
 }
 
 @media(max-width:768px){
-.art-wrapper{height:400vh;}
+.art-wrapper{height:250vh;}
 .circular-queue-scene{width:280px;height:180px;}
 .art-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
-.art-view-btn { font-size: 0.7rem; padding: 0.55rem 1.2rem; }
+.art-view-btn { font-size: 0.65rem; padding: 0.45rem 1.1rem; }
+}
+
+@media(max-width:480px){
+.circular-queue-scene{width:220px;height:140px;}
+.art-view-btn { font-size: 0.6rem; padding: 0.4rem 1rem; }
 }
 
 `;

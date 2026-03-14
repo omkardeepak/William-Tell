@@ -304,6 +304,7 @@ export const ImageExpansion = () => {
 
 const Demo = () => {
     const [mediaType, setMediaType] = useState('video');
+    const [isMediaReady, setIsMediaReady] = useState(false);
     const currentMedia = sampleMediaContent[mediaType];
 
     useEffect(() => {
@@ -311,11 +312,15 @@ const Demo = () => {
 
         const resetEvent = new Event('resetSection');
         window.dispatchEvent(resetEvent);
+
+        // Failsafe: Open curtain after 4 seconds regardless of media load
+        const timer = setTimeout(() => setIsMediaReady(true), 4000);
+        return () => clearTimeout(timer);
     }, [mediaType]);
 
     return (
         <div className='min-h-screen'>
-            <CurtainIntro />
+            <CurtainIntro isReady={isMediaReady} />
             <ScrollExpandMedia
                 mediaType={mediaType}
                 mediaSrc={currentMedia.src}
@@ -324,6 +329,7 @@ const Demo = () => {
                 title={currentMedia.title}
                 date={currentMedia.date}
                 scrollToExpand={currentMedia.scrollToExpand}
+                onReady={() => setIsMediaReady(true)}
             >
                 <AboutSection />
                 <FilmReelSection />

@@ -10,12 +10,6 @@
     pointer-events: none;
 }
 
-.curtain-panel {
-    flex: 1;
-    height: 100%;
-    background: #060606;
-    transform-origin: top;
-}
 
 .curtain-label {
     position: fixed;
@@ -32,4 +26,14 @@
     width: auto;
     opacity: 0.85;
     filter: brightness(1.1);
+    margin-bottom: 2px;
+}
+
+.curtain-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-bottom: 11px; /* aligns with logo baseline */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }

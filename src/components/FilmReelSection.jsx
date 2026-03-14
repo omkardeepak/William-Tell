@@ -693,7 +693,7 @@ const filmReelStyles = `
     .film-frames-row { padding: 32px 0; }
     .sprocket-fixed  { height: 32px; }
     .film-frame-label { font-size: 0.65rem; margin-top: 0.5rem; }
-    .view-more-btn { font-size: 0.7rem; padding: 0.55rem 1.2rem; }
+    .view-more-btn { font-size: 0.65rem; padding: 0.45rem 1.1rem; }
     .film-controls { gap: 1.4rem; margin-top: 2rem; }
 }
 
@@ -709,7 +709,7 @@ const filmReelStyles = `
     .film-frames-row { padding: 28px 0; }
     .sprocket-fixed  { height: 28px; }
     .film-reel-eyebrow { font-size: 0.65rem; }
-    .view-more-btn { font-size: 0.65rem; padding: 0.5rem 1rem; }
+    .view-more-btn { font-size: 0.6rem; padding: 0.4rem 1rem; }
     .dot { width: 6px; height: 6px; }
     .dot.active { width: 18px; }
 }
