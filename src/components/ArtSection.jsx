@@ -383,20 +383,25 @@ pointer-events:none;
 }
 
 @media(max-width:768px){
-.art-wrapper{height:350vh;}
+.art-wrapper{
+    height: 600vh; /* Aggressive height to trap the scroll */
+    scroll-snap-align: start;
+}
 .art-section-header{ margin-bottom: 2rem; }
 .circular-queue-scene{width:280px;height:180px;}
 .art-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
 .art-view-btn { font-size: 0.65rem; padding: 0.45rem 1.1rem; }
-.circular-queue-container { margin-top: 5vh; } /* Nudge down to correct focus */
+.circular-queue-container { margin-top: 5vh; }
 }
 
 @media(max-width:480px){
-.art-wrapper{height:400vh;}
+.art-wrapper{
+    height: 700vh; /* Even more room for 11 images on phones */
+}
 .art-section-header{ margin-bottom: 1.5rem; }
 .circular-queue-scene{width:260px;height:160px;}
 .art-view-btn { font-size: 0.6rem; padding: 0.4rem 1rem; }
-.circular-queue-container { margin-top: 8vh; } /* More nudge for smaller screens */
+.circular-queue-container { margin-top: 10vh; }
 }
 
 `;
