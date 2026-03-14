@@ -66,9 +66,9 @@ function App() {
     <Router>
       <ScrollToTop />
       <SmoothScroll>
-        <div className="app-container">
+        <div className="app-container" style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
           <Navbar />
-          <main>
+          <main style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />

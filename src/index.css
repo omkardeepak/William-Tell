@@ -24,11 +24,13 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
   font-family: var(--font-main);
   background-color: var(--color-bg-dark);
   color: var(--color-text);
-  overflow-x: clip;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
