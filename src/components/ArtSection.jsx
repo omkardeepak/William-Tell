@@ -302,8 +302,8 @@ height:450px;
 @media(max-width: 768px) {
     .art-sticky {
         /* Adjust where it pins ONLY on mobile */
-        top: 10vh; 
-        height: 90dvh; 
+        top: 5vh; 
+        height: 95dvh; 
     }
     
     /* Your existing mobile styles... */
