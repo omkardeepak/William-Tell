@@ -82,18 +82,17 @@ const ArtSection = () => {
 
     // 1. Calculate strictly snapped progress steps so pictures stop exactly in centered focus
     const snappedProgress = useTransform(scrollYProgress, p => {
-        // Add 5% buffer at start/end to hold the first/last images longer
-        const buffer = 0.05;
-        const adjustedP = Math.min(Math.max((p - buffer) / (1 - 2 * buffer), 0), 1);
-        const index = Math.round(adjustedP * (totalCards - 1));
+        // Clamp to ensure we do not overshoot
+        const clampedProgress = Math.min(Math.max(p, 0), 1);
+        const index = Math.round(clampedProgress * (totalCards - 1));
         return index / (totalCards - 1);
     });
 
-    /* smooth physics driving the snappy ticks - tightened for mobile precision */
+    /* smooth physics driving the snappy ticks */
     const smoothProgress = useSpring(snappedProgress, {
-        stiffness: 120, // increased from 90
-        damping: 24,    // increased from 20
-        mass: 0.5       // decreased from 0.8 to be snappier
+        stiffness: 90,
+        damping: 20,
+        mass: 0.8
     });
 
     /* rotation depends on the smoothed stair-step scroll */
@@ -109,8 +108,8 @@ const ArtSection = () => {
     useEffect(() => {
         const updateRadius = () => {
             const width = window.innerWidth;
-            if (width < 480) setRadius(350); // increased from 300
-            else if (width < 768) setRadius(480); // increased from 450
+            if (width < 480) setRadius(300);
+            else if (width < 768) setRadius(450);
             else setRadius(650);
         };
         updateRadius();
@@ -225,25 +224,13 @@ justify-content:center;
 align-items:center;
 overflow:hidden;
 perspective:1600px;
+padding-top: 80px; /* Space for Navbar */
 }
 
 .art-section-header{
 text-align:center;
-margin-bottom:3rem;
+margin-bottom:2rem;
 z-index:20;
-transition: opacity 0.5s ease;
-}
-
-/* On mobile, headers often push the carousel too low; we center the carousel independently */
-@media(max-width: 768px) {
-  .art-section-header {
-    position: absolute;
-    top: 12vh;
-    left: 0;
-    right: 0;
-    margin-bottom: 0;
-    padding: 0 1rem;
-  }
 }
 
 .art-eyebrow{
@@ -383,25 +370,18 @@ pointer-events:none;
 }
 
 @media(max-width:768px){
-.art-wrapper{
-    height: 600vh; /* Aggressive height to trap the scroll */
-    scroll-snap-align: start;
-}
-.art-section-header{ margin-bottom: 2rem; }
+.art-wrapper{height:300vh;}
+.art-section-header{ margin-bottom: 3rem; }
 .circular-queue-scene{width:280px;height:180px;}
 .art-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
 .art-view-btn { font-size: 0.65rem; padding: 0.45rem 1.1rem; }
-.circular-queue-container { margin-top: 5vh; }
 }
 
 @media(max-width:480px){
-.art-wrapper{
-    height: 700vh; /* Even more room for 11 images on phones */
-}
-.art-section-header{ margin-bottom: 1.5rem; }
+.art-wrapper{height:350vh;}
+.art-section-header{ margin-bottom: 2.5rem; }
 .circular-queue-scene{width:260px;height:160px;}
 .art-view-btn { font-size: 0.6rem; padding: 0.4rem 1rem; }
-.circular-queue-container { margin-top: 10vh; }
 }
 
 `;

@@ -301,7 +301,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
     return (
         <div
             ref={sectionRef}
-            className={`transition-colors duration-700 ease-in-out min-h-[100dvh] overflow-x-hidden ${scrollProgress > 0.9 ? '' : 'overflow-hidden'}`}
+            className={`transition-colors duration-700 ease-in-out min-h-[100dvh] ${scrollProgress > 0.9 ? '' : 'overflow-hidden'}`}
             style={{
                 height: mediaFullyExpanded ? 'auto' : '100dvh'
             }}
@@ -317,7 +317,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                         <img
                             src={bgImageSrc}
                             alt='Background'
-                            className='w-full h-screen object-cover object-center'
+                            className='w-screen h-screen object-cover object-center'
                             style={{ objectFit: 'cover', objectPosition: 'center' }}
                         />
                         <div className='absolute inset-0 bg-black/10' />
@@ -454,8 +454,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                             </div>
 
                             <div
-                                className={`flex items-center justify-center w-full relative z-10 transition-none overflow-hidden ${textBlend ? 'mix-blend-difference' : 'mix-blend-normal'}`}
-                                style={{ padding: '0 20px' }}
+                                className={`flex items-center justify-center w-full relative z-10 transition-none ${textBlend ? 'mix-blend-difference' : 'mix-blend-normal'}`}
                             >
                                 <div
                                     className='flex flex-col items-center justify-center transition-none'

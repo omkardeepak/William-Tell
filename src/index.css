@@ -24,11 +24,6 @@
   box-sizing: border-box;
 }
 
-html, body {
-  scroll-snap-type: y proximity;
-  scroll-behavior: auto !important; /* Let Lenis handle the smoothness */
-}
-
 body {
   font-family: var(--font-main);
   background-color: var(--color-bg-dark);
