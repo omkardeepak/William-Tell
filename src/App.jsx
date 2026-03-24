@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import CurtainIntro from './components/CurtainIntro';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -60,11 +61,40 @@ function ScrollToTop() {
 
   return null;
 }
+function GlobalCurtain() {
+  const location = useLocation();
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    // Close the curtain when route changes
+    setIsReady(false);
+    
+    // Fast-open the curtain after next page renders (1.2s minimum simulated loading)
+    // For Home ('/'), wait up to 4s as a failsafe, but expect 'appReady' event
+    const delay = location.pathname === '/' ? 4000 : 1200;
+    const timer = setTimeout(() => {
+      setIsReady(true);
+      window.dispatchEvent(new Event('curtainOpened'));
+    }, delay);
+
+    // Global listener for special heavy components (like Home hero) to signal they are ready early
+    const onAppReady = () => setIsReady(true);
+    window.addEventListener('appReady', onAppReady);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('appReady', onAppReady);
+    };
+  }, [location.pathname]);
+
+  return <CurtainIntro isReady={isReady} />;
+}
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
+      <GlobalCurtain />
       <SmoothScroll>
         <div className="app-container">
           <Navbar />

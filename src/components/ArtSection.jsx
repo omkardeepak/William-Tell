@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 /* ── Arts data ── */
 const artsData = [
@@ -117,21 +117,12 @@ const ArtSection = () => {
         return () => clearInterval(interval);
     }, [isMobileView]);
 
-    // Use a unified motion value for the rotation input
-    const rotationInput = useMotionValue(0);
+    // UseSpring for smooth transitions on either input
+    const targetRotateProgress = isMobileView 
+        ? autoIndex / (totalCards - 1) 
+        : snappedProgress;
 
-    useEffect(() => {
-        if (isMobileView) {
-            rotationInput.set(autoIndex / (totalCards - 1));
-        } else {
-            const unsubscribe = snappedProgress.on("change", v => rotationInput.set(v));
-            // Sync initial value
-            rotationInput.set(snappedProgress.get());
-            return unsubscribe;
-        }
-    }, [isMobileView, autoIndex, snappedProgress]);
-
-    const smoothProgress = useSpring(rotationInput, {
+    const smoothProgress = useSpring(targetRotateProgress, {
         stiffness: isMobileView ? 40 : 90,
         damping: isMobileView ? 15 : 20,
         mass: 0.8
@@ -239,9 +230,6 @@ height: 250vh;
 background:transparent;
 color:#fff;
 font-family: 'Outfit', sans-serif;
-overflow-x: hidden;
-width: 100%;
-max-width: 100vw;
 }
 .art-sticky {
     position: -webkit-sticky; /* Safe for desktop, needed for iOS */
@@ -326,7 +314,6 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:450px;
-overflow: hidden; /* Prevent 3D projections from spilling out */
 }
 
 .circular-queue-scene{
@@ -413,8 +400,6 @@ pointer-events:none;
         height: auto !important;
         padding: 2rem 1rem !important;
         perspective: 1000px;
-        overflow: hidden !important;
-        width: 100% !important;
     }
     .art-section-header { margin-bottom: 3rem; }
     .circular-queue-container { height: 350px; }
