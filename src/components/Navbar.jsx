@@ -4,18 +4,23 @@ import { X, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
-// Nav columns: each has a primary link and an optional secondary link
-const navColumns = [
-    { primary: { name: 'Art', path: '/#archives' }, secondary: { name: 'Work', path: '/works' } },
-    { primary: { name: 'Strategy', path: '/about' }, secondary: { name: 'About', path: '/about' } },
-    { primary: { name: 'Film', path: "/#stories-in-motion" }, secondary: { name: 'Contact', path: '/contact' } },
-];
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [showAltNavbar, setShowAltNavbar] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location = useLocation();
+
+    const isHome = location.pathname === '/';
+    const navColumns = isHome ? [
+        { primary: { name: 'Art', path: '/#archives' }, secondary: { name: 'Work', path: '/works' } },
+        { primary: { name: 'Strategy', path: '/about' }, secondary: { name: 'About', path: '/about' } },
+        { primary: { name: 'Film', path: "/#stories-in-motion" }, secondary: { name: 'Contact', path: '/contact' } },
+    ] : [
+        { primary: { name: 'Work', path: '/works' } },
+        { primary: { name: 'About', path: '/about' } },
+        { primary: { name: 'Contact', path: '/contact' } },
+    ];
 
     useEffect(() => {
         const handleScroll = () => {

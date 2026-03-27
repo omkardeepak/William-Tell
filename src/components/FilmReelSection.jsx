@@ -342,7 +342,7 @@ const FilmReelSection = () => {
                 <motion.button
                     id="stories-in-motion"
                     className="view-more-btn"
-                    onClick={() => navigate('/works?category=Films')}
+                    onClick={() => navigate('/works', { state: { expandSection: 'film' } })}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}

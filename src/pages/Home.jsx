@@ -146,23 +146,11 @@ const AboutSection = () => {
                             margin: 0,
                         }}>
                             We are creatives who focus on crafting{' '}
-                            <LinkPreview
-                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                imageSrc="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?w=600&q=80"
-                                isStatic
-                                className="font-normal text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                            >
-                                compelling visual stories
-                            </LinkPreview>
+
                             {' '}that offer powerful impact — combining{' '}
-                            <LinkPreview
-                                url="https://www.youtube.com/watch?v=POX8SAX_eVQ"
-                                imageSrc="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&q=80"
-                                isStatic
-                                className="font-normal text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/70"
-                            >
-                                cinematic direction
-                            </LinkPreview>
+
+                            cinematic direction
+
                             {' '}with purposeful storytelling.
                         </p>
 
