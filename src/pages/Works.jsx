@@ -226,7 +226,6 @@ function GroupSection({ group, index }) {
             <div className="works-group-label">
                 <span className="works-group-number">{String(index + 1).padStart(2, '0')}</span>
                 <h2 className="works-group-name">{group.group}</h2>
-                <span className="works-group-cat">{group.category}</span>
             </div>
 
             {/* ── Featured / Hero Card ─────────────── */}
@@ -572,11 +571,21 @@ export default function Works() {
                                         )}
                                         {sec.id === 'art' && (
                                             <div className="works-gallery-section" style={{ paddingBottom: '4rem' }}>
+                                                <div className="works-section-label" style={{ borderBottom: 'none', paddingLeft: 0, paddingTop: 0 }}>
+                                                    <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+                                                        — Creative Direction &nbsp;&nbsp; Curation &nbsp;&nbsp; Visual Arts
+                                                    </motion.span>
+                                                </div>
                                                 <ArtGalleryList />
                                             </div>
                                         )}
                                         {sec.id === 'strategy' && (
                                             <div className="works-placeholder">
+                                                <div className="works-section-label" style={{ borderBottom: 'none', paddingLeft: 0, paddingTop: 0, textAlign: 'left', marginBottom: '2rem' }}>
+                                                    <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+                                                        — Brand Strategy &nbsp;&nbsp; Identity &nbsp;&nbsp; Positioning
+                                                    </motion.span>
+                                                </div>
                                                 <p>Explore our Strategy work. Content coming soon...</p>
                                             </div>
                                         )}

@@ -192,10 +192,10 @@
 }
 
 .works-group-name {
-    font-family: var(--font-main);
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: clamp(1.8rem, 3vw, 2.8rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-weight: 400;
+    letter-spacing: 0.1em;
     color: var(--color-text);
     margin: 0;
     line-height: 1;
@@ -255,9 +255,10 @@
 }
 
 .featured-title {
-    font-family: var(--font-main);
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 800;
+    font-weight: 400;
+    letter-spacing: 0.1em;
     line-height: 1.1;
     color: #fff;
     margin: 0 0 1rem;
@@ -797,5 +798,18 @@
     .art-list-info {
         gap: 1rem;
         padding: 0 0.5rem;
+    }
+    .works-rest-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.05em;
+    }
+    .card-small {
+        width: 180px;
+    }
+    .card-small .work-card-info {
+        padding: 0.6rem;
+    }
+    .card-small .work-card-title {
+        font-size: 0.7rem;
     }
 }
