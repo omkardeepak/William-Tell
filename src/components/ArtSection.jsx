@@ -210,7 +210,7 @@ const artSectionStyles = `
 }
 
 .art-title{
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(2rem, 5vw, 3.5rem);
     font-family: 'Playfair Display', serif;
     font-weight: 400;
     margin: 0;
@@ -258,11 +258,11 @@ const artSectionStyles = `
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 3rem 2rem 2rem;
+    padding: 2.5rem 1.5rem 1.2rem;
     background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
     color: #fff;
     font-family: 'Outfit', sans-serif;
-    font-size: 1.1rem;
+    font-size: 0.72rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     font-weight: 300;
@@ -349,15 +349,15 @@ const artSectionStyles = `
     display: inline-flex;
     align-items: center;
     gap: 0.7rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     color: #fff;
     font-family: 'Outfit', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 0.8rem 2rem;
+    padding: 0.65rem 1.6rem;
     border-radius: 100px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -387,18 +387,59 @@ const artSectionStyles = `
     .art-wrapper {
         padding: 4rem 0 5rem;
     }
+    .art-title {
+        font-size: clamp(1.6rem, 7vw, 2.4rem);
+    }
     .carousel-container {
         aspect-ratio: 4 / 5;
     }
     .carousel-btn {
-        width: 40px;
-        height: 40px;
+        width: 34px;
+        height: 34px;
+    }
+    .carousel-btn svg {
+        width: 18px;
+        height: 18px;
     }
     .carousel-btn.prev { margin-left: 0.5rem; }
     .carousel-btn.next { margin-right: 0.5rem; }
     .carousel-caption {
         padding: 2rem 1.5rem 1.5rem;
-        font-size: 0.9rem;
+        font-size: 0.68rem;
+    }
+    .art-view-btn {
+        font-size: 0.65rem;
+        padding: 0.45rem 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .art-wrapper {
+        padding: 1.5rem 0;
+    }
+    .carousel-btn {
+        width: 30px;
+        height: 30px;
+    }
+    .carousel-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+    .art-section-header {
+        margin-bottom: 2.5rem;
+    }
+    .art-title {
+        font-size: 1.5rem;
+    }
+    .art-eyebrow {
+        font-size: 0.65rem;
+    }
+    .carousel-caption {
+        font-size: 0.6rem;
+    }
+    .art-view-btn {
+        font-size: 0.6rem;
+        padding: 0.4rem 1rem;
     }
 }
 `;

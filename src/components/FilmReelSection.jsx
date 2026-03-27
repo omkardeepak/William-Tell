@@ -687,7 +687,8 @@ const filmReelStyles = `
     .glass-edge { width: 14vw; }
     .reel-nav-left  { left: 1vw; }
     .reel-nav-right { right: 1vw; }
-    .reel-nav-btn { width: 34px; height: 34px; }
+    .reel-nav-btn { width: 32px; height: 32px; }
+    .reel-nav-btn svg { width: 14px; height: 14px; }
     .sprocket-fixed { gap: 22px; }
     .sprocket-hole  { width: 18px; height: 12px; }
     .film-frames-row { padding: 32px 0; }
@@ -702,8 +703,8 @@ const filmReelStyles = `
     .film-reel-header { margin-bottom: 2.5rem; }
     .film-reel-title { font-size: 1.5rem; }
     .glass-edge { width: 10vw; }
-    .reel-nav-btn { width: 30px; height: 30px; }
-    .reel-nav-btn svg { width: 14px; height: 14px; }
+    .reel-nav-btn { width: 28px; height: 28px; }
+    .reel-nav-btn svg { width: 12px; height: 12px; }
     .sprocket-fixed { gap: 16px; }
     .sprocket-hole  { width: 14px; height: 10px; border-radius: 2px; }
     .film-frames-row { padding: 28px 0; }

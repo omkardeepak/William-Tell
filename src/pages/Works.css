@@ -511,8 +511,18 @@
 }
 
 @media (max-width: 768px) {
-    .works-headline {
-        font-size: clamp(4rem, 20vw, 8rem);
+    .works-hero-nav {
+        gap: 1.5rem;
+    }
+
+    .works-hero-nav-item {
+        font-size: 0.95rem;
+        letter-spacing: 0.15em;
+    }
+
+    .works-hero-nav-item:hover,
+    .works-hero-nav-item.active {
+        letter-spacing: 0.2em;
     }
 
     .works-group {
@@ -543,14 +553,25 @@
 }
 
 @media (max-width: 480px) {
-    .works-headline {
-        font-size: clamp(3.5rem, 24vw, 6rem);
+    .works-hero-nav {
+        gap: 1rem;
+    }
+
+    .works-hero-nav-item {
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+    }
+
+    .works-hero-nav-item:hover,
+    .works-hero-nav-item.active {
+        letter-spacing: 0.15em;
     }
 
     .works-hero-sub {
         flex-direction: column;
         gap: 0.6rem;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
     }
 
     .card-small {
@@ -603,6 +624,7 @@
     text-transform: uppercase;
     transition: color 0.4s ease;
 }
+
 .works-accordion-icon {
     font-size: 2.5rem;
     font-weight: 300;
@@ -681,7 +703,7 @@
     height: 90px;
     border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     background: #111;
     border: 3px solid #fff;
     transform-origin: center bottom;
@@ -705,7 +727,7 @@
     position: absolute;
     bottom: -15px;
     z-index: 4;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     padding: 0.6rem 1.2rem;
     border-radius: 20px;
@@ -717,12 +739,12 @@
     align-items: center;
     gap: 0.2rem;
     white-space: nowrap;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .folder-label span {
     font-size: 0.65rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -750,7 +772,7 @@
     border-radius: 4px;
     overflow: hidden;
     background: #080808;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
 }
 
 .art-list-img {
@@ -795,20 +817,25 @@
         gap: 6rem;
         padding: 2rem 5% 4rem;
     }
+
     .art-list-info {
         gap: 1rem;
         padding: 0 0.5rem;
     }
+
     .works-rest-label {
         font-size: 0.6rem;
         letter-spacing: 0.05em;
     }
+
     .card-small {
         width: 180px;
     }
+
     .card-small .work-card-info {
         padding: 0.6rem;
     }
+
     .card-small .work-card-title {
         font-size: 0.7rem;
     }

@@ -374,6 +374,7 @@ export default function About() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.7 }}
                     >
+                        <p className="about-eyebrow">Who We Are</p>
                     </motion.div>
 
                     <motion.h1
@@ -451,7 +452,7 @@ export default function About() {
                     <div className="philosophy-row">
                         {/* Left label */}
                         <Reveal delay={0} className="philosophy-label-col">
-                            <span className="section-label text-0.7rem">The Philosophy</span>
+                            <span className="section-label">The Philosophy</span>
                         </Reveal>
 
                         {/* Right content */}

@@ -105,6 +105,16 @@ const AboutSection = () => {
                     color: #fff;
                     border-color: #fff;
                 }
+                @media (max-width: 768px) {
+                    .about-who-label span {
+                        font-size: 0.72rem !important;
+                        letter-spacing: 0.15em !important;
+                    }
+                    .about-statement {
+                        font-size: clamp(1.35rem, 5vw, 1.6rem) !important;
+                        line-height: 1.45 !important;
+                    }
+                }
             `}</style>
 
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -115,16 +125,16 @@ const AboutSection = () => {
                         flexDirection: 'column',
                         alignItems: 'flex-start',
                         gap: '1.5rem',
-                        opacity: visible ? 1 : 0,
-                        transform: visible ? 'translateY(0)' : 'translateY(20px)',
-                        transition: 'opacity 0.5s ease, transform 0.5s ease',
+                        opacity: visible || (window.scrollY > 300) ? 1 : 0,
+                        transform: visible || (window.scrollY > 300) ? 'translateY(0)' : 'translateY(20px)',
+                        transition: 'opacity 0.8s ease, transform 0.8s ease',
                     }}
                 >
                     {/* ── LEFT — WHO WE ARE label ── */}
                     <div className="about-who-label">
                         <span style={{
                             fontFamily: "'Outfit', sans-serif",
-                            fontSize: '0.8rem',
+                            fontSize: '0.88rem',
                             fontWeight: 500,
                             letterSpacing: '0.2em',
                             textTransform: 'uppercase',
@@ -136,7 +146,7 @@ const AboutSection = () => {
 
                     {/* ── RIGHT — Statement + link ── */}
                     <div className="about-content-col">
-                        <p style={{
+                        <p className="about-statement" style={{
                             fontFamily: "'Outfit', sans-serif",
                             fontSize: 'clamp(1.6rem, 3.5vw, 2.1rem)',
                             fontWeight: 300,

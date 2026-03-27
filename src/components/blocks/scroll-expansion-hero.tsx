@@ -22,6 +22,7 @@ interface ScrollExpandMediaProps {
     bgColor?: string;
     logoSrc?: string;
     title?: string;
+    eyebrow?: string;
     date?: string;
     scrollToExpand?: string;
     textBlend?: boolean;
@@ -36,6 +37,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
     bgImageSrc,
     logoSrc,
     title,
+    eyebrow,
     date,
     scrollToExpand,
     textBlend,
@@ -462,6 +464,23 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                         transform: `scale(${1 - scrollProgress * 0.15})`,
                                     }}
                                 >
+                                    {eyebrow && (
+                                        <motion.span
+                                            className='mb-6 block text-center'
+                                            style={{
+                                                fontFamily: "'Outfit', sans-serif",
+                                                fontSize: isMobileState ? '0.75rem' : '0.92rem',
+                                                fontWeight: 600,
+                                                letterSpacing: '0.28em',
+                                                textTransform: 'uppercase',
+                                                color: 'rgba(255,255,255,0.4)',
+                                                textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                                                transform: `scale(${1 - scrollProgress * 0.1})`,
+                                            }}
+                                        >
+                                            {eyebrow}
+                                        </motion.span>
+                                    )}
                                     <motion.h2
                                         className='transition-none text-center'
                                         style={{
@@ -476,7 +495,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                             transform: `translateX(${textTranslateX}vw)`,
                                         }}
                                     >
-                                        William Tell
+                                        {titleLine1}
                                     </motion.h2>
                                     <motion.p
                                         className='transition-none text-center'
@@ -493,7 +512,7 @@ const ScrollExpandMedia: React.FC<ScrollExpandMediaProps> = ({
                                             transform: `translateX(-${textTranslateX}vw)`,
                                         }}
                                     >
-                                        Productions
+                                        {titleLine2}
                                     </motion.p>
                                 </div>
                             </div>
