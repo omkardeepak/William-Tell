@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import CurtainIntro from '../components/CurtainIntro';
 import './Works.css';
 
@@ -400,6 +400,19 @@ export default function Works() {
     const [expandedSection, setExpandedSection] = useState(location.state?.expandSection || null);
     const containerRefs = useRef({});
 
+    const { scrollY } = useScroll();
+    
+    // Apply smooth spring physics to the scroll value
+    const smoothScrollY = useSpring(scrollY, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
+    // Move FILM left outside screen, move STRATEGY right outside screen
+    const filmX = useTransform(smoothScrollY, [0, 500], [0, -800]);
+    const strategyX = useTransform(smoothScrollY, [0, 500], [0, 800]);
+
     useEffect(() => {
         if (location.state?.expandSection) {
             setExpandedSection(location.state.expandSection);
@@ -507,15 +520,22 @@ export default function Works() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 1.3 }}
                     >
-                        {sections.map((sec) => (
-                            <button
-                                key={sec.id}
-                                className={`works-hero-nav-item ${expandedSection === sec.id ? 'active' : ''}`}
-                                onClick={() => handleSectionClick(sec.id)}
-                            >
-                                {sec.title}
-                            </button>
-                        ))}
+                        {sections.map((sec) => {
+                            let xTransform = undefined;
+                            if (sec.id === 'film') xTransform = filmX;
+                            if (sec.id === 'strategy') xTransform = strategyX;
+
+                            return (
+                                <motion.button
+                                    key={sec.id}
+                                    className={`works-hero-nav-item ${expandedSection === sec.id ? 'active' : ''}`}
+                                    onClick={() => handleSectionClick(sec.id)}
+                                    style={xTransform ? { x: xTransform } : {}}
+                                >
+                                    {sec.title}
+                                </motion.button>
+                            );
+                        })}
                     </motion.div>
 
                     <div className="works-hero-sub">

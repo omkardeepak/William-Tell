@@ -57,18 +57,6 @@ const stats = [
         number: '50+',
         label: 'Brand Films',
         services: [
-            'Tv Commercials',
-            'Corporate Shoot',
-            'Instagram Promotion Reels',
-            '2d & 3d Motion Videos',
-            'Graphics',
-            'Social Media Ads',
-        ],
-    },
-    {
-        number: '20+',
-        label: 'Brands',
-        services: [
             'Fazyo',
             'Salve Maria',
             "Therefore I'm",
@@ -81,6 +69,33 @@ const stats = [
             'LDF',
             'Oxygen',
             'myG',
+            'Showreel'
+        ],
+    },
+    {
+        number: '20+',
+        label: 'Brands',
+        services: [
+            'Oxygen',
+            'Nolta',
+            'Kalyan Silks',
+            'Hero',
+            'Sophia Builders',
+            'Nila Ayurvedic',
+            'Defab',
+            'Maharani',
+            'Cadbury',
+            'Blossom',
+            'MyG',
+            'Skyline',
+            'Nestle',
+            'Jac Group',
+            'Salve Maria',
+            'Fazyo',
+            'Homegrown Biotech',
+            "Therefore I'm",
+            'Carla',
+            'Glowyoung'
         ],
     },
     {

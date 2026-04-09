@@ -25,14 +25,17 @@ const SmoothScroll = ({ children }) => {
         // Expose lenis on window for other components that may need to pause/resume it
         window.__lenis = lenis;
 
+        let rafId;
+
         function raf(time) {
             lenis.raf(time);
-            requestAnimationFrame(raf);
+            rafId = requestAnimationFrame(raf);
         }
 
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
 
         return () => {
+            cancelAnimationFrame(rafId);
             lenis.destroy();
             lenisRef.current = null;
             window.__lenis = null;
