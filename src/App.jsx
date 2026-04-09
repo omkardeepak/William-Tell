@@ -6,8 +6,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Works from './pages/Works';
-import Contact from './pages/Contact';
 import SmoothScroll from './components/SmoothScroll';
+import ContactOverlay from './components/ContactOverlay';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -103,12 +103,13 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/works" element={<Works />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/contact" element={<Home />} />
             </Routes>
           </main>
           <Footer />
         </div>
       </SmoothScroll>
+      <ContactOverlay />
     </Router>
   );
 }

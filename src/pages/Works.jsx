@@ -6,17 +6,17 @@ import './Works.css';
 
 /* ─── Arts Data for Flipbook ────────────────────── */
 const artsData = [
-    { id: 1, title: "Campaign", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(3).png" },
-    { id: 2, title: "Visual Story", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(6).png" },
-    { id: 3, title: "Production", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(2).png" },
-    { id: 4, title: "Brand Identity", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(5).png" },
-    { id: 5, title: "Cinematic Frame", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(7).png" },
-    { id: 6, title: "Motion Art", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(9).png" },
-    { id: 7, title: "Digital Story", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(8).png" },
-    { id: 8, title: "Editorial", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(4).png" },
-    { id: 9, title: "Direction", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(10).png" },
-    { id: 10, title: "Storytelling", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(1).png" },
-    { id: 11, title: "The Archive", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png" }
+    { id: 1,  title: "Storytelling",    src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(1).png" },
+    { id: 2,  title: "Brand Identity",  src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(5).png" },
+    { id: 3,  title: "Campaign",        src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(3).png" },
+    { id: 4,  title: "Production",      src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(2).png" },
+    { id: 5,  title: "Visual Story",    src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(6).png" },
+    { id: 6,  title: "The Archive",     src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png" },
+    { id: 7,  title: "Cinematic Frame", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(7).png" },
+    { id: 8,  title: "Digital Story",   src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(8).png" },
+    { id: 9,  title: "Editorial",       src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(4).png" },
+    { id: 10, title: "Direction",       src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(10).png" },
+    { id: 11, title: "Motion Art",      src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(9).png" }
 ];
 
 /* ─── All videos grouped by brand / project ─────── */

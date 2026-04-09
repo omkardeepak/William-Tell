@@ -76,7 +76,7 @@ export default function Contact() {
                     <h1 className="title-massive" style={{ overflow: 'hidden' }}>
                         <LineReveal delay={0.5}>LET'S</LineReveal>
                         <LineReveal delay={0.65}>
-                            <span className="accent-text">COLLABORATE.</span>
+                            <em style={{ fontStyle: 'italic', fontFamily: '"Playfair Display", serif', fontWeight: 400 }}>COLLABORATE.</em>
                         </LineReveal>
                     </h1>
 
@@ -96,10 +96,34 @@ export default function Contact() {
                             variants={{ visible: { transition: { staggerChildren: 0.14, delayChildren: 1.0 } } }}
                         >
                             {[
-                                { label: 'NEW BUSINESS', value: 'hello@williamtell.com', href: 'mailto:hello@williamtell.com' },
-                                { label: 'CAREERS', value: 'careers@williamtell.com', href: 'mailto:careers@williamtell.com' },
-                                { label: 'OFFICE', value: '123 Creative Studio\nHollywood, CA 90028\nUnited States', href: null },
-                            ].map(({ label, value, href }) => (
+                                { 
+                                    label: 'WILLIAMTELL PRODUCTIONS', 
+                                    details: [
+                                        { text: 'Creative Director', isSubtitle: true }, 
+                                        { text: '+91 62386 52343', href: 'tel:+916238652343' }
+                                    ] 
+                                },
+                                { 
+                                    label: 'VIPIN WILLIAMTELLS', 
+                                    details: [
+                                        { text: '+91 95627 20106', href: 'tel:+919562720106' }
+                                    ] 
+                                },
+                                { 
+                                    label: 'OFFICE', 
+                                    details: [
+                                        { text: 'No 42/2511 A, Door, Vennala Janatha Rd\nnear Century Club Lane, PO\nVennala, Kochi, Ernakulam\nKerala 682028', href: null }
+                                    ] 
+                                },
+                                { 
+                                    label: 'SOCIAL', 
+                                    details: [
+                                        { text: 'Instagram', href: 'https://www.instagram.com/williamtellproductions?igsh=cjQxNnUyejF2aGs5' },
+                                        { text: 'YouTube', href: 'https://www.youtube.com/@WilliamTellProductions' },
+                                        { text: 'LinkedIn', href: 'https://www.linkedin.com/company/williamtell-productions/' }
+                                    ]
+                                }
+                            ].map(({ label, details }) => (
                                 <motion.div
                                     key={label}
                                     className="info-block"
@@ -109,10 +133,13 @@ export default function Contact() {
                                     }}
                                 >
                                     <h3>{label}</h3>
-                                    {href
-                                        ? <a href={href}>{value}</a>
-                                        : <p style={{ whiteSpace: 'pre-line' }}>{value}</p>
-                                    }
+                                    {details.map((item, idx) => (
+                                        item.href ? (
+                                            <a key={idx} href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noreferrer" style={{ display: 'block', marginBottom: '0.4rem' }}>{item.text}</a>
+                                        ) : (
+                                            <p key={idx} style={{ whiteSpace: 'pre-line', marginBottom: '0.4rem', fontSize: item.isSubtitle ? '0.75rem' : 'inherit', textTransform: item.isSubtitle ? 'uppercase' : 'none', letterSpacing: item.isSubtitle ? '0.15em' : 'normal', color: item.isSubtitle ? 'rgba(255,255,255,0.4)' : 'inherit' }}>{item.text}</p>
+                                        )
+                                    ))}
                                 </motion.div>
                             ))}
                         </motion.div>

@@ -49,22 +49,39 @@ export default function Footer() {
             <div className="container">
                 <div className="footer-grid">
 
+                    {/* ── Contact column ── */}
                     <Col delay={0}>
                         <h4 className="footer-subtitle">Contact</h4>
-                        <a href="mailto:hello@williamtell.com" className="footer-link">hello@williamtell.com</a>
-                        <a href="tel:+1234567890" className="footer-link">+1 (234) 567-890</a>
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <p className="footer-text" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'rgba(255,255,255,0.4)', marginBottom: '0.4rem' }}>Creative Director</p>
+                            <p className="footer-text" style={{ margin: 0, fontWeight: 500 }}>Williamtell Productions Pvt. Ltd.</p>
+                            <a href="tel:+916238652343" className="footer-link" style={{ marginTop: '0.2rem' }}>+91 62386 52343</a>
+                        </div>
+                        
+                        <div>
+                            <p className="footer-text" style={{ margin: 0, fontWeight: 500 }}>Vipin Williamtells</p>
+                            <a href="tel:+919562720106" className="footer-link" style={{ marginTop: '0.2rem' }}>+91 95627 20106</a>
+                        </div>
                     </Col>
 
+                    {/* ── Social column ── */}
                     <Col delay={0.1}>
                         <h4 className="footer-subtitle">Social</h4>
-                        <a href="#" className="footer-link">Instagram</a>
-                        <a href="#" className="footer-link">Vimeo</a>
-                        <a href="#" className="footer-link">LinkedIn</a>
+                        <a href="https://www.instagram.com/williamtellproductions?igsh=cjQxNnUyejF2aGs5" target="_blank" rel="noopener noreferrer" className="footer-link">Instagram</a>
+                        <a href="https://www.youtube.com/@WilliamTellProductions" target="_blank" rel="noopener noreferrer" className="footer-link">YouTube</a>
+                        <a href="https://www.linkedin.com/company/williamtell-productions/" target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a>
                     </Col>
 
+                    {/* ── Location column ── */}
                     <Col delay={0.2}>
                         <h4 className="footer-subtitle">Location</h4>
-                        <p className="footer-text">123 Creative Studio,<br />Los Angeles, CA 90028</p>
+                        <p className="footer-text" style={{ fontSize: '0.95rem' }}>
+                            No 42/2511 A, Door,<br />
+                            Vennala Janatha Rd,<br />
+                            near Century Club Lane, PO,<br />
+                            Vennala, Kochi,<br />
+                            Ernakulam, Kerala 682028
+                        </p>
                     </Col>
 
                 </div>
@@ -90,7 +107,7 @@ export default function Footer() {
                 </div>
 
                 <div className="footer-bottom">
-                    <p>© {new Date().getFullYear()} WILLIAM TELL PRODUCTION COMPANY.</p>
+                    <p>© {new Date().getFullYear()} WILLIAMTELL PRODUCTIONS PVT. LTD.</p>
                     <p>ALL RIGHTS RESERVED.</p>
                 </div>
             </div>

@@ -45,7 +45,7 @@
 }
 
 .info-block a:hover {
-    color: var(--color-accent);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .contact-form {
@@ -113,7 +113,7 @@ select option {
 input:focus,
 select:focus,
 textarea:focus {
-    border-bottom-color: var(--color-accent);
+    border-bottom-color: #fff;
 }
 
 textarea {
