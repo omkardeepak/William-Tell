@@ -33,18 +33,7 @@ const CurtainIntro = ({ isReady = true }) => {
                 style={{ display: 'flex', alignItems: 'flex-end', gap: '4px' }}
             >
                 <img src="/images/wt-logo.png" alt="William Tell" className="curtain-logo" />
-                <motion.div
-                    className="curtain-dot"
-                    animate={{
-                        opacity: [0.4, 1, 0.4],
-                        scale: [0.9, 1.7, 0.9]
-                    }}
-                    transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
+
             </motion.div>
         </motion.div>
     );

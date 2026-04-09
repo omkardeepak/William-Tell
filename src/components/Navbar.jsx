@@ -125,44 +125,55 @@ export default function Navbar() {
                 {mobileMenuOpen && (
                     <motion.div
                         className="mobile-overlay"
-                        initial={{ opacity: 0, y: -12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        initial={{ clipPath: 'inset(0 0 100% 0)' }}
+                        animate={{ clipPath: 'inset(0 0 0% 0)' }}
+                        exit={{ clipPath: 'inset(0 0 100% 0)' }}
+                        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <button className="mobile-close" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
                             <X size={32} strokeWidth={1.5} />
                         </button>
 
-                        <div className="mobile-nav-links">
-                            <Link to="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-                            {navColumns.map((col) => (
-                                <div key={col.primary.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <motion.div
+                            className="mobile-nav-links"
+                            initial="hidden"
+                            animate="visible"
+                            variants={{ visible: { transition: { staggerChildren: 0.07, delayChildren: 0.2 } } }}
+                        >
+                            {[
+                                <Link key="home" to="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Home</Link>,
+                                ...navColumns.flatMap((col) => [
                                     <Link
+                                        key={col.primary.name}
                                         to={col.primary.path}
                                         className="mobile-nav-link"
-                                        onClick={(e) => {
-                                            setMobileMenuOpen(false);
-                                            handleAnchorLinkClick(e, col.primary.path);
-                                        }}
+                                        onClick={(e) => { setMobileMenuOpen(false); handleAnchorLinkClick(e, col.primary.path); }}
                                     >
                                         {col.primary.name}
-                                    </Link>
-                                    {col.secondary && (
+                                    </Link>,
+                                    col.secondary && (
                                         <Link
+                                            key={col.secondary.name}
                                             to={col.secondary.path}
                                             className="mobile-nav-sublink"
-                                            onClick={(e) => {
-                                                setMobileMenuOpen(false);
-                                                handleAnchorLinkClick(e, col.secondary.path);
-                                            }}
+                                            onClick={(e) => { setMobileMenuOpen(false); handleAnchorLinkClick(e, col.secondary.path); }}
                                         >
                                             {col.secondary.name}
                                         </Link>
-                                    )}
-                                </div>
+                                    ),
+                                ].filter(Boolean)),
+                            ].map((el, i) => (
+                                <motion.div
+                                    key={i}
+                                    variants={{
+                                        hidden: { opacity: 0, y: 18 },
+                                        visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+                                    }}
+                                >
+                                    {el}
+                                </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
 
                         <div className="mobile-footer">
                             <p>William Tell Productions © {new Date().getFullYear()}</p>
