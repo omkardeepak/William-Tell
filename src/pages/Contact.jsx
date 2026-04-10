@@ -13,7 +13,7 @@ export default function Contact() {
             <div className="mega-overlay-inner">
                 {/* Top Hero Section */}
                 <div className="mega-hero">
-                    <motion.h2 
+                    <motion.h2
                         className="mega-title"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -22,8 +22,8 @@ export default function Contact() {
                         Let's collaborate and<br />
                         build something iconic
                     </motion.h2>
-                    
-                    <motion.p 
+
+                    <motion.p
                         className="mega-subtitle-top"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -39,7 +39,7 @@ export default function Contact() {
                 </div>
 
                 {/* Bottom Multi-Column Footer Layout */}
-                <motion.div 
+                <motion.div
                     className="mega-footer-grid"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -51,7 +51,7 @@ export default function Contact() {
                             <em style={{ fontStyle: 'italic', fontFamily: '"Playfair Display", serif', fontWeight: 400, marginRight: '4px' }}>WILLIAMTELL</em> PRODUCTIONS
                         </h3>
                         <p className="mega-brand-desc">
-                            Williamtell Productions Pvt. Ltd. merges cinematic art with commercial results. 
+                            Williamtell Productions Pvt. Ltd. merges cinematic art with commercial results.
                             Impact is our standard. Every frame, every cut, every campaign — crafted to leave a mark.
                         </p>
                     </div>
@@ -62,38 +62,37 @@ export default function Contact() {
                             <h4>Contact</h4>
                             <span className="col-sub">Creative Director</span>
                             <a href="tel:+916238652343">+91 62386 52343</a>
-                            
+
                             <span className="col-sub" style={{ marginTop: '1.2rem' }}>Vipin Williamtells</span>
                             <a href="tel:+919562720106">+91 95627 20106</a>
                         </div>
 
                         <div className="mega-link-col">
-                            <h4>Categories</h4>
-                            <Link to="/works">Commercials</Link>
-                            <Link to="/works">Fashion Films</Link>
-                            <Link to="/works">Strategy</Link>
-                            <Link to="/works">Motion Art</Link>
+                            <h4>Enquiries</h4>
+                            <a href="mailto:?subject=Corporate%20Enquiry">Client Enquiries</a>
                         </div>
-
                         <div className="mega-link-col">
-                            <h4>Pages</h4>
-                            <Link to="/">Home</Link>
-                            <Link to="/works">Work</Link>
-                            <Link to="/about">About Us</Link>
-                            <Link to="/contact">Contact Us</Link>
-                        </div>
-
-                        <div className="mega-link-col">
-                            <h4>Socials / Link</h4>
+                            <h4>Socials</h4>
                             <a href="https://www.instagram.com/williamtellproductions?igsh=cjQxNnUyejF2aGs5" target="_blank" rel="noreferrer">Instagram</a>
                             <a href="https://www.youtube.com/@WilliamTellProductions" target="_blank" rel="noreferrer">YouTube</a>
                             <a href="https://www.linkedin.com/company/williamtell-productions/" target="_blank" rel="noreferrer">LinkedIn</a>
                         </div>
+                        <div className="mega-link-col">
+                            <h4>Location</h4>
+                            <p style={{ lineHeight: '1.6', marginBottom: '1.2rem', color: 'rgba(255, 255, 255, 0.6)' }}>
+                                No 42/2511 A, Door, Vennala Janatha Rd,<br />
+                                near Century Club Lane, PO,<br />
+                                Vennala, Kochi, Ernakulam,<br />
+                                Kerala 682028
+                            </p>
+                            <a href="https://www.google.com/maps/place/Nte+Media+LLP/@9.9988598,76.3146028,17z/data=!3m1!4b1!4m6!3m5!1s0x3b080db75280bb39:0x8064d5bc354b7aea!8m2!3d9.9988598!4d76.3146028!16s%2Fg%2F11w36v1363!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQwNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer" className="view-maps-btn">View in Maps <span>→</span></a>
+                        </div>
+
+
                     </div>
                 </motion.div>
 
-                <div className="mega-bottom-bar">
-                    <p>No 42/2511 A, Door, Vennala Janatha Rd, near Century Club Lane, PO, Vennala, Kochi, Ernakulam, Kerala 682028</p>
+                <div className="mega-bottom-bar" style={{ justifyContent: 'flex-end' }}>
                     <div className="mega-bottom-right">
                         <span>Privacy Policy</span>
                         <span>Terms and conditions</span>

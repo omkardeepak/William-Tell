@@ -165,11 +165,6 @@ const HeroFilmsSection = () => {
                         <span className="vg-stat-num">13</span>
                         <span className="vg-stat-label">Brand Stories</span>
                     </div>
-                    <div className="vg-stat-divider" />
-                    <div className="vg-stat">
-                        <span className="vg-stat-num">7+</span>
-                        <span className="vg-stat-label">Years Crafting</span>
-                    </div>
                 </div>
 
                 {/* CTA */}
@@ -189,9 +184,9 @@ const HeroFilmsSection = () => {
             {/* ── Scrolling ticker at very bottom ── */}
             <div className="vg-ticker-wrap">
                 <div className="vg-ticker">
-                    {[...ALL_FILMS, ...ALL_FILMS].map((f, i) => (
+                    {[...Array.from(new Set(ALL_FILMS.map(f => f.brand))), ...Array.from(new Set(ALL_FILMS.map(f => f.brand)))].map((brandName, i) => (
                         <span key={i} className="vg-ticker-item">
-                            {f.brand}
+                            {brandName}
                             <span className="vg-ticker-dot">◆</span>
                         </span>
                     ))}
