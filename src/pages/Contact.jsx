@@ -1,201 +1,105 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import CurtainIntro from '../components/CurtainIntro';
+import { Link } from 'react-router-dom';
 import './Contact.css';
 
-/* ── Shared easing ── */
-const EASE = [0.16, 1, 0.3, 1];
-
-/* ── Line-mask reveal: text slides up from below a hard clip edge ── */
-const LineReveal = ({ children, delay = 0, className = '' }) => (
-    <span style={{ display: 'block', overflow: 'hidden' }} className={className}>
-        <motion.span
-            style={{ display: 'block' }}
-            initial={{ y: '105%', rotate: 1.5 }}
-            animate={{ y: '0%', rotate: 0 }}
-            transition={{ duration: 1.0, delay, ease: EASE }}
-        >
-            {children}
-        </motion.span>
-    </span>
-);
-
-/* ── Staggered word reveal ── */
-const WordReveal = ({ text, delay = 0, className = '' }) => (
-    <motion.span
-        className={className}
-        initial="hidden"
-        animate="visible"
-        variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: delay } } }}
-    >
-        {text.split(' ').map((w, i) => (
-            <span key={i} style={{ display: 'inline-block', overflow: 'hidden', marginRight: '0.3em' }}>
-                <motion.span
-                    style={{ display: 'inline-block' }}
-                    variants={{
-                        hidden: { y: '100%', opacity: 0 },
-                        visible: { y: '0%', opacity: 1, transition: { duration: 0.65, ease: EASE } },
-                    }}
-                >
-                    {w}
-                </motion.span>
-            </span>
-        ))}
-    </motion.span>
-);
-
 export default function Contact() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        company: '',
-        budget: '',
-        message: ''
-    });
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Normally handle form submission here
-        alert("Message sent. We will get back to you shortly.");
-        setFormData({ name: '', email: '', company: '', budget: '', message: '' });
-    };
-
     return (
-        <div className="contact-page">
-            <CurtainIntro />
-            <div style={{ height: '120px' }} />
-            <div className="container">
+        <motion.div
+            className="contact-mega-page"
+            initial={{ y: '100vh' }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        >
+            <div className="mega-overlay-inner">
+                {/* Top Hero Section */}
+                <div className="mega-hero">
+                    <motion.h2 
+                        className="mega-title"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        Let's collaborate and<br />
+                        build something iconic
+                    </motion.h2>
+                    
+                    <motion.p 
+                        className="mega-subtitle-top"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.45, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        Partner with William Tell Productions for visionary brand storytelling,<br /> cinematic commercials, and motion art that shifts culture.
+                    </motion.p>
+                </div>
 
-                {/* ── Hero heading: line-mask ── */}
-                <section className="contact-hero section">
-                    <h1 className="title-massive" style={{ overflow: 'hidden' }}>
-                        <LineReveal delay={0.5}>LET'S</LineReveal>
-                        <LineReveal delay={0.65}>
-                            <em style={{ fontStyle: 'italic', fontFamily: '"Playfair Display", serif', fontWeight: 400 }}>COLLABORATE.</em>
-                        </LineReveal>
-                    </h1>
+                {/* Huge Decorative Background Text */}
+                <div className="mega-bg-text">
+                    WILLIAM TELL
+                </div>
 
-                    <p className="contact-subtitle" style={{ marginTop: '1.5rem' }}>
-                        <WordReveal text="Have a project in mind? Let's make it iconic." delay={0.9} />
-                    </p>
-                </section>
-
-                <section className="contact-content">
-                    <div className="contact-grid">
-
-                        {/* ── Info blocks: staggered entry ── */}
-                        <motion.div
-                            className="contact-info"
-                            initial="hidden"
-                            animate="visible"
-                            variants={{ visible: { transition: { staggerChildren: 0.14, delayChildren: 1.0 } } }}
-                        >
-                            {[
-                                { 
-                                    label: 'WILLIAMTELL PRODUCTIONS', 
-                                    details: [
-                                        { text: 'Creative Director', isSubtitle: true }, 
-                                        { text: '+91 62386 52343', href: 'tel:+916238652343' }
-                                    ] 
-                                },
-                                { 
-                                    label: 'VIPIN WILLIAMTELLS', 
-                                    details: [
-                                        { text: '+91 95627 20106', href: 'tel:+919562720106' }
-                                    ] 
-                                },
-                                { 
-                                    label: 'OFFICE', 
-                                    details: [
-                                        { text: 'No 42/2511 A, Door, Vennala Janatha Rd\nnear Century Club Lane, PO\nVennala, Kochi, Ernakulam\nKerala 682028', href: null }
-                                    ] 
-                                },
-                                { 
-                                    label: 'SOCIAL', 
-                                    details: [
-                                        { text: 'Instagram', href: 'https://www.instagram.com/williamtellproductions?igsh=cjQxNnUyejF2aGs5' },
-                                        { text: 'YouTube', href: 'https://www.youtube.com/@WilliamTellProductions' },
-                                        { text: 'LinkedIn', href: 'https://www.linkedin.com/company/williamtell-productions/' }
-                                    ]
-                                }
-                            ].map(({ label, details }) => (
-                                <motion.div
-                                    key={label}
-                                    className="info-block"
-                                    variants={{
-                                        hidden: { opacity: 0, y: 18 },
-                                        visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
-                                    }}
-                                >
-                                    <h3>{label}</h3>
-                                    {details.map((item, idx) => (
-                                        item.href ? (
-                                            <a key={idx} href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noreferrer" style={{ display: 'block', marginBottom: '0.4rem' }}>{item.text}</a>
-                                        ) : (
-                                            <p key={idx} style={{ whiteSpace: 'pre-line', marginBottom: '0.4rem', fontSize: item.isSubtitle ? '0.75rem' : 'inherit', textTransform: item.isSubtitle ? 'uppercase' : 'none', letterSpacing: item.isSubtitle ? '0.15em' : 'normal', color: item.isSubtitle ? 'rgba(255,255,255,0.4)' : 'inherit' }}>{item.text}</p>
-                                        )
-                                    ))}
-                                </motion.div>
-                            ))}
-                        </motion.div>
-
-                        {/* ── Form: cascading field reveal ── */}
-                        <motion.div
-                            className="contact-form-container"
-                            initial="hidden"
-                            animate="visible"
-                            variants={{ visible: { transition: { staggerChildren: 0.1, delayChildren: 1.05 } } }}
-                        >
-                            <form className="contact-form" onSubmit={handleSubmit}>
-                                {[
-                                    <div className="form-group" key="name">
-                                        <input type="text" name="name" placeholder="YOUR NAME *" required value={formData.name} onChange={handleChange} />
-                                    </div>,
-                                    <div className="form-row" key="email-co">
-                                        <div className="form-group half">
-                                            <input type="email" name="email" placeholder="EMAIL *" required value={formData.email} onChange={handleChange} />
-                                        </div>
-                                        <div className="form-group half">
-                                            <input type="text" name="company" placeholder="COMPANY" value={formData.company} onChange={handleChange} />
-                                        </div>
-                                    </div>,
-                                    <div className="form-group" key="budget">
-                                        <select name="budget" value={formData.budget} onChange={handleChange}>
-                                            <option value="" disabled>ESTIMATED BUDGET</option>
-                                            <option value="< 10k">Less than $10k</option>
-                                            <option value="10k-50k">$10k – $50k</option>
-                                            <option value="50k-100k">$50k – $100k</option>
-                                            <option value="> 100k">$100k+</option>
-                                        </select>
-                                    </div>,
-                                    <div className="form-group" key="msg">
-                                        <textarea name="message" placeholder="TELL US ABOUT YOUR PROJECT *" rows="4" required value={formData.message} onChange={handleChange} />
-                                    </div>,
-                                    <button type="submit" className="submit-btn btn-primary" key="btn">
-                                        <span className="btn-content">SUBMIT INQUIRY <ArrowRight size={18} /></span>
-                                    </button>,
-                                ].map((el, i) => (
-                                    <motion.div
-                                        key={i}
-                                        variants={{
-                                            hidden: { opacity: 0, y: 16 },
-                                            visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
-                                        }}
-                                    >
-                                        {el}
-                                    </motion.div>
-                                ))}
-                            </form>
-                        </motion.div>
-
+                {/* Bottom Multi-Column Footer Layout */}
+                <motion.div 
+                    className="mega-footer-grid"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6, duration: 1 }}
+                >
+                    {/* Brand Info Left Section */}
+                    <div className="mega-brand-col">
+                        <h3 className="mega-brand-name">
+                            <em style={{ fontStyle: 'italic', fontFamily: '"Playfair Display", serif', fontWeight: 400, marginRight: '4px' }}>WILLIAMTELL</em> PRODUCTIONS
+                        </h3>
+                        <p className="mega-brand-desc">
+                            Williamtell Productions Pvt. Ltd. merges cinematic art with commercial results. 
+                            Impact is our standard. Every frame, every cut, every campaign — crafted to leave a mark.
+                        </p>
                     </div>
-                </section>
+
+                    {/* 4 Column Links Right Section */}
+                    <div className="mega-links-container">
+                        <div className="mega-link-col">
+                            <h4>Contact</h4>
+                            <span className="col-sub">Creative Director</span>
+                            <a href="tel:+916238652343">+91 62386 52343</a>
+                            
+                            <span className="col-sub" style={{ marginTop: '1.2rem' }}>Vipin Williamtells</span>
+                            <a href="tel:+919562720106">+91 95627 20106</a>
+                        </div>
+
+                        <div className="mega-link-col">
+                            <h4>Categories</h4>
+                            <Link to="/works">Commercials</Link>
+                            <Link to="/works">Fashion Films</Link>
+                            <Link to="/works">Strategy</Link>
+                            <Link to="/works">Motion Art</Link>
+                        </div>
+
+                        <div className="mega-link-col">
+                            <h4>Pages</h4>
+                            <Link to="/">Home</Link>
+                            <Link to="/works">Work</Link>
+                            <Link to="/about">About Us</Link>
+                            <Link to="/contact">Contact Us</Link>
+                        </div>
+
+                        <div className="mega-link-col">
+                            <h4>Socials / Link</h4>
+                            <a href="https://www.instagram.com/williamtellproductions?igsh=cjQxNnUyejF2aGs5" target="_blank" rel="noreferrer">Instagram</a>
+                            <a href="https://www.youtube.com/@WilliamTellProductions" target="_blank" rel="noreferrer">YouTube</a>
+                            <a href="https://www.linkedin.com/company/williamtell-productions/" target="_blank" rel="noreferrer">LinkedIn</a>
+                        </div>
+                    </div>
+                </motion.div>
+
+                <div className="mega-bottom-bar">
+                    <p>No 42/2511 A, Door, Vennala Janatha Rd, near Century Club Lane, PO, Vennala, Kochi, Ernakulam, Kerala 682028</p>
+                    <div className="mega-bottom-right">
+                        <span>Privacy Policy</span>
+                        <span>Terms and conditions</span>
+                    </div>
+                </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

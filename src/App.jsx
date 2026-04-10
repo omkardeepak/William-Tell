@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Works from './pages/Works';
 import SmoothScroll from './components/SmoothScroll';
-import ContactOverlay from './components/ContactOverlay';
+import Contact from './pages/Contact';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -93,6 +93,12 @@ function GlobalCurtain() {
   return <CurtainIntro isReady={isReady} />;
 }
 
+function ConditionalFooter() {
+  const location = useLocation();
+  if (location.pathname === '/contact') return null;
+  return <Footer />;
+}
+
 function App() {
   return (
     <Router>
@@ -106,13 +112,13 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/works" element={<Works />} />
-              <Route path="/contact" element={<Home />} />
+              <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>
-          <Footer />
+          <ConditionalFooter />
         </div>
       </SmoothScroll>
-      <ContactOverlay />
+
     </Router>
   );
 }

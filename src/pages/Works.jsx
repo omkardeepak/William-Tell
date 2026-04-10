@@ -140,6 +140,7 @@ const videoGroups = [
 /* ─── Playable Video Card ────────────────────────── */
 function VideoCard({ video, className = '', isFeatured = false, index = 0, onPlay }) {
     const [playing, setPlaying] = useState(isFeatured);
+    const [iframeLoaded, setIframeLoaded] = useState(false);
 
     const handleClick = () => {
         if (onPlay) {
@@ -163,27 +164,43 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
             }}
         >
             <div className="work-card-media">
-                {playing ? (
-                    <>
-                        <iframe
-                            className="yt-iframe"
-                            src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=${isFeatured ? 1 : 0}&loop=${isFeatured ? 1 : 0}&playlist=${video.youtubeId}&rel=0&modestbranding=1&controls=${isFeatured ? 0 : 1}&showinfo=0`}
-                            allow="autoplay; encrypted-media"
-                            allowFullScreen={!isFeatured}
-                            frameBorder="0"
-                            title={video.title}
-                            style={isFeatured ? { pointerEvents: 'none' } : {}}
-                        />
-                        {isFeatured && <div style={{ position: 'absolute', inset: 0, zIndex: 10, background: 'transparent' }} />}
-                    </>
-                ) : (
-                    <>
-                        <img
-                            className="yt-thumb"
-                            src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
-                            alt={video.title}
-                            loading="lazy"
-                        />
+                {playing && (
+                    <iframe
+                        className="yt-iframe"
+                        src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=${isFeatured ? 1 : 0}&loop=${isFeatured ? 1 : 0}&playlist=${video.youtubeId}&rel=0&modestbranding=1&controls=${isFeatured ? 0 : 1}&showinfo=0&vq=hd1080`}
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen={!isFeatured}
+                        frameBorder="0"
+                        title={video.title}
+                        style={isFeatured ? { pointerEvents: 'none' } : {}}
+                        onLoad={() => setIframeLoaded(true)}
+                    />
+                )}
+                
+                {isFeatured && playing && <div style={{ position: 'absolute', inset: 0, zIndex: 10, background: 'transparent' }} />}
+
+                <div 
+                    className="yt-thumb-wrapper"
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        zIndex: 5,
+                        opacity: playing && iframeLoaded ? 0 : 1,
+                        pointerEvents: playing && iframeLoaded ? 'none' : 'auto',
+                        transition: 'opacity 0.8s ease-out',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: '#000'
+                    }}
+                >
+                    <img
+                        className="yt-thumb"
+                        src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
+                        alt={video.title}
+                        loading={isFeatured ? "eager" : "lazy"}
+                    />
+                    {!playing && (
                         <div className="yt-play-overlay">
                             <div className="yt-play-btn">
                                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -191,8 +208,8 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
                                 </svg>
                             </div>
                         </div>
-                    </>
-                )}
+                    )}
+                </div>
             </div>
             <div className="work-card-info">
                 <span className="work-card-title">{video.title}</span>

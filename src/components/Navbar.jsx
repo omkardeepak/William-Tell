@@ -55,11 +55,7 @@ export default function Navbar() {
     }, [mobileMenuOpen]);
 
     const handleAnchorLinkClick = (e, path) => {
-        if (path === '/contact') {
-            e.preventDefault();
-            window.dispatchEvent(new Event('toggleContact'));
-            return;
-        }
+
 
         if (path.includes('#stories-in-motion')) {
             // Re-dispatch event to ensure hero is expanded
@@ -112,9 +108,9 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    <a href="/contact" className="nav-contact desktop-only" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('toggleContact')); }}>
+                    <Link to="/contact" className="nav-contact desktop-only">
                         Contact Us <ArrowUpRight size={14} strokeWidth={1.5} />
-                    </a>
+                    </Link>
 
                     <button
                         className="mobile-toggle mobile-only"
