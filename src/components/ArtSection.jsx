@@ -391,7 +391,7 @@ const artSectionStyles = `
         font-size: clamp(1.6rem, 7vw, 2.4rem);
     }
     .carousel-container {
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 16 / 9;
     }
     .carousel-btn {
         width: 34px;
