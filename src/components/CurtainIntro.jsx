@@ -8,7 +8,7 @@ const CurtainIntro = ({ isReady = true }) => {
             aria-hidden="true"
             initial={{ opacity: 1 }}
             animate={{ opacity: isReady ? 0 : 1 }}
-            transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: isReady ? 1 : 0, ease: [0.76, 0, 0.24, 1] }}
             style={{
                 pointerEvents: isReady ? 'none' : 'auto',
                 backgroundColor: '#060606',

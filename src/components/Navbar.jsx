@@ -108,9 +108,6 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    <Link to="/contact" className="nav-contact desktop-only">
-                        Contact Us <ArrowUpRight size={14} strokeWidth={1.5} />
-                    </Link>
 
                     <button
                         className="mobile-toggle mobile-only"

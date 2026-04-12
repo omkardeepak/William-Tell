@@ -29,14 +29,14 @@ function ScrollToTop() {
         }
       };
 
-      // Special case: if targeting stories-in-motion on home page, 
-      // we might need to wait for the hero to expand.
-      if (pathname === '/' && targetId === 'stories-in-motion') {
-        const onHeroExpanded = () => {
-          doScroll();
-          window.removeEventListener('heroExpanded', onHeroExpanded);
-        };
-        window.addEventListener('heroExpanded', onHeroExpanded);
+        // Special case: if targeting stories-in-motion on home page, 
+        // we might need to wait for the hero to expand.
+        if (pathname === '/' && targetId === 'stories-in-motion') {
+          const onHeroExpanded = () => {
+            doScroll();
+            window.removeEventListener('heroExpanded', onHeroExpanded);
+          };
+          window.addEventListener('heroExpanded', onHeroExpanded);
 
         // Fallback: if already expanded or event never fires, try after a while
         const timer = setTimeout(doScroll, 800);
@@ -67,11 +67,15 @@ function ScrollToTop() {
 function GlobalCurtain() {
   const location = useLocation();
   const [isReady, setIsReady] = useState(false);
+  const [prevLocation, setPrevLocation] = useState(location.pathname);
+
+  // Derive state during render to avoid a 1-frame flash of the new page
+  if (location.pathname !== prevLocation) {
+    setIsReady(false);
+    setPrevLocation(location.pathname);
+  }
 
   useEffect(() => {
-    // Close the curtain when route changes
-    setIsReady(false);
-    
     // Fast-open the curtain after next page renders (1.2s minimum simulated loading)
     // For Home ('/'), wait up to 4s as a failsafe, but expect 'appReady' event
     const delay = location.pathname === '/' ? 4000 : 1200;
