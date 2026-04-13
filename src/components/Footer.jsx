@@ -56,7 +56,7 @@ export default function Footer() {
                             <p className="footer-text" style={{ margin: 0, fontWeight: 500 }}>Vipin Chandran</p>
                             <a href="tel:+919562720106" className="footer-link" style={{ marginTop: '0.2rem' }}>+91 95627 20106</a>
                         </div>
-                        
+
                         <div>
                             <p className="footer-text" style={{ margin: 0, fontWeight: 500 }}>Jain Mary John</p>
                             <a href="tel:+916238652343" className="footer-link" style={{ marginTop: '0.2rem' }}>+91 62386 52343</a>
@@ -66,7 +66,7 @@ export default function Footer() {
                     {/* ── Social column ── */}
                     <Col delay={0.1}>
                         <h4 className="footer-subtitle">Social</h4>
-                        <a href="https://www.instagram.com/williamtellproductions?igsh=cjQxNnUyejF2aGs5" target="_blank" rel="noopener noreferrer" className="footer-link">Instagram</a>
+                        <a href="https://www.instagram.com/williamtellproductions" target="_blank" rel="noopener noreferrer" className="footer-link">Instagram</a>
                         <a href="https://www.youtube.com/@WilliamTellProductions" target="_blank" rel="noopener noreferrer" className="footer-link">YouTube</a>
                         <a href="https://www.linkedin.com/company/williamtell-productions/" target="_blank" rel="noopener noreferrer" className="footer-link">LinkedIn</a>
                     </Col>

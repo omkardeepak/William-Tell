@@ -267,16 +267,6 @@ function GroupSection({ group, index }) {
                 <div className="works-rest-wrap">
                     <div className="works-rest-header">
                         <span className="works-rest-label">More from {group.group}</span>
-                        {rest.length > 3 && (
-                            <div className="works-row-arrows">
-                                <button className="works-arrow-btn" onClick={() => scroll('left')} aria-label="Scroll left">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
-                                </button>
-                                <button className="works-arrow-btn" onClick={() => scroll('right')} aria-label="Scroll right">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
-                                </button>
-                            </div>
-                        )}
                     </div>
                     <div className="works-rest-row" ref={rowRef}>
                         {rest.map((video, i) => (
@@ -416,19 +406,22 @@ export default function Works() {
     const location = useLocation();
     const [expandedSection, setExpandedSection] = useState(location.state?.expandSection || null);
     const containerRefs = useRef({});
-
-    const { scrollY } = useScroll();
+    const heroRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: heroRef,
+        offset: ["start top", "end top"]
+    });
     
     // Apply smooth spring physics to the scroll value
-    const smoothScrollY = useSpring(scrollY, {
+    const smoothScrollY = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,
         restDelta: 0.001
     });
 
     // Move FILM left outside screen, move STRATEGY right outside screen
-    const filmX = useTransform(smoothScrollY, [0, 500], [0, -800]);
-    const strategyX = useTransform(smoothScrollY, [0, 500], [0, 800]);
+    const filmX = useTransform(smoothScrollY, [0, 1], [0, -800]);
+    const strategyX = useTransform(smoothScrollY, [0, 1], [0, 800]);
 
     useEffect(() => {
         if (location.state?.expandSection) {
@@ -472,12 +465,12 @@ export default function Works() {
     };
 
     return (
-        <div className="works-page">
+        <div className="works-page" id="works">
             {/* Cinematic curtain intro */}
             <CurtainIntro />
 
             {/* ── HERO HEADING ─────────────────────── */}
-            <section className="works-hero">
+            <section ref={heroRef} className="works-hero">
                 <motion.div
                     className="works-hero-inner"
                     initial={{ opacity: 0 }}

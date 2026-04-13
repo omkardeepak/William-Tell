@@ -4,7 +4,7 @@
 
 .works-page {
     min-height: 100vh;
-    background: #060606;
+    background: #0a0a0a;
     color: rgba(255, 255, 255, 0.88);
     font-family: 'Outfit', sans-serif;
     overflow-x: hidden;
@@ -312,15 +312,9 @@
 }
 
 .works-rest-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 15px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE */
     padding-bottom: 1rem;
     /* space for hover scale */
     padding-top: 1rem;
@@ -331,8 +325,7 @@
 }
 
 .card-small {
-    flex-shrink: 0;
-    width: 280px;
+    width: 100%;
     border-radius: 6px;
     overflow: hidden;
     background: #111;

@@ -154,23 +154,10 @@ const HeroFilmsSection = () => {
                     <span className="vg-hl-row vg-hl-accent">FILMS</span>
                 </h1>
 
-                {/* Sub stats */}
-                <div className="vg-stats">
-                    <div className="vg-stat">
-                        <span className="vg-stat-num">{ALL_FILMS.length}+</span>
-                        <span className="vg-stat-label">Film Works</span>
-                    </div>
-                    <div className="vg-stat-divider" />
-                    <div className="vg-stat">
-                        <span className="vg-stat-num">13</span>
-                        <span className="vg-stat-label">Brand Stories</span>
-                    </div>
-                </div>
 
-                {/* CTA */}
                 <button
                     className="vg-cta"
-                    onClick={() => navigate('/works', { state: { expandSection: 'film' } })}
+                    onClick={() => navigate('/#works', { state: { expandSection: 'film' } })}
                 >
                     <span className="vg-cta-text">View All Films</span>
                     <span className="vg-cta-icon">
@@ -179,18 +166,6 @@ const HeroFilmsSection = () => {
                         </svg>
                     </span>
                 </button>
-            </div>
-
-            {/* ── Scrolling ticker at very bottom ── */}
-            <div className="vg-ticker-wrap">
-                <div className="vg-ticker">
-                    {[...Array.from(new Set(ALL_FILMS.map(f => f.brand))), ...Array.from(new Set(ALL_FILMS.map(f => f.brand)))].map((brandName, i) => (
-                        <span key={i} className="vg-ticker-item">
-                            {brandName}
-                            <span className="vg-ticker-dot">◆</span>
-                        </span>
-                    ))}
-                </div>
             </div>
         </section>
     );

@@ -12,12 +12,8 @@ export default function Navbar() {
     const location = useLocation();
 
     const isHome = location.pathname === '/';
-    const navColumns = isHome ? [
-        { primary: { name: 'Art', path: '/#archives' }, secondary: { name: 'Work', path: '/works' } },
-        { primary: { name: 'Strategy', path: '/about' }, secondary: { name: 'About', path: '/about' } },
-        { primary: { name: 'Film', path: "/#stories-in-motion" }, secondary: { name: 'Contact', path: '/contact' } },
-    ] : [
-        { primary: { name: 'Work', path: '/works' } },
+    const navColumns = [
+        { primary: { name: 'Work', path: '/#works' } },
         { primary: { name: 'About', path: '/about' } },
         { primary: { name: 'Contact', path: '/contact' } },
     ];

@@ -4,8 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import ScrollExpandMedia from '../components/blocks/scroll-expansion-hero';
 import { LinkPreview } from '../components/ui/link-preview';
 import { WordPullUp } from '../components/ui/word-pull-up';
-import FilmReelSection from '../components/FilmReelSection';
-import ArtSection from '../components/ArtSection';
+import Works from './Works';
 import HeroFilmsSection from '../components/HeroFilmsSection';
 import HeroSeam from '../components/HeroSeam';
 
@@ -85,11 +84,7 @@ const AboutSection = () => {
                             <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
                     </a>
-                    <div className="as-disciplines">
-                        {['Cinematography', 'Direction', 'Brand Film', 'Visual Strategy'].map((d, i) => (
-                            <span key={i} className="as-discipline">{d}</span>
-                        ))}
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -296,8 +291,7 @@ export const VideoExpansionTextBlend = () => {
                 scrollToExpand={currentMedia.scrollToExpand}
             >
                 <AboutSection />
-                <FilmReelSection />
-                <ArtSection />
+                <Works />
             </ScrollExpandMedia>
         </div>
     );
@@ -327,8 +321,7 @@ export const ImageExpansionTextBlend = () => {
                 textBlend
             >
                 <AboutSection />
-                <FilmReelSection />
-                <ArtSection />
+                <Works />
             </ScrollExpandMedia>
         </div>
     );
@@ -358,8 +351,7 @@ export const VideoExpansion = () => {
                 scrollToExpand={currentMedia.scrollToExpand}
             >
                 <AboutSection />
-                <FilmReelSection />
-                <ArtSection />
+                <Works />
             </ScrollExpandMedia>
         </div>
     );
@@ -388,8 +380,7 @@ export const ImageExpansion = () => {
                 scrollToExpand={currentMedia.scrollToExpand}
             >
                 <AboutSection />
-                <FilmReelSection />
-                <ArtSection />
+                <Works />
             </ScrollExpandMedia>
         </div>
     );
@@ -410,9 +401,8 @@ const Demo = () => {
             {/* ── Who We Are: word-reveal manifesto ── */}
             <AboutSection />
 
-            {/* ── Film reel + Art sections ── */}
-            <FilmReelSection />
-            <ArtSection />
+            {/* ── Works sections ── */}
+            <Works />
         </div>
     );
 };

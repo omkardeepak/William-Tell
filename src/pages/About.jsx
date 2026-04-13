@@ -57,18 +57,14 @@ const stats = [
         number: '50+',
         label: 'Brand Films',
         services: [
-            'Fazyo',
-            'Salve Maria',
-            "Therefore I'm",
-            'Kalyan Silks',
-            'Nila',
-            'Cadbury',
-            'YSR Congress',
-            'Maharani',
-            'Carla',
-            'LDF',
-            'Oxygen',
-            'myG',
+            'Fashion Film',
+            'Ad Film',
+            'Brand Film',
+            'Digital Film',
+            'Campaign',
+            'Political Ad',
+            'Commercial',
+            'Launch Film',
             'Showreel'
         ],
     },
@@ -100,7 +96,7 @@ const stats = [
     },
     {
         number: '9+',
-        label: 'Branding Design',
+        label: 'Brand Designing',
         services: [
             'Logo / Branding Identity Designing',
             'Package Designing',
@@ -376,9 +372,10 @@ function useMagneticScroll(sectionRefs, { threshold = 80, cooldown = 1000 } = {}
 export default function About() {
     const heroRef = useRef(null);
     const philosophyRef = useRef(null);
+    const noteRef = useRef(null);
     const statsRef = useRef(null);
     const missionRef = useRef(null);
-    const sectionRefs = [heroRef, philosophyRef, statsRef, missionRef];
+    const sectionRefs = [heroRef, philosophyRef, noteRef, statsRef, missionRef];
 
     useMagneticScroll(sectionRefs, { threshold: 80, cooldown: 1100 });
 
@@ -480,23 +477,51 @@ export default function About() {
                         <div className="philosophy-content-col">
                             <Reveal delay={0.1}>
                                 <p className="philosophy-body">
-                                    At William Tell Productions, we blur the line between
-                                    commercial advertising and cinematic art. We believe every
-                                    brand has a story that deserves to be told with magnitude
-                                    and visual excellence.
+                                    William Tell Creatives is a film production house, founded by a bunch of creative people who has seen and done it all in their respective corporate careers with media houses and large production houses.
+
+                                    We stand apart from the crowd of similar ones, in our commitment and understanding of the  brands and their respective journeys,  by complimenting the visual stories with market research and consumer behaviour insights.
+
+                                    And the best part for the last. We value every rupee earmarked for brand communication. And we promise, every time will be our first. A shot of arrow never to be missed!
+                                </p>
+                            </Reveal>
+                            <Reveal delay={0.2}>
+                            </Reveal>
+                            <Reveal delay={0.3}>
+                                <Link to="/#works" className="about-cta-link">
+                                    See Our Work <ArrowUpRight size={15} strokeWidth={1.5} />
+                                </Link>
+                            </Reveal>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── WILLIAM TELL NOTE ──────────────────────────────────── */}
+            <section ref={noteRef} className="about-philosophy">
+                <div className="about-container">
+                    <div className="philosophy-row">
+                        {/* Left label */}
+                        <Reveal delay={0} className="philosophy-label-col">
+                            <span className="section-label">William Tell Note</span>
+                        </Reveal>
+
+                        {/* Right content */}
+                        <div className="philosophy-content-col">
+                            <Reveal delay={0.1}>
+                                <p className="philosophy-body">
+                                    Year 1307. In the village of Altdorf, in modern Switzerland, a marksman with a crossbow set off a revolution against a tyrannical Austrian aristocracy by shooting off a stationary apple . Big deal, one would remark! Except that this apple was placed on his son's head, as a punishment for defiance. William Tell, the hero of the story is considered the father of the Swiss Confederacy.
                                 </p>
                             </Reveal>
                             <Reveal delay={0.2}>
                                 <p className="philosophy-body" style={{ marginTop: '1.5rem' }}>
-                                    Our team of visionary directors, meticulous strategists,
-                                    and innovative designers collaborate to create work that
-                                    doesn't just look good — it shifts culture and drives results.
+                                    We believe in the persuasive power of stories in tipping off revolutions - in the history where legends lived as well as in contemporary marketplace, where brands fight out for their legitimate position. In our brand narratives or our visually compelling cinematography, we are guided by precision, creative bravery and true accountability to client's campaign objectives.
                                 </p>
                             </Reveal>
                             <Reveal delay={0.3}>
-                                <Link to="/works" className="about-cta-link">
-                                    See Our Work <ArrowUpRight size={15} strokeWidth={1.5} />
-                                </Link>
+                                <p className="philosophy-body" style={{ marginTop: '1.5rem' }}>
+                                    As William Tell our hero, we commit to our acts fully convinced that our target, the apple, is precariously placed.<br/>
+                                    And that opportunities never present a second shot at the target!
+                                </p>
                             </Reveal>
                         </div>
                     </div>

@@ -48,7 +48,7 @@ export default function Contact() {
                     {/* Brand Info Left Section */}
                     <div className="mega-brand-col">
                         <h3 className="mega-brand-name">
-                            <em style={{ fontStyle: 'italic', fontFamily: '"Playfair Display", serif', fontWeight: 400, marginRight: '4px' }}>WILLIAMTELL</em> PRODUCTIONS
+                            <em style={{ fontStyle: 'italic', fontFamily: '"Playfair Display", serif', fontWeight: 400, marginRight: '4px' }}>WILLIAMTELL </em> PRODUCTIONS
                         </h3>
                         <p className="mega-brand-desc">
                             Williamtell Productions Pvt. Ltd. merges cinematic art with commercial results.
@@ -69,11 +69,13 @@ export default function Contact() {
 
                         <div className="mega-link-col">
                             <h4>Enquiries</h4>
-                            <a href="mailto:?subject=Corporate%20Enquiry">Client Enquiries</a>
+                            <a href="mailto:admin@williamtellads.com?cc=director@williamtellads.com&subject=Client%20Enquiry">Client Enquiry</a>
+
+                            <a href="mailto:media.williamtell@gmail.com?cc=director@williamtellads.com&subject=Careers">Careers</a>
                         </div>
                         <div className="mega-link-col">
                             <h4>Socials</h4>
-                            <a href="https://www.instagram.com/williamtellproductions?igsh=cjQxNnUyejF2aGs5" target="_blank" rel="noreferrer">Instagram</a>
+                            <a href="https://www.instagram.com/williamtellproductions" target="_blank" rel="noreferrer">Instagram</a>
                             <a href="https://www.youtube.com/@WilliamTellProductions" target="_blank" rel="noreferrer">YouTube</a>
                             <a href="https://www.linkedin.com/company/williamtell-productions/" target="_blank" rel="noreferrer">LinkedIn</a>
                         </div>

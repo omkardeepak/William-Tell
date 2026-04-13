@@ -12,14 +12,19 @@
 import { useEffect, useRef, useState } from 'react';
 
 const SERVICES = [
-    'Cinematography',
-    'Brand Films',
-    'Fashion Films',
-    'Ad Campaigns',
-    'Digital Reels',
-    'Visual Storytelling',
-    'Motion Direction',
-    'Creative Strategy',
+    'Fazyo',
+    'Salve Maria',
+    "Therefore I'm",
+    'Kalyan Silks',
+    'Nila',
+    'Cadbury',
+    'YSR Congress',
+    'Maharani',
+    'Carla',
+    'LDF',
+    'Oxygen',
+    'myG',
+    'Showreel'
 ];
 
 const HeroSeam = () => {
