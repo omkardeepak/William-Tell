@@ -69,9 +69,9 @@ export default function Contact() {
 
                         <div className="mega-link-col">
                             <h4>Enquiries</h4>
-                            <a href="mailto:admin@williamtellads.com?cc=director@williamtellads.com&subject=Client%20Enquiry">Client Enquiry</a>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=admin@williamtellads.com&cc=director@williamtellads.com&su=Client%20Enquiry" target="_blank" rel="noopener noreferrer">Client Enquiry</a>
 
-                            <a href="mailto:media.williamtell@gmail.com?cc=director@williamtellads.com&subject=Careers">Careers</a>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=media.williamtell@gmail.com&cc=director@williamtellads.com&su=Careers" target="_blank" rel="noopener noreferrer">Careers</a>
                         </div>
                         <div className="mega-link-col">
                             <h4>Socials</h4>
