@@ -300,11 +300,12 @@ const StatsCarousel = ({ stats }) => {
 };
 
 /* ─── Magnetic Scroll Hook ──────────────────────────────────────── */
-function useMagneticScroll(sectionRefs, { threshold = 80, cooldown = 1000 } = {}) {
+function useMagneticScroll(sectionRefs, { threshold = 60, cooldown = 1100 } = {}) {
     useEffect(() => {
         let accumulated = 0;
         let locked = false;
         let touchStartY = 0;
+        let isSnapping = false;
 
         const getCurrentIndex = () => {
             const mid = window.innerHeight / 2;
@@ -326,7 +327,9 @@ function useMagneticScroll(sectionRefs, { threshold = 80, cooldown = 1000 } = {}
             const clamped = Math.max(0, Math.min(idx, sectionRefs.length - 1));
             const target = sectionRefs[clamped]?.current;
             if (!target) return;
+            isSnapping = true;
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => { isSnapping = false; }, cooldown);
         };
 
         const trySnap = (delta) => {
@@ -348,22 +351,38 @@ function useMagneticScroll(sectionRefs, { threshold = 80, cooldown = 1000 } = {}
 
         const onTouchStart = (e) => {
             touchStartY = e.touches[0].clientY;
+            accumulated = 0;
         };
 
         const onTouchMove = (e) => {
+            // Prevent native scroll so our snap has full control
+            if (isSnapping) {
+                e.preventDefault();
+                return;
+            }
             const delta = touchStartY - e.touches[0].clientY;
             touchStartY = e.touches[0].clientY;
+
+            // Prevent the page from scrolling freely while we accumulate
+            e.preventDefault();
             trySnap(delta);
         };
 
+        const onTouchEnd = () => {
+            accumulated = 0;
+        };
+
         window.addEventListener('wheel', onWheel, { passive: true });
-        window.addEventListener('touchstart', onTouchStart, { passive: true });
-        window.addEventListener('touchmove', onTouchMove, { passive: true });
+        // Non-passive so we can call preventDefault() on mobile
+        window.addEventListener('touchstart', onTouchStart, { passive: false });
+        window.addEventListener('touchmove', onTouchMove, { passive: false });
+        window.addEventListener('touchend', onTouchEnd, { passive: true });
 
         return () => {
             window.removeEventListener('wheel', onWheel);
             window.removeEventListener('touchstart', onTouchStart);
             window.removeEventListener('touchmove', onTouchMove);
+            window.removeEventListener('touchend', onTouchEnd);
         };
     }, [sectionRefs, threshold, cooldown]);
 }
