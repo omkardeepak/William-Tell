@@ -299,104 +299,9 @@ const StatsCarousel = ({ stats }) => {
     );
 };
 
-/* ─── Magnetic Scroll Hook ──────────────────────────────────────── */
-function useMagneticScroll(sectionRefs, { threshold = 60, cooldown = 1100 } = {}) {
-    useEffect(() => {
-        let accumulated = 0;
-        let locked = false;
-        let touchStartY = 0;
-        let isSnapping = false;
-
-        const getCurrentIndex = () => {
-            const mid = window.innerHeight / 2;
-            let closest = 0;
-            let closestDist = Infinity;
-            sectionRefs.forEach((ref, i) => {
-                if (!ref.current) return;
-                const rect = ref.current.getBoundingClientRect();
-                const dist = Math.abs(rect.top + rect.height / 2 - mid);
-                if (dist < closestDist) {
-                    closestDist = dist;
-                    closest = i;
-                }
-            });
-            return closest;
-        };
-
-        const snapTo = (idx) => {
-            const clamped = Math.max(0, Math.min(idx, sectionRefs.length - 1));
-            const target = sectionRefs[clamped]?.current;
-            if (!target) return;
-            isSnapping = true;
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setTimeout(() => { isSnapping = false; }, cooldown);
-        };
-
-        const trySnap = (delta) => {
-            if (locked) return;
-            accumulated += delta;
-            if (Math.abs(accumulated) >= threshold) {
-                const dir = accumulated > 0 ? 1 : -1;
-                accumulated = 0;
-                locked = true;
-                const current = getCurrentIndex();
-                snapTo(current + dir);
-                setTimeout(() => { locked = false; }, cooldown);
-            }
-        };
-
-        const onWheel = (e) => {
-            trySnap(e.deltaY);
-        };
-
-        const onTouchStart = (e) => {
-            touchStartY = e.touches[0].clientY;
-            accumulated = 0;
-        };
-
-        const onTouchMove = (e) => {
-            // Prevent native scroll so our snap has full control
-            if (isSnapping) {
-                e.preventDefault();
-                return;
-            }
-            const delta = touchStartY - e.touches[0].clientY;
-            touchStartY = e.touches[0].clientY;
-
-            // Prevent the page from scrolling freely while we accumulate
-            e.preventDefault();
-            trySnap(delta);
-        };
-
-        const onTouchEnd = () => {
-            accumulated = 0;
-        };
-
-        window.addEventListener('wheel', onWheel, { passive: true });
-        // Non-passive so we can call preventDefault() on mobile
-        window.addEventListener('touchstart', onTouchStart, { passive: false });
-        window.addEventListener('touchmove', onTouchMove, { passive: false });
-        window.addEventListener('touchend', onTouchEnd, { passive: true });
-
-        return () => {
-            window.removeEventListener('wheel', onWheel);
-            window.removeEventListener('touchstart', onTouchStart);
-            window.removeEventListener('touchmove', onTouchMove);
-            window.removeEventListener('touchend', onTouchEnd);
-        };
-    }, [sectionRefs, threshold, cooldown]);
-}
 
 /* ─── Main Component ─────────────────────────────────────────────── */
 export default function About() {
-    const heroRef = useRef(null);
-    const philosophyRef = useRef(null);
-    const noteRef = useRef(null);
-    const statsRef = useRef(null);
-    const missionRef = useRef(null);
-    const sectionRefs = [heroRef, philosophyRef, noteRef, statsRef, missionRef];
-
-    useMagneticScroll(sectionRefs, { threshold: 80, cooldown: 1100 });
 
     return (
         <div className="about-page">
@@ -404,7 +309,7 @@ export default function About() {
             <CurtainIntro />
 
             {/* ── HERO ────────────────────────────────────────── */}
-            <section ref={heroRef} className="about-hero">
+            <section className="about-hero">
                 <div className="about-container">
                     <motion.div
                         initial={{ opacity: 0, y: 15 }}
@@ -484,7 +389,7 @@ export default function About() {
             </section>
 
             {/* ── PHILOSOPHY ──────────────────────────────────── */}
-            <section ref={philosophyRef} className="about-philosophy">
+            <section className="about-philosophy">
                 <div className="about-container">
                     <div className="philosophy-row">
                         {/* Left label */}
@@ -516,7 +421,7 @@ export default function About() {
             </section>
 
             {/* ── WILLIAM TELL NOTE ──────────────────────────────────── */}
-            <section ref={noteRef} className="about-philosophy">
+            <section className="about-philosophy">
                 <div className="about-container">
                     <div className="philosophy-row">
                         {/* Left label */}
@@ -548,7 +453,7 @@ export default function About() {
             </section>
 
             {/* ── STATS / SERVICES  ── Interactive Accordion ─── */}
-            <section ref={statsRef} className="about-stats">
+            <section className="about-stats">
                 <div className="about-container">
                     <Reveal delay={0}>
                         <div className="stats-header-row">
@@ -570,7 +475,7 @@ export default function About() {
             <ClientsSection />
 
             {/* ── MISSION STATEMENT ───────────────────────────── */}
-            <section ref={missionRef} className="about-mission">
+            <section className="about-mission">
                 <div className="about-container">
                     <Reveal>
                         <blockquote className="mission-quote">
