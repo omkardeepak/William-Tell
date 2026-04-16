@@ -6,21 +6,40 @@ import './Works.css';
 
 /* ─── Arts Data for Flipbook ────────────────────── */
 const artsData = [
-    { id: 1,  title: "Storytelling",    src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(1).png" },
-    { id: 2,  title: "Brand Identity",  src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(5).png" },
-    { id: 3,  title: "Campaign",        src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(3).png" },
-    { id: 4,  title: "Production",      src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(2).png" },
-    { id: 5,  title: "Visual Story",    src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(6).png" },
-    { id: 6,  title: "The Archive",     src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png" },
-    { id: 7,  title: "Cinematic Frame", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(7).png" },
-    { id: 8,  title: "Digital Story",   src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(8).png" },
-    { id: 9,  title: "Editorial",       src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(4).png" },
-    { id: 10, title: "Direction",       src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(10).png" },
-    { id: 11, title: "Motion Art",      src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(9).png" }
+    { id: 1, title: "Storytelling", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(1).png" },
+    { id: 2, title: "Brand Identity", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(5).png" },
+    { id: 3, title: "Campaign", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(3).png" },
+    { id: 4, title: "Production", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(2).png" },
+    { id: 5, title: "Visual Story", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(6).png" },
+    { id: 6, title: "The Archive", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png" },
+    { id: 7, title: "Cinematic Frame", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(7).png" },
+    { id: 8, title: "Digital Story", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(8).png" },
+    { id: 9, title: "Editorial", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(4).png" },
+    { id: 10, title: "Direction", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(10).png" },
+    { id: 11, title: "Motion Art", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(9).png" }
 ];
 
 /* ─── All videos grouped by brand / project ─────── */
 const videoGroups = [
+    {
+        group: 'Salve Maria',
+        category: 'Ad Film',
+        videos: [
+            { youtubeId: '3-1PyFj1h7Y', title: 'Kalidas Jayaram — Salve Maria' },
+            { youtubeId: 'Kkb-ogpelIo', title: 'Jayaram Kalidas — Salve Maria' },
+            { youtubeId: 'H9FNmeSnbQY', title: 'Jayaram Kalidas — Salve Maria' },
+            { youtubeId: 'NL9Wl0jAfM8', title: 'Salve Maria Ad' },
+            { youtubeId: 'fLrw2V4N_Vs', title: 'Salve Maria Ad Film' },
+        ],
+    },
+    {
+        group: 'Kalyan Silks',
+        category: 'Brand Film',
+        videos: [
+            { youtubeId: '7zEUImqBxLY', title: 'Kalyan Silks Onam Ad' },
+            { youtubeId: 'vdDbyddtEsE', title: 'Kalyan Adi Sale Ad' },
+        ],
+    },
     {
         group: 'Fazyo',
         category: 'Fashion Film',
@@ -40,17 +59,6 @@ const videoGroups = [
         ],
     },
     {
-        group: 'Salve Maria',
-        category: 'Ad Film',
-        videos: [
-            { youtubeId: '3-1PyFj1h7Y', title: 'Kalidas Jayaram — Salve Maria' },
-            { youtubeId: 'Kkb-ogpelIo', title: 'Jayaram Kalidas — Salve Maria' },
-            { youtubeId: 'H9FNmeSnbQY', title: 'Jayaram Kalidas — Salve Maria' },
-            { youtubeId: 'NL9Wl0jAfM8', title: 'Salve Maria Ad' },
-            { youtubeId: 'fLrw2V4N_Vs', title: 'Salve Maria Ad Film' },
-        ],
-    },
-    {
         group: "Therefore I'm",
         category: 'Ad Film',
         videos: [
@@ -58,23 +66,6 @@ const videoGroups = [
             { youtubeId: 'ubRXxLr08rY', title: "THEREFORE I'M Ad Film" },
             { youtubeId: 'oJrqi2bThJs', title: "THEREFORE I'M Ad Film" },
             { youtubeId: '86cB9Vm5QRQ', title: "Therefore I'm Ad Film" },
-        ],
-    },
-    {
-        group: 'Kalyan Silks',
-        category: 'Brand Film',
-        videos: [
-            { youtubeId: '7zEUImqBxLY', title: 'Kalyan Silks Onam Ad' },
-            { youtubeId: 'vdDbyddtEsE', title: 'Kalyan Adi Sale Ad' },
-        ],
-    },
-    {
-        group: 'Nila',
-        category: 'Digital Film',
-        videos: [
-            { youtubeId: 'GXlg5S4ASgs', title: 'Nila Soap Digital Ad' },
-            { youtubeId: 'Bba2IMvh3dc', title: 'Nila Ayurveda — Arabic' },
-            { youtubeId: 'OqWaih22a-c', title: 'Nila Cream Digital Film' },
         ],
     },
     {
@@ -86,11 +77,10 @@ const videoGroups = [
         ],
     },
     {
-        group: 'YSR Congress',
-        category: 'Political Ad',
+        group: 'myG',
+        category: 'Launch Film',
         videos: [
-            { youtubeId: 'qJ2JaafaTWE', title: 'YSR Congress Ad Film' },
-            { youtubeId: 'f051D_Hg-BM', title: 'YSR Congress Ad Film' },
+            { youtubeId: 'XNgy1CugdwI', title: 'myG Kannur Launch Film' },
         ],
     },
     {
@@ -108,13 +98,6 @@ const videoGroups = [
         ],
     },
     {
-        group: 'LDF',
-        category: 'Campaign Film',
-        videos: [
-            { youtubeId: 'X30KBVV9k4I', title: 'LDF Election Campaign Film' },
-        ],
-    },
-    {
         group: 'Oxygen',
         category: 'Digital Film',
         videos: [
@@ -122,10 +105,27 @@ const videoGroups = [
         ],
     },
     {
-        group: 'myG',
-        category: 'Launch Film',
+        group: 'LDF',
+        category: 'Campaign Film',
         videos: [
-            { youtubeId: 'XNgy1CugdwI', title: 'myG Kannur Launch Film' },
+            { youtubeId: 'X30KBVV9k4I', title: 'LDF Election Campaign Film' },
+        ],
+    },
+    {
+        group: 'Nila',
+        category: 'Digital Film',
+        videos: [
+            { youtubeId: 'GXlg5S4ASgs', title: 'Nila Soap Digital Ad' },
+            { youtubeId: 'Bba2IMvh3dc', title: 'Nila Ayurveda — Arabic' },
+            { youtubeId: 'OqWaih22a-c', title: 'Nila Cream Digital Film' },
+        ],
+    },
+    {
+        group: 'YSR Congress',
+        category: 'Political Ad',
+        videos: [
+            { youtubeId: 'qJ2JaafaTWE', title: 'YSR Congress Ad Film' },
+            { youtubeId: 'f051D_Hg-BM', title: 'YSR Congress Ad Film' },
         ],
     },
     {
@@ -176,10 +176,10 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
                         onLoad={() => setIframeLoaded(true)}
                     />
                 )}
-                
+
                 {isFeatured && playing && <div style={{ position: 'absolute', inset: 0, zIndex: 10, background: 'transparent' }} />}
 
-                <div 
+                <div
                     className="yt-thumb-wrapper"
                     style={{
                         position: 'absolute',
@@ -241,7 +241,6 @@ function GroupSection({ group, index }) {
         >
             {/* ── Group Label ──────────────────────── */}
             <div className="works-group-label">
-                <span className="works-group-number">{String(index + 1).padStart(2, '0')}</span>
                 <h2 className="works-group-name">{group.group}</h2>
             </div>
 
@@ -251,7 +250,6 @@ function GroupSection({ group, index }) {
 
                 {/* Info panel beside the featured video */}
                 <div className="works-featured-info">
-                    <span className="featured-tag">Featured</span>
                     <h3 className="featured-title">{featured.title}</h3>
                     <p className="featured-meta">
                         Director: M Vipin Chandran
@@ -289,8 +287,8 @@ function GroupSection({ group, index }) {
 
 /* ─── Art Gallery List (Folder Reveal) ─────────────────────── */
 function ArtGalleryList() {
-    const [phase, setPhase] = useState('closed'); 
-    
+    const [phase, setPhase] = useState('closed');
+
     useEffect(() => {
         const t1 = setTimeout(() => setPhase('popped'), 1000);
         const t2 = setTimeout(() => setPhase('list'), 3000);
@@ -303,16 +301,16 @@ function ArtGalleryList() {
         <div className="art-list-wrapper">
             <AnimatePresence>
                 {phase !== 'list' && (
-                    <motion.div 
+                    <motion.div
                         className="folder-scene"
                         exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)", transition: { duration: 1.5 } }}
                     >
                         <div className="folder-back-wrap">
                             <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 20C0 8.954 8.954 0 20 0H90L110 20H220C231.046 20 240 28.954 240 40V180H0V20Z" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.1)" strokeWidth="2"/>
+                                <path d="M0 20C0 8.954 8.954 0 20 0H90L110 20H220C231.046 20 240 28.954 240 40V180H0V20Z" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.1)" strokeWidth="2" />
                             </svg>
                         </div>
-                        
+
                         <div className="folder-images-container">
                             {previewArts.map((art, i) => {
                                 const isPopped = phase === 'popped';
@@ -323,14 +321,14 @@ function ArtGalleryList() {
                                     { x: 50, y: -120 }
                                 ];
                                 const pos = positions[i];
-                                
+
                                 return (
                                     <motion.div
                                         key={`folder-img-${art.id}`}
                                         layoutId={`art-img-${art.id}`}
                                         initial={{ y: 0, opacity: 0, scale: 0.4 }}
-                                        animate={{ 
-                                            y: isPopped ? pos.y : 0, 
+                                        animate={{
+                                            y: isPopped ? pos.y : 0,
                                             x: isPopped ? pos.x : 0,
                                             opacity: isPopped ? 1 : 0,
                                             scale: isPopped ? 1 : 0.4,
@@ -343,16 +341,16 @@ function ArtGalleryList() {
                                 );
                             })}
                         </div>
-                        
+
                         <div className="folder-front-wrap" style={{ backdropFilter: "blur(12px)" }}>
                             <svg width="260" height="140" viewBox="0 0 260 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 15C0 6.716 6.716 0 15 0H245C253.284 0 260 6.716 260 15V125C260 133.284 253.284 140 245 140H15C6.716 140 0 133.284 0 125V15Z" fill="rgba(255, 255, 255, 0.08)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="2"/>
-                                <line x1="40" y1="40" x2="220" y2="40" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="3" strokeLinecap="round"/>
-                                <line x1="40" y1="65" x2="220" y2="65" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="3" strokeLinecap="round"/>
-                                <line x1="40" y1="90" x2="160" y2="90" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="3" strokeLinecap="round"/>
+                                <path d="M0 15C0 6.716 6.716 0 15 0H245C253.284 0 260 6.716 260 15V125C260 133.284 253.284 140 245 140H15C6.716 140 0 133.284 0 125V15Z" fill="rgba(255, 255, 255, 0.08)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="2" />
+                                <line x1="40" y1="40" x2="220" y2="40" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="3" strokeLinecap="round" />
+                                <line x1="40" y1="65" x2="220" y2="65" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="3" strokeLinecap="round" />
+                                <line x1="40" y1="90" x2="160" y2="90" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="3" strokeLinecap="round" />
                             </svg>
                         </div>
-                        
+
                         <div className="folder-label">
                             William Tell Archives
                             <span>{artsData.length} Documents</span>
@@ -366,22 +364,22 @@ function ArtGalleryList() {
                     {artsData.map((art, idx) => {
                         const isPreview = idx < 4;
                         return (
-                            <motion.div 
-                                key={`list-item-${art.id}`} 
+                            <motion.div
+                                key={`list-item-${art.id}`}
                                 className="art-list-item"
                                 initial={!isPreview ? { opacity: 0, y: 50 } : false}
                                 whileInView={!isPreview ? { opacity: 1, y: 0 } : undefined}
                                 viewport={!isPreview ? { once: true, margin: "-100px" } : undefined}
                                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                <motion.div 
+                                <motion.div
                                     layoutId={`art-img-${art.id}`}
-                                    transition={{ duration: 2.2, ease: [0.25, 1, 0.5, 1] }} 
+                                    transition={{ duration: 2.2, ease: [0.25, 1, 0.5, 1] }}
                                     className="art-list-img-frame"
                                 >
                                     <img src={art.src} alt={art.title} className="art-list-img" loading="lazy" />
                                 </motion.div>
-                                <motion.div 
+                                <motion.div
                                     className="art-list-info"
                                     initial={{ opacity: 0 }}
                                     whileInView={{ opacity: 1 }}
@@ -411,7 +409,7 @@ export default function Works() {
         target: heroRef,
         offset: ["start top", "end top"]
     });
-    
+
     // Apply smooth spring physics to the scroll value
     const smoothScrollY = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -426,19 +424,41 @@ export default function Works() {
     useEffect(() => {
         if (location.state?.expandSection) {
             setExpandedSection(location.state.expandSection);
-            
-            // Scroll gracefully to the freshly opened section after a brief delay for it to render
+
+            // Wait for curtain intro (~1s) + accordion AnimatePresence expansion (~0.6s)
             setTimeout(() => {
-                if (containerRefs.current[location.state.expandSection]) {
-                    const elementPosition = containerRefs.current[location.state.expandSection].getBoundingClientRect().top + window.scrollY;
+                const el = containerRefs.current[location.state.expandSection];
+                if (el) {
+                    // Scroll so the accordion CONTENT (below the header) is at top of viewport
+                    const headerHeight = el.querySelector('.works-accordion-header')?.offsetHeight || 0;
+                    const elementPosition = el.getBoundingClientRect().top + window.scrollY + headerHeight;
                     window.scrollTo({
-                        top: elementPosition - 80,
+                        top: elementPosition,
                         behavior: 'smooth'
                     });
                 }
-            }, 300);
+            }, 1200);
         }
     }, [location.state]);
+
+    // Listen for hero "View All Films" button — expand + scroll without navigation
+    useEffect(() => {
+        const handler = (e) => {
+            const section = e.detail;
+            setExpandedSection(section);
+            // Wait for accordion AnimatePresence to finish expanding (0.6s transition)
+            setTimeout(() => {
+                const el = containerRefs.current[section];
+                if (el) {
+                    const headerHeight = el.querySelector('.works-accordion-header')?.offsetHeight || 0;
+                    const pos = el.getBoundingClientRect().top + window.scrollY + headerHeight;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+                }
+            }, 700);
+        };
+        window.addEventListener('wt:expandSection', handler);
+        return () => window.removeEventListener('wt:expandSection', handler);
+    }, []);
 
     const sections = [
         { id: 'film', title: 'FILM' },
@@ -448,19 +468,25 @@ export default function Works() {
 
     const handleSectionClick = (id) => {
         const isExpanding = expandedSection !== id;
+        // Track whether we're switching from one open section to another
+        const wasSwitching = expandedSection !== null && expandedSection !== id;
+
         setExpandedSection(isExpanding ? id : null);
 
         if (isExpanding) {
+            // If switching, wait for the previous section's collapse animation (0.6s)
+            // before measuring the new section's position — prevents overshoot to footer
+            const delay = wasSwitching ? 700 : 150;
             setTimeout(() => {
                 if (containerRefs.current[id]) {
-                    const navOffset = 80; // Buffer space
+                    const navOffset = 80;
                     const elementPosition = containerRefs.current[id].getBoundingClientRect().top + window.scrollY;
                     window.scrollTo({
                         top: elementPosition - navOffset,
                         behavior: 'smooth'
                     });
                 }
-            }, 150);
+            }, delay);
         }
     };
 
@@ -550,7 +576,7 @@ export default function Works() {
 
                     <div className="works-hero-sub">
                         <motion.p className="wh-sub-right" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 1.5 }}>
-                            CRAFTING STORIES THROUGH CINEMA
+                            CRAFTING STORIES THROUGH ART
                         </motion.p>
                     </div>
                 </motion.div>
@@ -589,7 +615,7 @@ export default function Works() {
                                             <>
                                                 <div className="works-section-label" style={{ borderBottom: 'none', paddingLeft: 0, paddingTop: 0 }}>
                                                     <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-                                                        — Cinematography &nbsp;&nbsp; Direction &nbsp;&nbsp; Visual Storytelling
+                                                        Elevating brands through cinematic storytelling.
                                                     </motion.span>
                                                 </div>
                                                 <div className="works-groups-container">

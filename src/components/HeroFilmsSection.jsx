@@ -3,6 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 /* ─── All films – every video from Works.jsx ─────────────────── */
 const ALL_FILMS = [
+    /* Salve Maria */
+    { id: '3-1PyFj1h7Y', brand: 'Salve Maria',  cat: 'Ad Film'        },
+    { id: 'Kkb-ogpelIo', brand: 'Salve Maria',  cat: 'Ad Film'        },
+    { id: 'H9FNmeSnbQY', brand: 'Salve Maria',  cat: 'Ad Film'        },
+    { id: 'NL9Wl0jAfM8', brand: 'Salve Maria',  cat: 'Ad Film'        },
+    { id: 'fLrw2V4N_Vs', brand: 'Salve Maria',  cat: 'Ad Film'        },
+    /* Kalyan Silks */
+    { id: '7zEUImqBxLY', brand: 'Kalyan Silks', cat: 'Brand Film'     },
+    { id: 'vdDbyddtEsE', brand: 'Kalyan Silks', cat: 'Brand Film'     },
     /* Fazyo */
     { id: 'ON3CbgeviSs', brand: 'Fazyo',        cat: 'Fashion Film'   },
     { id: 'aSxR-I_OG1A', brand: 'Fazyo',        cat: 'Fashion Film'   },
@@ -16,32 +25,32 @@ const ALL_FILMS = [
     { id: 'MUVOx9CezRo', brand: 'Fazyo',        cat: 'Fashion Film'   },
     { id: 'e3H9h1nmV0g', brand: 'Fazyo',        cat: 'Fashion Film'   },
     { id: 'kuZgNuNMAxE', brand: 'Fazyo',        cat: 'Teaser'         },
-    /* Salve Maria */
-    { id: '3-1PyFj1h7Y', brand: 'Salve Maria',  cat: 'Ad Film'        },
-    { id: 'Kkb-ogpelIo', brand: 'Salve Maria',  cat: 'Ad Film'        },
-    { id: 'H9FNmeSnbQY', brand: 'Salve Maria',  cat: 'Ad Film'        },
-    { id: 'NL9Wl0jAfM8', brand: 'Salve Maria',  cat: 'Ad Film'        },
-    { id: 'fLrw2V4N_Vs', brand: 'Salve Maria',  cat: 'Ad Film'        },
     /* Therefore I'm */
     { id: 'MWepSouX1Es', brand: "Therefore I'm", cat: 'Ad Film'       },
     { id: 'ubRXxLr08rY', brand: "Therefore I'm", cat: 'Ad Film'       },
     { id: 'oJrqi2bThJs', brand: "Therefore I'm", cat: 'Ad Film'       },
     { id: '86cB9Vm5QRQ', brand: "Therefore I'm", cat: 'Ad Film'       },
-    /* Various */
-    { id: '7zEUImqBxLY', brand: 'Kalyan Silks', cat: 'Brand Film'     },
-    { id: 'vdDbyddtEsE', brand: 'Kalyan Silks', cat: 'Brand Film'     },
+    /* Cadbury */
+    { id: '9iCMhKNMBbE', brand: 'Cadbury',      cat: 'Campaign'       },
+    { id: '5lVBuUxjNZA', brand: 'Cadbury',      cat: 'Campaign'       },
+    /* myG */
+    { id: 'XNgy1CugdwI', brand: 'myG',          cat: 'Launch Film'    },
+    /* Maharani */
+    { id: 'Kv-zKigB9kY', brand: 'Maharani',     cat: 'Onam Film'      },
+    /* Carla */
+    { id: '6TcIzK_E4lQ', brand: 'Carla',        cat: 'Commercial'     },
+    /* Oxygen */
+    { id: 'ri3ylqx8xYQ', brand: 'Oxygen',       cat: 'Digital Film'   },
+    /* LDF */
+    { id: 'X30KBVV9k4I', brand: 'LDF',          cat: 'Campaign'       },
+    /* Nila */
     { id: 'GXlg5S4ASgs', brand: 'Nila',         cat: 'Digital Film'   },
     { id: 'Bba2IMvh3dc', brand: 'Nila',         cat: 'Digital Film'   },
     { id: 'OqWaih22a-c', brand: 'Nila',         cat: 'Digital Film'   },
-    { id: '9iCMhKNMBbE', brand: 'Cadbury',      cat: 'Campaign'       },
-    { id: '5lVBuUxjNZA', brand: 'Cadbury',      cat: 'Campaign'       },
+    /* YSR Congress */
     { id: 'qJ2JaafaTWE', brand: 'YSR Congress', cat: 'Political Ad'   },
     { id: 'f051D_Hg-BM', brand: 'YSR Congress', cat: 'Political Ad'   },
-    { id: 'Kv-zKigB9kY', brand: 'Maharani',     cat: 'Onam Film'      },
-    { id: '6TcIzK_E4lQ', brand: 'Carla',        cat: 'Commercial'     },
-    { id: 'X30KBVV9k4I', brand: 'LDF',          cat: 'Campaign'       },
-    { id: 'ri3ylqx8xYQ', brand: 'Oxygen',       cat: 'Digital Film'   },
-    { id: 'XNgy1CugdwI', brand: 'myG',          cat: 'Launch Film'    },
+    /* Showreel */
     { id: '4svjw9bicV0', brand: 'Showreel',     cat: '2019'           },
 ];
 
@@ -157,7 +166,9 @@ const HeroFilmsSection = () => {
 
                 <button
                     className="vg-cta"
-                    onClick={() => navigate('/#works', { state: { expandSection: 'film' } })}
+                    onClick={() => {
+                        window.dispatchEvent(new CustomEvent('wt:expandSection', { detail: 'film' }));
+                    }}
                 >
                     <span className="vg-cta-text">View All Films</span>
                     <span className="vg-cta-icon">

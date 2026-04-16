@@ -53,7 +53,7 @@ export default function Footer() {
                     <Col delay={0}>
                         <h4 className="footer-subtitle">Contact</h4>
                         <div style={{ marginBottom: '1.5rem' }}>
-                            <p className="footer-text" style={{ margin: 0, fontWeight: 500 }}>Vipin Chandran</p>
+                            <p className="footer-text" style={{ margin: 0, fontWeight: 500 }}>William Tell Productions</p>
                             <a href="tel:+919562720106" className="footer-link" style={{ marginTop: '0.2rem' }}>+91 95627 20106</a>
                         </div>
 

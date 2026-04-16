@@ -55,7 +55,7 @@ const Counter = ({ targetString }) => {
 const stats = [
     {
         number: '50+',
-        label: 'Brand Films',
+        label: 'Commercial Films',
         services: [
             'Fashion Film',
             'Ad Film',
@@ -70,7 +70,7 @@ const stats = [
     },
     {
         number: '20+',
-        label: 'Brands',
+        label: 'Brand Partners',
         services: [
             'Oxygen',
             'Nolta',
@@ -96,7 +96,7 @@ const stats = [
     },
     {
         number: '9+',
-        label: 'Brand Designing',
+        label: 'Design Frameworks',
         services: [
             'Logo / Branding Identity Designing',
             'Package Designing',
@@ -106,10 +106,10 @@ const stats = [
     },
 ];
 
-/* ─── Accordion row component ───────────────────────────────────── */
-const AccordionRow = ({ stat, index }) => {
-    const [open, setOpen] = useState(false);
+/* ─── Accordion row component ─────────────────────────────────────── */
+const AccordionRow = ({ stat, index, isOpenMobile, onToggleMobile }) => {
     const [hovered, setHovered] = useState(false);
+    const [openDesktop, setOpenDesktop] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: '-20% 0px -20% 0px' });
@@ -121,12 +121,8 @@ const AccordionRow = ({ stat, index }) => {
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    // Auto-expand on mobile scroll
-    useEffect(() => {
-        if (isMobile && inView) {
-            setOpen(true);
-        }
-    }, [inView, isMobile]);
+    // On mobile use parent-controlled state; on desktop use local hover state
+    const open = isMobile ? isOpenMobile : openDesktop;
 
     const serviceVariants = {
         hidden: { opacity: 0, x: -14 },
@@ -146,11 +142,11 @@ const AccordionRow = ({ stat, index }) => {
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             onMouseEnter={() => {
                 setHovered(true);
-                if (!isMobile) setOpen(true);
+                if (!isMobile) setOpenDesktop(true);
             }}
             onMouseLeave={() => {
                 setHovered(false);
-                if (!isMobile) setOpen(false);
+                if (!isMobile) setOpenDesktop(false);
             }}
         >
             {/* Ambient ghost number — grows on hover/open */}
@@ -180,20 +176,14 @@ const AccordionRow = ({ stat, index }) => {
             {/* ── Header ── */}
             <div
                 className="accordion-header"
-                style={{ cursor: isMobile ? 'default' : 'pointer' }}
+                style={{ cursor: 'pointer' }}
+                onClick={() => { if (isMobile) onToggleMobile(); }}
             >
-                {/* Index number */}
-                <span className="accordion-index">
-                    {String(index + 1).padStart(2, '0')}
-                </span>
-
                 {/* Stat count */}
                 <span className="accordion-stat-num"><Counter targetString={stat.number} /></span>
 
                 {/* Label */}
                 <span className="accordion-label">{stat.label}</span>
-
-
 
                 {/* Toggle icon */}
                 <motion.span
@@ -302,6 +292,8 @@ const StatsCarousel = ({ stats }) => {
 
 /* ─── Main Component ─────────────────────────────────────────────── */
 export default function About() {
+    // Track which accordion row is open on mobile (one at a time)
+    const [openMobileIndex, setOpenMobileIndex] = useState(null);
 
     return (
         <div className="about-page">
@@ -452,6 +444,37 @@ export default function About() {
                 </div>
             </section>
 
+            {/* ── DIRECTOR'S NOTE ─────────────────────────────────── */}
+            <section className="about-philosophy">
+                <div className="about-container">
+                    <div className="philosophy-row">
+                        {/* Left label */}
+                        <Reveal delay={0} className="philosophy-label-col">
+                            <span className="section-label">Director's Note</span>
+                        </Reveal>
+
+                        {/* Right content */}
+                        <div className="philosophy-content-col">
+                            <Reveal delay={0.1}>
+                                <p className="philosophy-body">
+                                    Over the course of more than a decade, Vipin has directed popular films for regional and national satellite channels such as ZEE TV, Mazhavil Manorama and Sun TV network.
+                                </p>
+                            </Reveal>
+                            <Reveal delay={0.2}>
+                                <p className="philosophy-body" style={{ marginTop: '1.5rem' }}>
+                                    His most popular commercials include the ones that he directed for Cadbury, Skyline, Hero Maestro Scooter, FAZYO by Kalyan Silks, Kalyan Silks festive offer ads and CARLA Bathware, and many more.
+                                </p>
+                            </Reveal>
+                            <Reveal delay={0.3}>
+                                <p className="director-signature">
+                                    — M. Vipin Chandran, Director
+                                </p>
+                            </Reveal>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* ── STATS / SERVICES  ── Interactive Accordion ─── */}
             <section className="about-stats">
                 <div className="about-container">
@@ -463,11 +486,19 @@ export default function About() {
 
                     <div className="accordion-list">
                         {stats.map((stat, i) => (
-                            <AccordionRow key={stat.label} stat={stat} index={i} />
+                            <AccordionRow
+                                key={stat.label}
+                                stat={stat}
+                                index={i}
+                                isOpenMobile={openMobileIndex === i}
+                                onToggleMobile={() =>
+                                    setOpenMobileIndex(prev => prev === i ? null : i)
+                                }
+                            />
                         ))}
                     </div>
 
-                    <StatsCarousel stats={stats} />
+
                 </div>
             </section>
 

@@ -12,19 +12,19 @@
 import { useEffect, useRef, useState } from 'react';
 
 const SERVICES = [
-    'Fazyo',
     'Salve Maria',
-    "Therefore I'm",
     'Kalyan Silks',
-    'Nila',
+    'Fazyo',
+    "Therefore I'm",
     'Cadbury',
-    'YSR Congress',
+    'myG',
     'Maharani',
     'Carla',
-    'LDF',
     'Oxygen',
-    'myG',
-    'Showreel'
+    'LDF',
+    'Nila',
+    'YSR Congress',
+    'Brahmins'
 ];
 
 const HeroSeam = () => {

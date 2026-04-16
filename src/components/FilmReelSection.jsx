@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 
 /* ─── Reel video data from the channel ────────────────────────── */
 const reelVideos = [
-    { id: '7zEUImqBxLY', title: 'Kalyan Silks' },
     { id: '3-1PyFj1h7Y', title: 'Salve Maria' },
     { id: 'Kkb-ogpelIo', title: 'Salve Maria' },
-    { id: 'H9FNmeSnbQY', title: 'Salve Maria' },
+    { id: '7zEUImqBxLY', title: 'Kalyan Silks' },
     { id: 'vdDbyddtEsE', title: 'Kalyan Silks' },
-    { id: 'MWepSouX1Es', title: 'Therefore Im' },
+    { id: 'MWepSouX1Es', title: "Therefore I'm" },
+    { id: 'ON3CbgeviSs', title: 'Fazyo' },
 ];
 
 // Frame dimensions are computed dynamically based on container width (see frameDims state)
