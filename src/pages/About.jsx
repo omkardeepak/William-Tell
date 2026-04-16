@@ -435,39 +435,8 @@ export default function About() {
                             </Reveal>
                             <Reveal delay={0.3}>
                                 <p className="philosophy-body" style={{ marginTop: '1.5rem' }}>
-                                    As William Tell our hero, we commit to our acts fully convinced that our target, the apple, is precariously placed.<br/>
+                                    As William Tell our hero, we commit to our acts fully convinced that our target, the apple, is precariously placed.<br />
                                     And that opportunities never present a second shot at the target!
-                                </p>
-                            </Reveal>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ── DIRECTOR'S NOTE ─────────────────────────────────── */}
-            <section className="about-philosophy">
-                <div className="about-container">
-                    <div className="philosophy-row">
-                        {/* Left label */}
-                        <Reveal delay={0} className="philosophy-label-col">
-                            <span className="section-label">Director's Note</span>
-                        </Reveal>
-
-                        {/* Right content */}
-                        <div className="philosophy-content-col">
-                            <Reveal delay={0.1}>
-                                <p className="philosophy-body">
-                                    Over the course of more than a decade, Vipin has directed popular films for regional and national satellite channels such as ZEE TV, Mazhavil Manorama and Sun TV network.
-                                </p>
-                            </Reveal>
-                            <Reveal delay={0.2}>
-                                <p className="philosophy-body" style={{ marginTop: '1.5rem' }}>
-                                    His most popular commercials include the ones that he directed for Cadbury, Skyline, Hero Maestro Scooter, FAZYO by Kalyan Silks, Kalyan Silks festive offer ads and CARLA Bathware, and many more.
-                                </p>
-                            </Reveal>
-                            <Reveal delay={0.3}>
-                                <p className="director-signature">
-                                    — M. Vipin Chandran, Director
                                 </p>
                             </Reveal>
                         </div>
@@ -499,6 +468,37 @@ export default function About() {
                     </div>
 
 
+                </div>
+            </section>
+
+            {/* ── DIRECTOR'S NOTE ─────────────────────────────────── */}
+            <section className="about-philosophy">
+                <div className="about-container">
+                    <div className="philosophy-row">
+                        {/* Left label */}
+                        <Reveal delay={0} className="philosophy-label-col">
+                            <span className="section-label">Director's Note</span>
+                        </Reveal>
+
+                        {/* Right content */}
+                        <div className="philosophy-content-col">
+                            <Reveal delay={0.1}>
+                                <p className="philosophy-body">
+                                    Over the course of more than a decade, Vipin has directed popular films for regional and national satellite channels such as ZEE TV, Mazhavil Manorama and Sun TV network.
+                                </p>
+                            </Reveal>
+                            <Reveal delay={0.2}>
+                                <p className="philosophy-body" style={{ marginTop: '1.5rem' }}>
+                                    His most popular commercials include the ones that he directed for Cadbury, Skyline, Hero Maestro Scooter, FAZYO by Kalyan Silks, Kalyan Silks festive offer ads and CARLA Bathware, and many more.
+                                </p>
+                            </Reveal>
+                            <Reveal delay={0.3}>
+                                <p className="director-signature">
+                                    — M. Vipin Chandran, Director
+                                </p>
+                            </Reveal>
+                        </div>
+                    </div>
                 </div>
             </section>
 

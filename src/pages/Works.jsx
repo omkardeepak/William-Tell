@@ -139,8 +139,16 @@ const videoGroups = [
 
 /* ─── Playable Video Card ────────────────────────── */
 function VideoCard({ video, className = '', isFeatured = false, index = 0, onPlay }) {
-    const [playing, setPlaying] = useState(isFeatured);
+    const [playing, setPlaying] = useState(false);
     const [iframeLoaded, setIframeLoaded] = useState(false);
+
+    // Failsafe: drop the thumbnail cover after 1.2s even if YouTube's heavy onLoad hasn't fired yet
+    useEffect(() => {
+        if (playing) {
+            const timer = setTimeout(() => setIframeLoaded(true), 1200);
+            return () => clearTimeout(timer);
+        }
+    }, [playing]);
 
     const handleClick = () => {
         if (onPlay) {
@@ -159,15 +167,19 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
             viewport={{ once: true, margin: isFeatured ? '-60px' : '-20px' }}
             transition={{
                 duration: 0.6,
-                delay: isFeatured ? 0.3 : index * 0.08,
+                delay: isFeatured ? 0.2 : index * 0.08,
                 ease: [0.16, 1, 0.3, 1]
+            }}
+            onViewportEnter={() => {
+                if (isFeatured && !playing) setPlaying(true);
             }}
         >
             <div className="work-card-media">
                 {playing && (
                     <iframe
                         className="yt-iframe"
-                        src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=${isFeatured ? 1 : 0}&loop=${isFeatured ? 1 : 0}&playlist=${video.youtubeId}&rel=0&modestbranding=1&controls=${isFeatured ? 0 : 1}&showinfo=0&vq=hd1080`}
+                        src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=${isFeatured ? 1 : 0}&loop=${isFeatured ? 1 : 0}&playlist=${video.youtubeId}&rel=0&modestbranding=1&controls=${isFeatured ? 0 : 1}&showinfo=0`}
+                        loading="lazy"
                         allow="autoplay; encrypted-media"
                         allowFullScreen={!isFeatured}
                         frameBorder="0"
@@ -211,9 +223,7 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
                     )}
                 </div>
             </div>
-            <div className="work-card-info">
-                <span className="work-card-title">{video.title}</span>
-            </div>
+
         </motion.div>
     );
 }
@@ -247,17 +257,6 @@ function GroupSection({ group, index }) {
             {/* ── Featured / Hero Card ─────────────── */}
             <div className="works-featured">
                 <VideoCard key={`featured-${featured.youtubeId}`} video={featured} className="card-featured" isFeatured={true} />
-
-                {/* Info panel beside the featured video */}
-                <div className="works-featured-info">
-                    <h3 className="featured-title">{featured.title}</h3>
-                    <p className="featured-meta">
-                        Director: M Vipin Chandran
-                    </p>
-                    <p className="featured-count">
-                        {group.videos.length} {group.videos.length === 1 ? 'Film' : 'Films'} in this collection
-                    </p>
-                </div>
             </div>
 
             {/* ── Remaining videos row ─────────────── */}
@@ -400,7 +399,7 @@ function ArtGalleryList() {
 }
 
 /* ─── Main Works Page ────────────────────────────── */
-export default function Works() {
+export default function Works({ compact = false }) {
     const location = useLocation();
     const [expandedSection, setExpandedSection] = useState(location.state?.expandSection || null);
     const containerRefs = useRef({});
@@ -496,7 +495,7 @@ export default function Works() {
             <CurtainIntro />
 
             {/* ── HERO HEADING ─────────────────────── */}
-            <section ref={heroRef} className="works-hero">
+            <section ref={heroRef} className={`works-hero ${compact ? 'compact-hero' : ''}`}>
                 <motion.div
                     className="works-hero-inner"
                     initial={{ opacity: 0 }}

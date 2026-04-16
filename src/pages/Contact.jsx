@@ -60,10 +60,7 @@ export default function Contact() {
                     <div className="mega-links-container">
                         <div className="mega-link-col">
                             <h4>Contact</h4>
-                            <span className="col-sub">William Tell Productions</span>
-                            <a href="tel:+919562720106">+91 95627 20106</a>
-
-                            <span className="col-sub" style={{ marginTop: '1.2rem' }}>Jain Mary John</span>
+                            <span className="col-sub" style={{ marginTop: '1.2rem' }}>William Tell Productions</span>
                             <a href="tel:+916238652343">+91 62386 52343</a>
                         </div>
 

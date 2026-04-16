@@ -53,12 +53,10 @@ export default function Footer() {
                     <Col delay={0}>
                         <h4 className="footer-subtitle">Contact</h4>
                         <div style={{ marginBottom: '1.5rem' }}>
-                            <p className="footer-text" style={{ margin: 0, fontWeight: 500 }}>William Tell Productions</p>
-                            <a href="tel:+919562720106" className="footer-link" style={{ marginTop: '0.2rem' }}>+91 95627 20106</a>
                         </div>
 
                         <div>
-                            <p className="footer-text" style={{ margin: 0, fontWeight: 500 }}>Jain Mary John</p>
+                            <p className="footer-text" style={{ margin: 0, fontWeight: 500 }}>William Tell Productions</p>
                             <a href="tel:+916238652343" className="footer-link" style={{ marginTop: '0.2rem' }}>+91 62386 52343</a>
                         </div>
                     </Col>
@@ -86,7 +84,7 @@ export default function Footer() {
                 </div>
 
                 {/* Animated rule */}
-                <div
+                {/* <div
                     ref={ruleRef}
                     style={{
                         height: '1px',
@@ -103,7 +101,7 @@ export default function Footer() {
                         transform: ruleVis ? 'translateX(100%)' : 'translateX(-100%)',
                         transition: `transform 1.4s ${EASE} 0.3s`,
                     }} />
-                </div>
+                </div> */}
 
                 <div className="footer-bottom">
                     <p>© {new Date().getFullYear()} WILLIAMTELL PRODUCTIONS PVT. LTD.</p>

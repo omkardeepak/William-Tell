@@ -380,7 +380,7 @@ export const ImageExpansion = () => {
                 scrollToExpand={currentMedia.scrollToExpand}
             >
                 <AboutSection />
-                <Works />
+                <Works compact={true} />
             </ScrollExpandMedia>
         </div>
     );
@@ -402,7 +402,7 @@ const Demo = () => {
             <AboutSection />
 
             {/* ── Works sections ── */}
-            <Works />
+            <Works compact={true} />
         </div>
     );
 };

@@ -20,6 +20,11 @@
     justify-content: center;
 }
 
+.works-hero.compact-hero {
+    min-height: auto;
+    padding: 60px 0 3rem;
+}
+
 /* Ambient hero light */
 .works-hero::before {
     content: "";
@@ -223,22 +228,18 @@
    FEATURED HERO (Top of each group)
 ═══════════════════════════════════════════════════ */
 .works-featured {
-    display: flex;
-    gap: 3rem;
+    width: 100%;
     margin-bottom: 3rem;
-    align-items: center;
 }
 
 .card-featured {
-    flex: 1 1 65%;
-    /* Takes up 65% width */
+    width: 100%;
     position: relative;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
     background: #000;
-    /* Aspect ratio for the big player */
     aspect-ratio: 16 / 7;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.7);
     cursor: pointer;
 }
 
@@ -269,8 +270,19 @@
     letter-spacing: 0.1em;
     line-height: 1.1;
     color: #fff;
-    margin: 0 0 1rem;
+    margin: 0 0 0.6rem;
     text-transform: uppercase;
+}
+
+.featured-category {
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 1.2rem;
 }
 
 .featured-meta {
@@ -493,27 +505,19 @@
    RESPONSIVE
 ═══════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
-    .works-featured {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
     .card-featured {
-        width: 100%;
-        flex: none;
         aspect-ratio: 16 / 9;
-    }
-
-    .works-featured-info {
-        width: 100%;
-        flex: none;
-        padding-right: 0;
     }
 }
 
 @media (max-width: 768px) {
     .works-hero-nav {
         gap: 1.5rem;
+    }
+
+    .card-featured {
+        aspect-ratio: 4 / 3;
+        border-radius: 6px;
     }
 
     .works-hero-nav-item {
