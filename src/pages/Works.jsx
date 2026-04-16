@@ -139,7 +139,7 @@ const videoGroups = [
 
 /* ─── Playable Video Card ────────────────────────── */
 function VideoCard({ video, className = '', isFeatured = false, index = 0, onPlay }) {
-    const [playing, setPlaying] = useState(false);
+    const [playing, setPlaying] = useState(isFeatured);
     const [iframeLoaded, setIframeLoaded] = useState(false);
 
     // Failsafe: drop the thumbnail cover after 1.2s even if YouTube's heavy onLoad hasn't fired yet
@@ -170,26 +170,20 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
                 delay: isFeatured ? 0.2 : index * 0.08,
                 ease: [0.16, 1, 0.3, 1]
             }}
-            onViewportEnter={() => {
-                if (isFeatured && !playing) setPlaying(true);
-            }}
         >
             <div className="work-card-media">
                 {playing && (
                     <iframe
                         className="yt-iframe"
-                        src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=${isFeatured ? 1 : 0}&loop=${isFeatured ? 1 : 0}&playlist=${video.youtubeId}&rel=0&modestbranding=1&controls=${isFeatured ? 0 : 1}&showinfo=0`}
+                        src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=${isFeatured ? 1 : 0}&loop=${isFeatured ? 1 : 0}&playlist=${video.youtubeId}&rel=0&modestbranding=0&controls=1&showinfo=0`}
                         loading="lazy"
                         allow="autoplay; encrypted-media"
-                        allowFullScreen={!isFeatured}
+                        allowFullScreen={true}
                         frameBorder="0"
                         title={video.title}
-                        style={isFeatured ? { pointerEvents: 'none' } : {}}
                         onLoad={() => setIframeLoaded(true)}
                     />
                 )}
-
-                {isFeatured && playing && <div style={{ position: 'absolute', inset: 0, zIndex: 10, background: 'transparent' }} />}
 
                 <div
                     className="yt-thumb-wrapper"
@@ -234,6 +228,7 @@ function GroupSection({ group, index }) {
     const featured = group.videos[featuredIndex];
     const rest = group.videos.filter((_, i) => i !== featuredIndex);
     const rowRef = useRef(null);
+    const groupRef = useRef(null);
 
     const scroll = (dir) => {
         if (!rowRef.current) return;
@@ -243,6 +238,7 @@ function GroupSection({ group, index }) {
 
     return (
         <motion.section
+            ref={groupRef}
             className="works-group"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -274,6 +270,10 @@ function GroupSection({ group, index }) {
                                 index={i}
                                 onPlay={() => {
                                     setFeaturedIndex(group.videos.findIndex(v => v === video));
+                                    if (groupRef.current) {
+                                        const y = groupRef.current.getBoundingClientRect().top + window.scrollY;
+                                        window.scrollTo({ top: y, behavior: 'smooth' });
+                                    }
                                 }}
                             />
                         ))}
