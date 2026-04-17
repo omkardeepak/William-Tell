@@ -15,6 +15,7 @@ export default function Navbar() {
     const navColumns = [
         { primary: { name: 'Work', path: '/#works' } },
         { primary: { name: 'About', path: '/about' } },
+        { primary: { name: 'Team', path: '/team' } },
         { primary: { name: 'Contact', path: '/contact' } },
     ];
 

@@ -1,0 +1,101 @@
+/* ─────────────────────────────────────────────────────────────────
+   Team Page — William Tell Productions
+   Dark cinematic aesthetic (based on About.css)
+───────────────────────────────────────────────────────────────── */
+
+.team-page {
+    min-height: 100vh;
+    background: #060606;
+    color: rgba(255, 255, 255, 0.88);
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+}
+
+.team-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Hero
+───────────────────────────────────────────────────────────────── */
+.team-hero {
+    min-height: 100vh;
+    padding: 180px 0 5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.team-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0 0 1.8rem;
+}
+
+/* Ambient hero light */
+.team-hero::before {
+    content: "";
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(168, 237, 234, 0.05) 0%, transparent 70%);
+    filter: blur(100px);
+    z-index: 0;
+    pointer-events: none;
+    animation: floatingLight 20s ease-in-out infinite alternate;
+}
+
+@keyframes floatingLight {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(-5%, 10%) scale(1.1);
+    }
+}
+
+.team-hero-heading {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0 0 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-line-mask {
+    overflow: hidden;
+    display: block;
+    padding-bottom: 0.1em;
+}
+
+.hero-line {
+    display: block;
+    will-change: transform, opacity;
+}
+
+.hero-line-2 {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+
+.team-hero-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.1) 80%, transparent);
+    transform-origin: left;
+    margin-top: 2rem;
+}
