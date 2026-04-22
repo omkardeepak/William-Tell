@@ -138,8 +138,8 @@ const videoGroups = [
 ];
 
 /* ─── Playable Video Card ────────────────────────── */
-function VideoCard({ video, className = '', isFeatured = false, index = 0, onPlay }) {
-    const [playing, setPlaying] = useState(isFeatured);
+function VideoCard({ video, index = 0 }) {
+    const [playing, setPlaying] = useState(false);
     const [iframeLoaded, setIframeLoaded] = useState(false);
 
     // Failsafe: drop the thumbnail cover after 1.2s even if YouTube's heavy onLoad hasn't fired yet
@@ -150,24 +150,16 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
         }
     }, [playing]);
 
-    const handleClick = () => {
-        if (onPlay) {
-            onPlay();
-        } else if (!playing) {
-            setPlaying(true);
-        }
-    };
-
     return (
         <motion.div
-            className={`work-card ${className}`}
-            onClick={handleClick}
-            initial={{ opacity: 0, x: isFeatured ? 0 : 40, y: isFeatured ? 30 : 0 }}
-            whileInView={{ opacity: 1, x: 0, y: 0 }}
-            viewport={{ once: true, margin: isFeatured ? '-60px' : '-20px' }}
+            className="work-card"
+            onClick={() => !playing && setPlaying(true)}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-20px' }}
             transition={{
                 duration: 0.6,
-                delay: isFeatured ? 0.2 : index * 0.08,
+                delay: index * 0.06,
                 ease: [0.16, 1, 0.3, 1]
             }}
         >
@@ -175,7 +167,7 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
                 {playing && (
                     <iframe
                         className="yt-iframe"
-                        src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&mute=${isFeatured ? 1 : 0}&loop=${isFeatured ? 1 : 0}&playlist=${video.youtubeId}&rel=0&modestbranding=0&controls=1&showinfo=0`}
+                        src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=0&controls=1&showinfo=0`}
                         loading="lazy"
                         allow="autoplay; encrypted-media"
                         allowFullScreen={true}
@@ -204,7 +196,7 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
                         className="yt-thumb"
                         src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
                         alt={video.title}
-                        loading={isFeatured ? "eager" : "lazy"}
+                        loading="lazy"
                     />
                     {!playing && (
                         <div className="yt-play-overlay">
@@ -217,69 +209,30 @@ function VideoCard({ video, className = '', isFeatured = false, index = 0, onPla
                     )}
                 </div>
             </div>
-
         </motion.div>
     );
 }
 
-/* ─── Group Section: Featured hero + row below ───── */
-function GroupSection({ group, index }) {
-    const [featuredIndex, setFeaturedIndex] = useState(0);
-    const featured = group.videos[featuredIndex];
-    const rest = group.videos.filter((_, i) => i !== featuredIndex);
-    const rowRef = useRef(null);
-    const groupRef = useRef(null);
-
-    const scroll = (dir) => {
-        if (!rowRef.current) return;
-        const amt = rowRef.current.offsetWidth * 0.7;
-        rowRef.current.scrollBy({ left: dir === 'left' ? -amt : amt, behavior: 'smooth' });
-    };
-
+/* ─── Group Section: Uniform grid ───────────────── */
+function GroupSection({ group }) {
     return (
         <motion.section
-            ref={groupRef}
             className="works-group"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-            {/* ── Group Label ──────────────────────── */}
             <div className="works-group-label">
                 <h2 className="works-group-name">{group.group}</h2>
+                <span className="works-group-category">{group.category}</span>
             </div>
 
-            {/* ── Featured / Hero Card ─────────────── */}
-            <div className="works-featured">
-                <VideoCard key={`featured-${featured.youtubeId}`} video={featured} className="card-featured" isFeatured={true} />
+            <div className="works-group-grid">
+                {group.videos.map((video, i) => (
+                    <VideoCard key={video.youtubeId} video={video} index={i} />
+                ))}
             </div>
-
-            {/* ── Remaining videos row ─────────────── */}
-            {rest.length > 0 && (
-                <div className="works-rest-wrap">
-                    <div className="works-rest-header">
-                        <span className="works-rest-label">More from {group.group}</span>
-                    </div>
-                    <div className="works-rest-row" ref={rowRef}>
-                        {rest.map((video, i) => (
-                            <VideoCard
-                                key={video.youtubeId}
-                                video={video}
-                                className="card-small"
-                                index={i}
-                                onPlay={() => {
-                                    setFeaturedIndex(group.videos.findIndex(v => v === video));
-                                    if (groupRef.current) {
-                                        const y = groupRef.current.getBoundingClientRect().top + window.scrollY;
-                                        window.scrollTo({ top: y, behavior: 'smooth' });
-                                    }
-                                }}
-                            />
-                        ))}
-                    </div>
-                </div>
-            )}
         </motion.section>
     );
 }
@@ -416,9 +369,7 @@ export default function Works({ compact = false }) {
         restDelta: 0.001
     });
 
-    // Move FILM left outside screen, move STRATEGY right outside screen
     const filmX = useTransform(smoothScrollY, [0, 1], [0, -800]);
-    const strategyX = useTransform(smoothScrollY, [0, 1], [0, 800]);
 
     useEffect(() => {
         if (location.state?.expandSection) {
@@ -462,7 +413,6 @@ export default function Works({ compact = false }) {
     const sections = [
         { id: 'film', title: 'FILM' },
         { id: 'art', title: 'ART' },
-        { id: 'strategy', title: 'STRATEGY' },
     ];
 
     const handleSectionClick = (id) => {
@@ -555,22 +505,16 @@ export default function Works({ compact = false }) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 1.3 }}
                     >
-                        {sections.map((sec) => {
-                            let xTransform = undefined;
-                            if (sec.id === 'film') xTransform = filmX;
-                            if (sec.id === 'strategy') xTransform = strategyX;
-
-                            return (
-                                <motion.button
-                                    key={sec.id}
-                                    className={`works-hero-nav-item ${expandedSection === sec.id ? 'active' : ''}`}
-                                    onClick={() => handleSectionClick(sec.id)}
-                                    style={xTransform ? { x: xTransform } : {}}
-                                >
-                                    {sec.title}
-                                </motion.button>
-                            );
-                        })}
+                        {sections.map((sec) => (
+                            <motion.button
+                                key={sec.id}
+                                className={`works-hero-nav-item ${expandedSection === sec.id ? 'active' : ''}`}
+                                onClick={() => handleSectionClick(sec.id)}
+                                style={sec.id === 'film' ? { x: filmX } : {}}
+                            >
+                                {sec.title}
+                            </motion.button>
+                        ))}
                     </motion.div>
 
                     <div className="works-hero-sub">
@@ -634,16 +578,7 @@ export default function Works({ compact = false }) {
                                                 <ArtGalleryList />
                                             </div>
                                         )}
-                                        {sec.id === 'strategy' && (
-                                            <div className="works-placeholder">
-                                                <div className="works-section-label" style={{ borderBottom: 'none', paddingLeft: 0, paddingTop: 0, textAlign: 'left', marginBottom: '2rem' }}>
-                                                    <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-                                                        — Brand Strategy &nbsp;&nbsp; Identity &nbsp;&nbsp; Positioning
-                                                    </motion.span>
-                                                </div>
-                                                <p>Explore our Strategy work. Content coming soon...</p>
-                                            </div>
-                                        )}
+
                                     </div>
                                 </motion.div>
                             )}

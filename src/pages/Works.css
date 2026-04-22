@@ -225,43 +225,130 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   FEATURED HERO (Top of each group)
+   UNIFORM VIDEO GRID
 ═══════════════════════════════════════════════════ */
-.works-featured {
-    width: 100%;
-    margin-bottom: 3rem;
+.works-group-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
 }
 
-.card-featured {
-    width: 100%;
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #000;
-    aspect-ratio: 16 / 7;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.7);
-    cursor: pointer;
+@media (max-width: 640px) {
+    .works-group-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+    }
 }
 
-.works-featured-info {
-    flex: 1 1 35%;
-    /* Takes up 35% width */
-    padding-right: 2rem;
-}
-
-.featured-tag {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+.works-group-category {
+    font-family: 'Outfit', sans-serif;
     font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #fff;
-    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.38);
+    padding: 0.25rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    align-self: center;
 }
+
+/* ═══════════════════════════════════════════════════
+   VIDEO CARDS (Shared)
+═══════════════════════════════════════════════════ */
+.work-card {
+    border-radius: 6px;
+    overflow: hidden;
+    background: #111;
+    cursor: pointer;
+    outline: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        outline-color 0.3s ease;
+}
+
+.work-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    outline-color: rgba(255, 255, 255, 0.2);
+}
+
+.work-card-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.yt-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-card:hover .yt-thumb {
+    transform: scale(1.05);
+}
+
+.yt-play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.3) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.work-card:hover .yt-play-overlay {
+    opacity: 1;
+}
+
+.yt-play-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.yt-play-btn svg {
+    width: 22px;
+    height: 22px;
+    margin-left: 3px;
+}
+
+.work-card:hover .yt-play-btn {
+    transform: scale(1);
+}
+
+.yt-iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+
+
+
+
+
+
+
+
 
 .featured-title {
     font-family: 'Playfair Display', Georgia, serif;
@@ -504,20 +591,9 @@
 /* ═══════════════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════════════ */
-@media (max-width: 1024px) {
-    .card-featured {
-        aspect-ratio: 16 / 9;
-    }
-}
-
 @media (max-width: 768px) {
     .works-hero-nav {
         gap: 1.5rem;
-    }
-
-    .card-featured {
-        aspect-ratio: 4 / 3;
-        border-radius: 6px;
     }
 
     .works-hero-nav-item {
@@ -538,22 +614,6 @@
         flex-direction: column;
         gap: 0.2rem;
         align-items: flex-start;
-    }
-
-    .works-group-cat {
-        margin-left: 0;
-    }
-
-    .card-small {
-        width: 240px;
-    }
-
-    .featured-title {
-        font-size: clamp(1.6rem, 5vw, 2.2rem);
-    }
-
-    .works-row-arrows {
-        display: none;
     }
 }
 
@@ -577,10 +637,6 @@
         gap: 0.6rem;
         align-items: center;
         text-align: center;
-    }
-
-    .card-small {
-        width: 200px;
     }
 }
 
@@ -817,6 +873,26 @@
     text-transform: uppercase;
 }
 
+
+/* ── VIDEO CARDS (shared) ────────────────────── */
+.work-card {
+    border-radius: 6px;
+    overflow: hidden;
+    background: #111;
+    cursor: pointer;
+    outline: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        outline-color 0.3s ease;
+}
+
+.work-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    outline-color: rgba(255, 255, 255, 0.2);
+}
+
 @media (max-width: 768px) {
     .art-list-container {
         gap: 6rem;
@@ -826,22 +902,5 @@
     .art-list-info {
         gap: 1rem;
         padding: 0 0.5rem;
-    }
-
-    .works-rest-label {
-        font-size: 0.6rem;
-        letter-spacing: 0.05em;
-    }
-
-    .card-small {
-        width: 180px;
-    }
-
-    .card-small .work-card-info {
-        padding: 0.6rem;
-    }
-
-    .card-small .work-card-title {
-        font-size: 0.7rem;
     }
 }
