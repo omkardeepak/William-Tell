@@ -724,7 +724,176 @@
     text-align: center;
 }
 
-/* ─── Art Gallery Styles (Folder Reveal & Minimalist Stack) ──────────────── */
+/* ═══════════════════════════════════════════════════
+   ART SECTION — Per-Brand Folder Layout
+═══════════════════════════════════════════════════ */
+
+/* Outer wrapper for all brands */
+.art-brands-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    padding: 0 0 6rem;
+}
+
+/* Each brand section */
+.art-brand-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 4rem 5%;
+}
+
+.art-brand-section:last-child {
+    border-bottom: none;
+}
+
+/* Brand header (name + category) */
+.art-brand-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.art-brand-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    line-height: 1;
+}
+
+.art-brand-category {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    padding: 0.25rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    align-self: center;
+}
+
+/* Brand folder card outer wrapper */
+.brand-folder-card {
+    width: 100%;
+}
+
+/* ── Folder Scene (click to open) ── */
+.brand-folder-scene {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 auto 2rem;
+    cursor: pointer;
+}
+
+.brand-folder-scene:hover .folder-front-wrap svg path {
+    fill: rgba(255, 255, 255, 0.11);
+}
+
+/* "Open" hint pill */
+.folder-hint {
+    position: absolute;
+    bottom: -42px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.brand-folder-scene:hover .folder-hint {
+    color: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ── Expanded Photo Column (one below other) ── */
+.brand-photo-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;            /* center the column */
+    padding: 0.5rem 0 2rem;
+}
+
+.brand-photo-tile {
+    position: relative;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #0d0d0d;
+    outline: 1px solid rgba(255, 255, 255, 0.06);
+    transition: outline-color 0.3s ease,
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-photo-tile:hover {
+    outline-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+    transform: translateY(-3px);
+}
+
+.brand-photo-tile img {
+    width: 100%;
+    height: auto;              /* natural height — no crop */
+    object-fit: contain;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-photo-tile:hover img {
+    transform: scale(1.03);
+}
+
+/* Index badge */
+.brand-photo-index {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.55);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    padding: 0.15rem 0.45rem;
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .art-brand-section {
+        padding: 3rem 5%;
+    }
+
+    .art-brand-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* ── Legacy folder shared styles (reused by brand folder) ── */
 .art-list-wrapper {
     display: flex;
     flex-direction: column;

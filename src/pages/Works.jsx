@@ -4,19 +4,35 @@ import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'fra
 import CurtainIntro from '../components/CurtainIntro';
 import './Works.css';
 
-/* ─── Arts Data for Flipbook ────────────────────── */
-const artsData = [
-    { id: 1, title: "Storytelling", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(1).png" },
-    { id: 2, title: "Brand Identity", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(5).png" },
-    { id: 3, title: "Campaign", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(3).png" },
-    { id: 4, title: "Production", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(2).png" },
-    { id: 5, title: "Visual Story", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(6).png" },
-    { id: 6, title: "The Archive", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png" },
-    { id: 7, title: "Cinematic Frame", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(7).png" },
-    { id: 8, title: "Digital Story", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(8).png" },
-    { id: 9, title: "Editorial", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(4).png" },
-    { id: 10, title: "Direction", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(10).png" },
-    { id: 11, title: "Motion Art", src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(9).png" }
+/* ─── Arts Data — per-brand ─────────────────────── */
+const artBrands = [
+    {
+        id: 'fazyo',
+        brand: 'Fazyo',
+        photos: [
+            { id: 1, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/fazyo1.jpeg?updatedAt=1776871723302" },
+            { id: 2, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/fazyo2.jpeg?updatedAt=1776871767341" },
+            { id: 3, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/fazyo3.jpeg?updatedAt=1776871787705" },
+            { id: 4, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/fazyo4.png?updatedAt=1776871823745" },
+        ],
+    },
+    {
+        id: 'glow-young',
+        brand: 'Glow Young',
+        photos: [
+            { id: 5, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/glowyoung1.jpeg?updatedAt=1776871645959" },
+            { id: 6, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/glowyoung2.jpeg?updatedAt=1776871679527" },
+
+        ],
+    },
+    {
+        id: 'maharani',
+        brand: 'Maharani',
+        photos: [
+            { id: 9, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(3).png?updatedAt=1773335721606" },
+
+        ],
+    },
 ];
 
 /* ─── All videos grouped by brand / project ─────── */
@@ -237,116 +253,173 @@ function GroupSection({ group }) {
     );
 }
 
-/* ─── Art Gallery List (Folder Reveal) ─────────────────────── */
-function ArtGalleryList() {
-    const [phase, setPhase] = useState('closed');
+/* ─── Per-Brand Folder Card ─────────────────────── */
+function BrandFolderCard({ brandData, globalIndex }) {
+    const [phase, setPhase] = useState('closed'); // closed | popped | list
+    const [hasOpened, setHasOpened] = useState(false);
 
-    useEffect(() => {
-        const t1 = setTimeout(() => setPhase('popped'), 1000);
-        const t2 = setTimeout(() => setPhase('list'), 3000);
-        return () => { clearTimeout(t1); clearTimeout(t2); };
-    }, []);
+    const previewPhotos = brandData.photos.slice(0, 4);
+    const popPositions = [
+        { x: -80, y: -190 },
+        { x: 80, y: -220 },
+        { x: -30, y: -100 },
+        { x: 55, y: -140 },
+    ];
 
-    const previewArts = artsData.slice(0, 4);
+    const openFolder = () => {
+        if (hasOpened) return;
+        setHasOpened(true);
+        setPhase('popped');
+        setTimeout(() => setPhase('list'), 2400);
+    };
 
     return (
-        <div className="art-list-wrapper">
-            <AnimatePresence>
-                {phase !== 'list' && (
+        <motion.div
+            className="brand-folder-card"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.7, delay: globalIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
+        >
+            {/* ── Folder animation scene ── */}
+            <AnimatePresence mode="wait">
+                {phase !== 'list' ? (
                     <motion.div
-                        className="folder-scene"
-                        exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)", transition: { duration: 1.5 } }}
+                        key="folder-scene"
+                        className="brand-folder-scene"
+                        onClick={openFolder}
+                        exit={{ opacity: 0, scale: 0.85, filter: 'blur(12px)', transition: { duration: 1.2 } }}
                     >
+                        {/* Back panel */}
                         <div className="folder-back-wrap">
-                            <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 20C0 8.954 8.954 0 20 0H90L110 20H220C231.046 20 240 28.954 240 40V180H0V20Z" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.1)" strokeWidth="2" />
+                            <svg width="240" height="180" viewBox="0 0 240 180" fill="none">
+                                <path
+                                    d="M0 20C0 8.954 8.954 0 20 0H90L110 20H220C231.046 20 240 28.954 240 40V180H0V20Z"
+                                    fill="rgba(255,255,255,0.03)"
+                                    stroke="rgba(255,255,255,0.12)"
+                                    strokeWidth="1.5"
+                                />
                             </svg>
                         </div>
 
+                        {/* Flying photos */}
                         <div className="folder-images-container">
-                            {previewArts.map((art, i) => {
+                            {previewPhotos.map((photo, i) => {
                                 const isPopped = phase === 'popped';
-                                const positions = [
-                                    { x: -70, y: -180 },
-                                    { x: 70, y: -210 },
-                                    { x: -30, y: -90 },
-                                    { x: 50, y: -120 }
-                                ];
-                                const pos = positions[i];
-
+                                const pos = popPositions[i] || popPositions[0];
                                 return (
                                     <motion.div
-                                        key={`folder-img-${art.id}`}
-                                        layoutId={`art-img-${art.id}`}
-                                        initial={{ y: 0, opacity: 0, scale: 0.4 }}
+                                        key={`pop-${photo.id}`}
+                                        layoutId={`art-brand-${brandData.id}-img-${photo.id}`}
+                                        initial={{ y: 0, x: 0, opacity: 0, scale: 0.4 }}
                                         animate={{
                                             y: isPopped ? pos.y : 0,
                                             x: isPopped ? pos.x : 0,
                                             opacity: isPopped ? 1 : 0,
                                             scale: isPopped ? 1 : 0.4,
                                         }}
-                                        transition={{ type: 'spring', bounce: 0.4, duration: 1, delay: isPopped ? i * 0.15 : 0 }}
+                                        transition={{
+                                            type: 'spring',
+                                            bounce: 0.35,
+                                            duration: 1,
+                                            delay: isPopped ? i * 0.14 : 0,
+                                        }}
                                         className="folder-img-wrap"
                                     >
-                                        <img src={art.src} alt={art.title} />
+                                        <img src={photo.src} alt={brandData.brand} />
                                     </motion.div>
                                 );
                             })}
                         </div>
 
-                        <div className="folder-front-wrap" style={{ backdropFilter: "blur(12px)" }}>
-                            <svg width="260" height="140" viewBox="0 0 260 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 15C0 6.716 6.716 0 15 0H245C253.284 0 260 6.716 260 15V125C260 133.284 253.284 140 245 140H15C6.716 140 0 133.284 0 125V15Z" fill="rgba(255, 255, 255, 0.08)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="2" />
-                                <line x1="40" y1="40" x2="220" y2="40" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="3" strokeLinecap="round" />
-                                <line x1="40" y1="65" x2="220" y2="65" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="3" strokeLinecap="round" />
-                                <line x1="40" y1="90" x2="160" y2="90" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="3" strokeLinecap="round" />
+                        {/* Front cover */}
+                        <div className="folder-front-wrap">
+                            <svg width="260" height="140" viewBox="0 0 260 140" fill="none">
+                                <path
+                                    d="M0 15C0 6.716 6.716 0 15 0H245C253.284 0 260 6.716 260 15V125C260 133.284 253.284 140 245 140H15C6.716 140 0 133.284 0 125V15Z"
+                                    fill="rgba(255,255,255,0.07)"
+                                    stroke="rgba(255,255,255,0.18)"
+                                    strokeWidth="1.5"
+                                />
+                                <line x1="40" y1="42" x2="220" y2="42" stroke="rgba(255,255,255,0.14)" strokeWidth="2.5" strokeLinecap="round" />
+                                <line x1="40" y1="66" x2="220" y2="66" stroke="rgba(255,255,255,0.14)" strokeWidth="2.5" strokeLinecap="round" />
+                                <line x1="40" y1="90" x2="160" y2="90" stroke="rgba(255,255,255,0.14)" strokeWidth="2.5" strokeLinecap="round" />
                             </svg>
                         </div>
 
+                        {/* Label */}
                         <div className="folder-label">
-                            William Tell Archives
-                            <span>{artsData.length} Documents</span>
+                            {brandData.brand}
+                            <span>{brandData.photos.length} Photos</span>
                         </div>
+
+                        {/* Click hint */}
+                        {phase === 'closed' && (
+                            <motion.div
+                                className="folder-hint"
+                                initial={{ opacity: 0, y: 6 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4, duration: 0.6 }}
+                            >
+                                Open
+                            </motion.div>
+                        )}
+                    </motion.div>
+                ) : (
+                    /* ── Expanded photo grid (small landscape) ── */
+                    <motion.div
+                        key="photo-list"
+                        className="brand-photo-grid"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        {brandData.photos.map((photo, idx) => (
+                            <motion.div
+                                key={`list-${photo.id}`}
+                                className="brand-photo-tile"
+                                layoutId={`art-brand-${brandData.id}-img-${photo.id}`}
+                                initial={{ opacity: 0, scale: 0.92 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{
+                                    duration: 0.7,
+                                    delay: idx * 0.08,
+                                    ease: [0.16, 1, 0.3, 1],
+                                }}
+                            >
+                                <img src={photo.src} alt={brandData.brand} loading="lazy" />
+                                <span className="brand-photo-index">{String(idx + 1).padStart(2, '0')}</span>
+                            </motion.div>
+                        ))}
                     </motion.div>
                 )}
             </AnimatePresence>
+        </motion.div>
+    );
+}
 
-            {phase === 'list' && (
-                <div className="art-list-container">
-                    {artsData.map((art, idx) => {
-                        const isPreview = idx < 4;
-                        return (
-                            <motion.div
-                                key={`list-item-${art.id}`}
-                                className="art-list-item"
-                                initial={!isPreview ? { opacity: 0, y: 50 } : false}
-                                whileInView={!isPreview ? { opacity: 1, y: 0 } : undefined}
-                                viewport={!isPreview ? { once: true, margin: "-100px" } : undefined}
-                                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                                <motion.div
-                                    layoutId={`art-img-${art.id}`}
-                                    transition={{ duration: 2.2, ease: [0.25, 1, 0.5, 1] }}
-                                    className="art-list-img-frame"
-                                >
-                                    <img src={art.src} alt={art.title} className="art-list-img" loading="lazy" />
-                                </motion.div>
-                                <motion.div
-                                    className="art-list-info"
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 1, delay: isPreview ? 2.0 : 0.4 }}
-                                >
-                                    <span className="art-list-num">{String(idx + 1).padStart(2, '0')}</span>
-                                    <h3 className="art-list-title">{art.title}</h3>
-                                </motion.div>
+/* ─── Art Gallery — all brands ──────────────────── */
+function ArtGalleryBrands() {
+    return (
+        <div className="art-brands-wrapper">
+            {artBrands.map((brandData, i) => (
+                <div key={brandData.id} className="art-brand-section">
+                    {/* Brand header */}
+                    <motion.div
+                        className="art-brand-header"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: '-40px' }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <h3 className="art-brand-name">{brandData.brand}</h3>
+                        <span className="art-brand-category">{brandData.category}</span>
+                    </motion.div>
 
-                            </motion.div>
-                        )
-                    })}
+                    {/* Folder + photos */}
+                    <BrandFolderCard brandData={brandData} globalIndex={i} />
                 </div>
-            )}
+            ))}
         </div>
     );
 }
@@ -575,7 +648,7 @@ export default function Works({ compact = false }) {
                                                         — Creative Direction &nbsp;&nbsp; Curation &nbsp;&nbsp; Visual Arts
                                                     </motion.span>
                                                 </div>
-                                                <ArtGalleryList />
+                                                <ArtGalleryBrands />
                                             </div>
                                         )}
 
