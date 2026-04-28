@@ -154,9 +154,31 @@ const videoGroups = [
 ];
 
 /* ─── Playable Video Card ────────────────────────── */
+// YouTube returns a 120×90 grey stub (HTTP 200) when maxresdefault is unavailable,
+// so onError never fires. We detect it by checking naturalWidth after load instead.
+const YT_THUMB_QUALITIES = ['maxresdefault', 'hqdefault', 'mqdefault'];
+const YT_STUB_WIDTH = 120; // YouTube grey placeholder is always 120px wide
+
 function VideoCard({ video, index = 0 }) {
     const [playing, setPlaying] = useState(false);
     const [iframeLoaded, setIframeLoaded] = useState(false);
+    const [thumbQualityIdx, setThumbQualityIdx] = useState(0);
+
+    const thumbSrc = `https://img.youtube.com/vi/${video.youtubeId}/${YT_THUMB_QUALITIES[thumbQualityIdx]}.jpg`;
+
+    const handleThumbLoad = (e) => {
+        // If the loaded image is the grey stub (120px wide), fall back to next quality
+        if (e.target.naturalWidth <= YT_STUB_WIDTH && thumbQualityIdx < YT_THUMB_QUALITIES.length - 1) {
+            setThumbQualityIdx(prev => prev + 1);
+        }
+    };
+
+    const handleThumbError = () => {
+        // Network error fallback (genuine 404)
+        if (thumbQualityIdx < YT_THUMB_QUALITIES.length - 1) {
+            setThumbQualityIdx(prev => prev + 1);
+        }
+    };
 
     // Failsafe: drop the thumbnail cover after 1.2s even if YouTube's heavy onLoad hasn't fired yet
     useEffect(() => {
@@ -205,14 +227,16 @@ function VideoCard({ video, index = 0 }) {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        background: '#000'
+                        background: '#111'
                     }}
                 >
                     <img
                         className="yt-thumb"
-                        src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
+                        src={thumbSrc}
                         alt={video.title}
                         loading="lazy"
+                        onLoad={handleThumbLoad}
+                        onError={handleThumbError}
                     />
                     {!playing && (
                         <div className="yt-play-overlay">
@@ -241,7 +265,6 @@ function GroupSection({ group }) {
         >
             <div className="works-group-label">
                 <h2 className="works-group-name">{group.group}</h2>
-                <span className="works-group-category">{group.category}</span>
             </div>
 
             <div className="works-group-grid">
