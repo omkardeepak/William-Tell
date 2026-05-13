@@ -725,321 +725,232 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   ART SECTION — Per-Brand Folder Layout
+   ART SECTION — Split-Layout Subsections
 ═══════════════════════════════════════════════════ */
 
-/* Outer wrapper for all brands */
-.art-brands-wrapper {
+.art-subsections-wrapper {
     display: flex;
     flex-direction: column;
     gap: 0;
     width: 100%;
-    padding: 0 0 6rem;
+    padding: 0 0 4rem;
 }
 
-/* Each brand section */
-.art-brand-section {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+/* ── Group label divider (Design / Campaigns & Case Studies) ── */
+.art-group-label {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 3.5rem 5% 1.2rem;
+}
+
+.art-group-label::before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.art-group-label-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-indent: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    white-space: nowrap;
+}
+
+.art-group-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Eyebrow brand name shown above card title */
+.art-card-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.38) !important;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+/* Each subsection row */
+.art-subsection {
+    display: grid;
+    grid-template-columns: 1.2fr 5fr;
+    gap: 4rem;
+    align-items: start;
     padding: 4rem 5%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.art-brand-section:last-child {
+.art-subsection:last-child {
     border-bottom: none;
 }
 
-/* Brand header (name + category) */
-.art-brand-header {
-    display: flex;
-    align-items: baseline;
-    gap: 1.2rem;
-    margin-bottom: 3rem;
+/* Alternate: image on right, text on left */
+.art-subsection--reversed {
+    direction: rtl;
 }
 
-.art-brand-name {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.6rem, 3vw, 2.6rem);
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.88);
-    margin: 0;
-    line-height: 1;
+.art-subsection--reversed>* {
+    direction: ltr;
 }
 
-.art-brand-category {
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.63rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
-    padding: 0.25rem 0.7rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    align-self: center;
-}
-
-/* Brand folder card outer wrapper */
-.brand-folder-card {
+/* ── Image side ── */
+.art-subsection-image {
     width: 100%;
-}
-
-/* ── Folder Scene (click to open) ── */
-.brand-folder-scene {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    margin: 0 auto 2rem;
-    cursor: pointer;
-}
-
-.brand-folder-scene:hover .folder-front-wrap svg path {
-    fill: rgba(255, 255, 255, 0.11);
-}
-
-/* "Open" hint pill */
-.folder-hint {
-    position: absolute;
-    bottom: -42px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 0.3rem 0.9rem;
-    border-radius: 20px;
-    transition: color 0.3s, border-color 0.3s;
-}
-
-.brand-folder-scene:hover .folder-hint {
-    color: rgba(255, 255, 255, 0.75);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* ── Expanded Photo Column (one below other) ── */
-.brand-photo-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-    max-width: 480px;
-    margin: 0 auto;            /* center the column */
-    padding: 0.5rem 0 2rem;
-}
-
-.brand-photo-tile {
-    position: relative;
-    width: 100%;
-    border-radius: 5px;
+    aspect-ratio: auto;
+    border-radius: 8px;
     overflow: hidden;
-    background: #0d0d0d;
-    outline: 1px solid rgba(255, 255, 255, 0.06);
-    transition: outline-color 0.3s ease,
-                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.brand-photo-tile:hover {
-    outline-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
-    transform: translateY(-3px);
-}
-
-.brand-photo-tile img {
+/* 2×2 photo grid for multi-image sections */
+.art-image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px;
     width: 100%;
-    height: auto;              /* natural height — no crop */
-    object-fit: contain;
+    height: 100%;
+}
+
+.art-image-grid-cell {
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.art-image-grid-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.brand-photo-tile:hover img {
-    transform: scale(1.03);
+.art-subsection:hover .art-image-grid-cell img {
+    transform: scale(1.05);
 }
 
-/* Index badge */
-.brand-photo-index {
-    position: absolute;
-    bottom: 8px;
-    left: 10px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.55);
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(6px);
-    padding: 0.15rem 0.45rem;
-    border-radius: 20px;
-    pointer-events: none;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .art-brand-section {
-        padding: 3rem 5%;
-    }
-
-    .art-brand-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-}
-
-/* ── Legacy folder shared styles (reused by brand folder) ── */
-.art-list-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.folder-scene {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    margin: 4rem auto;
-}
-
-.folder-back-wrap {
-    position: absolute;
-    bottom: 40px;
-    z-index: 1;
-}
-
-.folder-images-container {
-    position: absolute;
-    bottom: 60px;
-    z-index: 4;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.folder-img-wrap {
-    position: absolute;
-    width: 130px;
-    height: 90px;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    background: #111;
-    border: 3px solid #fff;
-    transform-origin: center bottom;
-}
-
-.folder-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.folder-front-wrap {
-    position: absolute;
-    bottom: 30px;
-    z-index: 3;
-    transform: perspective(600px) rotateX(10deg);
-    transform-origin: bottom center;
-}
-
-.folder-label {
-    position: absolute;
-    bottom: -15px;
-    z-index: 4;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 0.6rem 1.2rem;
-    border-radius: 20px;
-    font-family: 'Outfit', sans-serif;
-    color: #fff;
-    font-size: 0.85rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-    white-space: nowrap;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.folder-label span {
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.art-list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10rem;
-    padding: 4rem 5% 8rem;
-    align-items: center;
-    width: 100%;
-}
-
-.art-list-item {
-    width: 100%;
-    max-width: 1100px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.art-list-img-frame {
-    width: 100%;
-    position: relative;
-    border-radius: 4px;
-    overflow: hidden;
-    background: #080808;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-}
-
-.art-list-img {
+.art-subsection-image img {
     width: 100%;
     height: auto;
     object-fit: cover;
     display: block;
-    transition: transform 0.8s ease;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.art-list-item:hover .art-list-img {
-    transform: scale(1.02);
+.art-subsection:hover .art-subsection-image img {
+    transform: scale(1.03);
 }
 
-.art-list-info {
+/* Placeholder when no image is set */
+.art-image-placeholder {
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    padding: 0 1rem;
+    justify-content: center;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.15);
 }
 
-.art-list-num {
+.art-image-placeholder svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.4;
+}
+
+.art-image-placeholder span {
     font-family: 'Outfit', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.7rem;
+    font-weight: 600;
     letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.2);
 }
 
-.art-list-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
+/* ── Text side ── */
+.art-subsection-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.art-subsection-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: 400;
     color: #fff;
     margin: 0;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+/* ── Rich body — sub-items with headings ── */
+.art-subsection-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.art-body-item {
+    padding: 0;
+    border: none;
+}
+
+.art-body-heading {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.4rem;
+}
+
+.art-body-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    margin: 0;
+    width: 100%;
+}
+
+/* ── Responsive: stack on mobile ── */
+@media (max-width: 768px) {
+    .art-subsection {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 3rem 5%;
+    }
+
+    /* Undo direction reversal on mobile (always image on top) */
+    .art-subsection--reversed {
+        direction: ltr;
+    }
+
+    .art-subsection-image {
+        aspect-ratio: auto;
+        width: 65%;
+        margin: 0 auto;
+    }
+
+    .art-subsection-text {
+        padding: 0;
+    }
 }
 
 
@@ -1071,5 +982,136 @@
     .art-list-info {
         gap: 1rem;
         padding: 0 0.5rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   FLAT FILM GRID  —  Row-wise layout (4 per row)
+═══════════════════════════════════════════════════ */
+.films-flat-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 0 6rem;
+}
+
+.films-flat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.films-flat-row:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 1024px) {
+    .films-flat-row {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+}
+
+@media (max-width: 680px) {
+    .films-flat-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+}
+
+@media (max-width: 400px) {
+    .films-flat-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+        padding: 6px 0;
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   FULLSCREEN VIDEO MODAL
+═══════════════════════════════════════════════════ */
+.film-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: modalFadeIn 0.25s ease forwards;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.film-modal-frame {
+    position: relative;
+    width: min(82vw, 900px);
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.85);
+}
+
+.film-modal-close {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    z-index: 10000;
+}
+
+.film-modal-close:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.film-modal-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+@media (max-width: 768px) {
+    .film-modal-frame {
+        width: 96vw;
+        border-radius: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .film-modal-frame {
+        width: 100vw;
+        border-radius: 0;
+    }
+
+    .film-modal-close {
+        top: 0.6rem;
+        right: 0.6rem;
+        width: 36px;
+        height: 36px;
     }
 }

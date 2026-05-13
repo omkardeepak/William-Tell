@@ -1,447 +1,281 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import CurtainIntro from '../components/CurtainIntro';
 import './Works.css';
 
-/* ─── Arts Data — per-brand ─────────────────────── */
-const artBrands = [
+/* ─── Art subsections ─────────────────────────────── */
+// Flat array of image-card rows. Main titles only appear on the first
+// card of each section. Subheadings are de-prioritised inside the body.
+const artSubsections = [
     {
-        id: 'fazyo',
-        brand: 'Fazyo',
-        photos: [
-            { id: 1, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/fazyo1.jpeg?updatedAt=1776871723302" },
-            { id: 2, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/fazyo2.jpeg?updatedAt=1776871767341" },
-            { id: 3, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/fazyo3.jpeg?updatedAt=1776871787705" },
-            { id: 4, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/fazyo4.png?updatedAt=1776871823745" },
-        ],
+        id: 'photography',
+        title: 'Photography', // Main title
+        heading: null,
+        text: 'We stage and execute brand photoshoots at a standard that holds its own alongside category leaders. Working across lifestyle, product, and portrait formats, each shoot is built around a creative brief that ensures the imagery is purposeful, consistent, and ready to perform across every channel.',
+        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png',
+        images: null,
     },
     {
-        id: 'glow-young',
-        brand: 'Glow Young',
-        photos: [
-            { id: 5, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/glowyoung1.jpeg?updatedAt=1776871645959" },
-            { id: 6, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/glowyoung2.jpeg?updatedAt=1776871679527" },
-
-        ],
+        id: 'design-print',
+        title: 'Design', // Main title
+        heading: 'Print & Out-of-Home',
+        text: 'From full-scale hoardings to metro pillar installations and magazine placements, we produce OOH work built for impact at every size.',
+        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/2.jpg',
+        images: null,
     },
     {
-        id: 'maharani',
-        brand: 'Maharani',
-        photos: [
-            { id: 9, src: "https://ik.imagekit.io/r70knk9pu/William%20Tell/image(3).png?updatedAt=1773335721606" },
-
-        ],
-    },
-];
-
-/* ─── All videos grouped by brand / project ─────── */
-const videoGroups = [
-    {
-        group: 'Salve Maria',
-        category: 'Ad Film',
-        videos: [
-            { youtubeId: '3-1PyFj1h7Y', title: 'Kalidas Jayaram — Salve Maria' },
-            { youtubeId: 'Kkb-ogpelIo', title: 'Jayaram Kalidas — Salve Maria' },
-            { youtubeId: 'H9FNmeSnbQY', title: 'Jayaram Kalidas — Salve Maria' },
-            { youtubeId: 'NL9Wl0jAfM8', title: 'Salve Maria Ad' },
-            { youtubeId: 'fLrw2V4N_Vs', title: 'Salve Maria Ad Film' },
-        ],
+        id: 'design-logo',
+        title: null, // No main title
+        heading: 'Logo, Brand Identity & Package Designing',
+        text: 'From original logos and full-scale rebranding to packaging design for oil labels, water bottles, cosmetic containers, and product boxes, we create visual identities that makes a brand stand out and be unignorable.',
+        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/4.jpg',
+        images: null,
     },
     {
-        group: 'Kalyan Silks',
-        category: 'Brand Film',
-        videos: [
-            { youtubeId: '7zEUImqBxLY', title: 'Kalyan Silks Onam Ad' },
-            { youtubeId: 'vdDbyddtEsE', title: 'Kalyan Adi Sale Ad' },
-        ],
+        id: 'design-social',
+        title: null, // No main title
+        heading: 'Social Media',
+        text: 'We create and manage scroll-stopping content for brand pages — each post designed to serve a function, whether that is driving leads, building recognition, or deepening audience engagement.',
+        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/3.jpg',
+        images: null,
     },
     {
-        group: 'Fazyo',
-        category: 'Fashion Film',
-        videos: [
-            { youtubeId: 'ON3CbgeviSs', title: 'Fazyo Fashion Film' },
-            { youtubeId: 'aSxR-I_OG1A', title: 'Fazyo Fashion Films' },
-            { youtubeId: 'hSU-_Gz_QGQ', title: 'Fazyo — Street' },
-            { youtubeId: 'RfCXTA15bno', title: 'Fazyo — Cafe' },
-            { youtubeId: 'en-z_aTVn30', title: 'Fazyo — Beach' },
-            { youtubeId: 'POX8SAX_eVQ', title: 'Fazyo Fashion Film' },
-            { youtubeId: 'B5dLCHgC21Q', title: 'Fazyo Fashion Film' },
-            { youtubeId: 'RoUvFpiaRro', title: 'Fazyo Fashion Film' },
-            { youtubeId: 'pY4sQVsJC3I', title: 'Fashion Film for Fazyo' },
-            { youtubeId: 'MUVOx9CezRo', title: 'Fazyo Fashion Film' },
-            { youtubeId: 'e3H9h1nmV0g', title: 'Fazyo Fashion Film' },
-            { youtubeId: 'kuZgNuNMAxE', title: 'Fazyo Teaser' },
-        ],
+        id: 'campaign-therefor',
+        title: 'Campaigns & Case Studies', // Main title
+        heading: 'You Decide You — Therefor I\u2019m',
+        text: 'A campaign built on a single conviction: identity is self-determined. Not assigned by society, not inherited by expectation.',
+        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png?updatedAt=1778592997608',
+        images: null,
     },
     {
-        group: "Therefore I'm",
-        category: 'Ad Film',
-        videos: [
-            { youtubeId: 'MWepSouX1Es', title: "THEREFORE I'M Ad Film" },
-            { youtubeId: 'ubRXxLr08rY', title: "THEREFORE I'M Ad Film" },
-            { youtubeId: 'oJrqi2bThJs', title: "THEREFORE I'M Ad Film" },
-            { youtubeId: '86cB9Vm5QRQ', title: "Therefore I'm Ad Film" },
-        ],
-    },
-    {
-        group: 'Cadbury',
-        category: 'Campaign',
-        videos: [
-            { youtubeId: '9iCMhKNMBbE', title: 'Cadbury Thank You Campaign' },
-            { youtubeId: '5lVBuUxjNZA', title: 'Cadbury Ad' },
-        ],
-    },
-    {
-        group: 'myG',
-        category: 'Launch Film',
-        videos: [
-            { youtubeId: 'XNgy1CugdwI', title: 'myG Kannur Launch Film' },
-        ],
-    },
-    {
-        group: 'Maharani',
-        category: 'Onam Film',
-        videos: [
-            { youtubeId: 'Kv-zKigB9kY', title: 'Maharani Onam Film' },
-        ],
-    },
-    {
-        group: 'Carla',
-        category: 'Commercial',
-        videos: [
-            { youtubeId: '6TcIzK_E4lQ', title: 'Carla Commercial' },
-        ],
-    },
-    {
-        group: 'Oxygen',
-        category: 'Digital Film',
-        videos: [
-            { youtubeId: 'ri3ylqx8xYQ', title: 'Oxygen Student Laptop' },
-        ],
-    },
-    {
-        group: 'LDF',
-        category: 'Campaign Film',
-        videos: [
-            { youtubeId: 'X30KBVV9k4I', title: 'LDF Election Campaign Film' },
-        ],
-    },
-    {
-        group: 'Nila',
-        category: 'Digital Film',
-        videos: [
-            { youtubeId: 'GXlg5S4ASgs', title: 'Nila Soap Digital Ad' },
-            { youtubeId: 'Bba2IMvh3dc', title: 'Nila Ayurveda — Arabic' },
-            { youtubeId: 'OqWaih22a-c', title: 'Nila Cream Digital Film' },
-        ],
-    },
-    {
-        group: 'YSR Congress',
-        category: 'Political Ad',
-        videos: [
-            { youtubeId: 'qJ2JaafaTWE', title: 'YSR Congress Ad Film' },
-            { youtubeId: 'f051D_Hg-BM', title: 'YSR Congress Ad Film' },
-        ],
-    },
-    {
-        group: 'Showreel',
-        category: 'Showreel',
-        videos: [
-            { youtubeId: '4svjw9bicV0', title: 'Showreel 2019' },
-        ],
+        id: 'campaign-maharani',
+        title: null, // No main title
+        heading: 'manam Naraye Onakodi — Maharani Silks',
+        text: 'A campaign centred around the spirit of Onam — not the product, but the feeling of coming together. It marked a turning point in establishing Maharani Silks as a household name in Kerala.',
+        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/1.jpg',
+        images: null,
     },
 ];
 
-/* ─── Playable Video Card ────────────────────────── */
-// YouTube returns a 120×90 grey stub (HTTP 200) when maxresdefault is unavailable,
-// so onError never fires. We detect it by checking naturalWidth after load instead.
+/* ─── All videos — flat, ordered as on YouTube channel ─── */
+const allVideos = [
+    { youtubeId: '3-1PyFj1h7Y' },
+    { youtubeId: 'Kkb-ogpelIo' },
+    { youtubeId: 'H9FNmeSnbQY' },
+    { youtubeId: 'NL9Wl0jAfM8' },
+    { youtubeId: 'fLrw2V4N_Vs' },
+    { youtubeId: '7zEUImqBxLY' },
+    { youtubeId: 'vdDbyddtEsE' },
+    { youtubeId: 'ON3CbgeviSs' },
+    { youtubeId: 'aSxR-I_OG1A' },
+    { youtubeId: 'hSU-_Gz_QGQ' },
+    { youtubeId: 'RfCXTA15bno' },
+    { youtubeId: 'en-z_aTVn30' },
+    { youtubeId: 'POX8SAX_eVQ' },
+    { youtubeId: 'B5dLCHgC21Q' },
+    { youtubeId: 'RoUvFpiaRro' },
+    { youtubeId: 'pY4sQVsJC3I' },
+    { youtubeId: 'MUVOx9CezRo' },
+    { youtubeId: 'e3H9h1nmV0g' },
+    { youtubeId: 'kuZgNuNMAxE' },
+    { youtubeId: 'MWepSouX1Es' },
+    { youtubeId: 'ubRXxLr08rY' },
+    { youtubeId: 'oJrqi2bThJs' },
+    { youtubeId: '86cB9Vm5QRQ' },
+    { youtubeId: '9iCMhKNMBbE' },
+    { youtubeId: '5lVBuUxjNZA' },
+    { youtubeId: 'XNgy1CugdwI' },
+    { youtubeId: 'Kv-zKigB9kY' },
+    { youtubeId: '6TcIzK_E4lQ' },
+    { youtubeId: 'ri3ylqx8xYQ' },
+    { youtubeId: 'X30KBVV9k4I' },
+    { youtubeId: 'GXlg5S4ASgs' },
+    { youtubeId: 'Bba2IMvh3dc' },
+    { youtubeId: 'OqWaih22a-c' },
+    { youtubeId: 'qJ2JaafaTWE' },
+    { youtubeId: 'f051D_Hg-BM' },
+    { youtubeId: '4svjw9bicV0' },
+];
+
+/* ─── Thumbnail quality fallback ────────────────── */
 const YT_THUMB_QUALITIES = ['maxresdefault', 'hqdefault', 'mqdefault'];
-const YT_STUB_WIDTH = 120; // YouTube grey placeholder is always 120px wide
+const YT_STUB_WIDTH = 120;
 
-function VideoCard({ video, index = 0 }) {
-    const [playing, setPlaying] = useState(false);
-    const [iframeLoaded, setIframeLoaded] = useState(false);
+/* ─── Fullscreen Video Modal ─────────────────────── */
+function VideoModal({ video, onClose }) {
+    useEffect(() => {
+        const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+        document.addEventListener('keydown', handleKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.removeEventListener('keydown', handleKey);
+            document.body.style.overflow = '';
+        };
+    }, [onClose]);
+
+    // Portal renders at document.body — escapes all Framer Motion transform
+    // ancestors so position:fixed works correctly and the iframe never reloads.
+    return createPortal(
+        <div className="film-modal-backdrop" onClick={onClose}>
+            <div
+                className="film-modal-frame"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <iframe
+                    src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1`}
+                    allow="autoplay; encrypted-media; fullscreen"
+                    allowFullScreen={true}
+                    frameBorder="0"
+                    title="Video"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+                />
+            </div>
+            <button className="film-modal-close" onClick={onClose} aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>,
+        document.body
+    );
+}
+
+/* ─── Thumbnail-only Video Card ──────────────────── */
+function VideoCard({ video, index = 0, onPlay }) {
     const [thumbQualityIdx, setThumbQualityIdx] = useState(0);
-
     const thumbSrc = `https://img.youtube.com/vi/${video.youtubeId}/${YT_THUMB_QUALITIES[thumbQualityIdx]}.jpg`;
 
     const handleThumbLoad = (e) => {
-        // If the loaded image is the grey stub (120px wide), fall back to next quality
         if (e.target.naturalWidth <= YT_STUB_WIDTH && thumbQualityIdx < YT_THUMB_QUALITIES.length - 1) {
             setThumbQualityIdx(prev => prev + 1);
         }
     };
 
     const handleThumbError = () => {
-        // Network error fallback (genuine 404)
         if (thumbQualityIdx < YT_THUMB_QUALITIES.length - 1) {
             setThumbQualityIdx(prev => prev + 1);
         }
     };
 
-    // Failsafe: drop the thumbnail cover after 1.2s even if YouTube's heavy onLoad hasn't fired yet
-    useEffect(() => {
-        if (playing) {
-            const timer = setTimeout(() => setIframeLoaded(true), 1200);
-            return () => clearTimeout(timer);
-        }
-    }, [playing]);
-
     return (
         <motion.div
             className="work-card"
-            onClick={() => !playing && setPlaying(true)}
+            onClick={() => onPlay(video)}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-20px' }}
-            transition={{
-                duration: 0.6,
-                delay: index * 0.06,
-                ease: [0.16, 1, 0.3, 1]
-            }}
+            transition={{ duration: 0.5, delay: (index % 12) * 0.04, ease: [0.16, 1, 0.3, 1] }}
         >
             <div className="work-card-media">
-                {playing && (
-                    <iframe
-                        className="yt-iframe"
-                        src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=0&controls=1&showinfo=0`}
-                        loading="lazy"
-                        allow="autoplay; encrypted-media"
-                        allowFullScreen={true}
-                        frameBorder="0"
-                        title={video.title}
-                        onLoad={() => setIframeLoaded(true)}
-                    />
-                )}
-
-                <div
-                    className="yt-thumb-wrapper"
-                    style={{
-                        position: 'absolute',
-                        inset: 0,
-                        zIndex: 5,
-                        opacity: playing && iframeLoaded ? 0 : 1,
-                        pointerEvents: playing && iframeLoaded ? 'none' : 'auto',
-                        transition: 'opacity 0.8s ease-out',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: '#111'
-                    }}
-                >
-                    <img
-                        className="yt-thumb"
-                        src={thumbSrc}
-                        alt={video.title}
-                        loading="lazy"
-                        onLoad={handleThumbLoad}
-                        onError={handleThumbError}
-                    />
-                    {!playing && (
-                        <div className="yt-play-overlay">
-                            <div className="yt-play-btn">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M8 5v14l11-7z" />
-                                </svg>
-                            </div>
-                        </div>
-                    )}
+                <img
+                    className="yt-thumb"
+                    src={thumbSrc}
+                    alt=""
+                    loading="lazy"
+                    onLoad={handleThumbLoad}
+                    onError={handleThumbError}
+                />
+                <div className="yt-play-overlay">
+                    <div className="yt-play-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </motion.div>
     );
 }
 
-/* ─── Group Section: Uniform grid ───────────────── */
-function GroupSection({ group }) {
+/* ─── Flat Film Grid ─────────────────────────────── */
+function FilmGrid() {
+    const [activeVideo, setActiveVideo] = useState(null);
+    // Stable reference so VideoModal's useEffect doesn't re-run on every render
+    const handleClose = useCallback(() => setActiveVideo(null), []);
     return (
-        <motion.section
-            className="works-group"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-            <div className="works-group-label">
-                <h2 className="works-group-name">{group.group}</h2>
-            </div>
-
-            <div className="works-group-grid">
-                {group.videos.map((video, i) => (
-                    <VideoCard key={video.youtubeId} video={video} index={i} />
+        <>
+            {activeVideo && (
+                <VideoModal video={activeVideo} onClose={handleClose} />
+            )}
+            <div className="films-flat-grid">
+                {allVideos.map((video, i) => (
+                    <VideoCard key={video.youtubeId} video={video} index={i} onPlay={setActiveVideo} />
                 ))}
             </div>
-        </motion.section>
+        </>
     );
 }
 
-/* ─── Per-Brand Folder Card ─────────────────────── */
-function BrandFolderCard({ brandData, globalIndex }) {
-    const [phase, setPhase] = useState('closed'); // closed | popped | list
-    const [hasOpened, setHasOpened] = useState(false);
-
-    const previewPhotos = brandData.photos.slice(0, 4);
-    const popPositions = [
-        { x: -80, y: -190 },
-        { x: 80, y: -220 },
-        { x: -30, y: -100 },
-        { x: 55, y: -140 },
-    ];
-
-    const openFolder = () => {
-        if (hasOpened) return;
-        setHasOpened(true);
-        setPhase('popped');
-        setTimeout(() => setPhase('list'), 2400);
-    };
-
+/* ─── Art Section — flat image-card rows ─────────── */
+function ArtSection() {
     return (
-        <motion.div
-            className="brand-folder-card"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.7, delay: globalIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
-        >
-            {/* ── Folder animation scene ── */}
-            <AnimatePresence mode="wait">
-                {phase !== 'list' ? (
-                    <motion.div
-                        key="folder-scene"
-                        className="brand-folder-scene"
-                        onClick={openFolder}
-                        exit={{ opacity: 0, scale: 0.85, filter: 'blur(12px)', transition: { duration: 1.2 } }}
-                    >
-                        {/* Back panel */}
-                        <div className="folder-back-wrap">
-                            <svg width="240" height="180" viewBox="0 0 240 180" fill="none">
-                                <path
-                                    d="M0 20C0 8.954 8.954 0 20 0H90L110 20H220C231.046 20 240 28.954 240 40V180H0V20Z"
-                                    fill="rgba(255,255,255,0.03)"
-                                    stroke="rgba(255,255,255,0.12)"
-                                    strokeWidth="1.5"
-                                />
-                            </svg>
-                        </div>
-
-                        {/* Flying photos */}
-                        <div className="folder-images-container">
-                            {previewPhotos.map((photo, i) => {
-                                const isPopped = phase === 'popped';
-                                const pos = popPositions[i] || popPositions[0];
-                                return (
-                                    <motion.div
-                                        key={`pop-${photo.id}`}
-                                        layoutId={`art-brand-${brandData.id}-img-${photo.id}`}
-                                        initial={{ y: 0, x: 0, opacity: 0, scale: 0.4 }}
-                                        animate={{
-                                            y: isPopped ? pos.y : 0,
-                                            x: isPopped ? pos.x : 0,
-                                            opacity: isPopped ? 1 : 0,
-                                            scale: isPopped ? 1 : 0.4,
-                                        }}
-                                        transition={{
-                                            type: 'spring',
-                                            bounce: 0.35,
-                                            duration: 1,
-                                            delay: isPopped ? i * 0.14 : 0,
-                                        }}
-                                        className="folder-img-wrap"
-                                    >
-                                        <img src={photo.src} alt={brandData.brand} />
-                                    </motion.div>
-                                );
-                            })}
-                        </div>
-
-                        {/* Front cover */}
-                        <div className="folder-front-wrap">
-                            <svg width="260" height="140" viewBox="0 0 260 140" fill="none">
-                                <path
-                                    d="M0 15C0 6.716 6.716 0 15 0H245C253.284 0 260 6.716 260 15V125C260 133.284 253.284 140 245 140H15C6.716 140 0 133.284 0 125V15Z"
-                                    fill="rgba(255,255,255,0.07)"
-                                    stroke="rgba(255,255,255,0.18)"
-                                    strokeWidth="1.5"
-                                />
-                                <line x1="40" y1="42" x2="220" y2="42" stroke="rgba(255,255,255,0.14)" strokeWidth="2.5" strokeLinecap="round" />
-                                <line x1="40" y1="66" x2="220" y2="66" stroke="rgba(255,255,255,0.14)" strokeWidth="2.5" strokeLinecap="round" />
-                                <line x1="40" y1="90" x2="160" y2="90" stroke="rgba(255,255,255,0.14)" strokeWidth="2.5" strokeLinecap="round" />
-                            </svg>
-                        </div>
-
-                        {/* Label */}
-                        <div className="folder-label">
-                            {brandData.brand}
-                            <span>{brandData.photos.length} Photos</span>
-                        </div>
-
-                        {/* Click hint */}
-                        {phase === 'closed' && (
-                            <motion.div
-                                className="folder-hint"
-                                initial={{ opacity: 0, y: 6 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4, duration: 0.6 }}
-                            >
-                                Open
-                            </motion.div>
+        <div className="art-subsections-wrapper">
+            {artSubsections.map((sub, i) => (
+                <motion.div
+                    key={sub.id}
+                    className="art-subsection"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                >
+                    {/* Left — Image */}
+                    <div className="art-subsection-image">
+                        {sub.images ? (
+                            <div className="art-image-grid">
+                                {sub.images.map((src, idx) => (
+                                    <div key={idx} className="art-image-grid-cell">
+                                        <img src={src} alt={`${sub.heading || sub.title} ${idx + 1}`} loading="lazy" />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : sub.image ? (
+                            <img src={sub.image} alt={sub.heading || sub.title} loading="lazy" />
+                        ) : (
+                            <div className="art-image-placeholder">
+                                <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                    <rect x="8" y="8" width="64" height="64" rx="6" />
+                                    <circle cx="28" cy="30" r="7" />
+                                    <path d="M8 56l18-18 14 14 10-10 22 22" strokeLinejoin="round" />
+                                </svg>
+                                <span>Image coming soon</span>
+                            </div>
                         )}
-                    </motion.div>
-                ) : (
-                    /* ── Expanded photo grid (small landscape) ── */
-                    <motion.div
-                        key="photo-list"
-                        className="brand-photo-grid"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        {brandData.photos.map((photo, idx) => (
-                            <motion.div
-                                key={`list-${photo.id}`}
-                                className="brand-photo-tile"
-                                layoutId={`art-brand-${brandData.id}-img-${photo.id}`}
-                                initial={{ opacity: 0, scale: 0.92 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{
-                                    duration: 0.7,
-                                    delay: idx * 0.08,
-                                    ease: [0.16, 1, 0.3, 1],
-                                }}
+                    </div>
+
+                    {/* Right — Title + de-emphasised sub-items */}
+                    <div className="art-subsection-text">
+                        {sub.title && (
+                            <motion.h3
+                                className="art-subsection-title"
+                                initial={{ opacity: 0, y: 15 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.25 }}
                             >
-                                <img src={photo.src} alt={brandData.brand} loading="lazy" />
-                                <span className="brand-photo-index">{String(idx + 1).padStart(2, '0')}</span>
+                                {sub.title}
+                            </motion.h3>
+                        )}
+
+                        <div className="art-subsection-body" style={{ marginTop: sub.title ? '1.2rem' : '0' }}>
+                            <motion.div
+                                className="art-body-item"
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.35 }}
+                            >
+                                {sub.heading && (
+                                    <span className="art-body-heading">{sub.heading}</span>
+                                )}
+                                <p className="art-body-text">{sub.text}</p>
                             </motion.div>
-                        ))}
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </motion.div>
-    );
-}
-
-/* ─── Art Gallery — all brands ──────────────────── */
-function ArtGalleryBrands() {
-    return (
-        <div className="art-brands-wrapper">
-            {artBrands.map((brandData, i) => (
-                <div key={brandData.id} className="art-brand-section">
-                    {/* Brand header */}
-                    <motion.div
-                        className="art-brand-header"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: '-40px' }}
-                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                        <h3 className="art-brand-name">{brandData.brand}</h3>
-                        <span className="art-brand-category">{brandData.category}</span>
-                    </motion.div>
-
-                    {/* Folder + photos */}
-                    <BrandFolderCard brandData={brandData} globalIndex={i} />
-                </div>
+                        </div>
+                    </div>
+                </motion.div>
             ))}
         </div>
     );
@@ -658,9 +492,7 @@ export default function Works({ compact = false }) {
                                                     </motion.span>
                                                 </div>
                                                 <div className="works-groups-container">
-                                                    {videoGroups.map((group, i) => (
-                                                        <GroupSection key={group.group} group={group} index={i} />
-                                                    ))}
+                                                    <FilmGrid />
                                                 </div>
                                             </>
                                         )}
@@ -668,10 +500,10 @@ export default function Works({ compact = false }) {
                                             <div className="works-gallery-section" style={{ paddingBottom: '4rem' }}>
                                                 <div className="works-section-label" style={{ borderBottom: 'none', paddingLeft: 0, paddingTop: 0 }}>
                                                     <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-                                                        — Creative Direction &nbsp;&nbsp; Curation &nbsp;&nbsp; Visual Arts
+                                                        — Photography &nbsp;&nbsp; Design &nbsp;&nbsp; Campaign &nbsp;&nbsp; Case Studies
                                                     </motion.span>
                                                 </div>
-                                                <ArtGalleryBrands />
+                                                <ArtSection />
                                             </div>
                                         )}
 
