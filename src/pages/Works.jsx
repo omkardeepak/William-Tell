@@ -52,7 +52,7 @@ const artSubsections = [
     {
         id: 'campaign-maharani',
         title: null, // No main title
-        heading: 'manam Naraye Onakodi — Maharani Silks',
+        heading: 'Manam Naraye Onakodi — Maharani Silks',
         text: 'A campaign centred around the spirit of Onam — not the product, but the feeling of coming together. It marked a turning point in establishing Maharani Silks as a household name in Kerala.',
         image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/1.jpg',
         images: null,
