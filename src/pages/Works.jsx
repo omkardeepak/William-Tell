@@ -14,7 +14,7 @@ const artSubsections = [
         title: 'Photography', // Main title
         heading: null,
         text: 'We stage and execute brand photoshoots at a standard that holds its own alongside category leaders. Working across lifestyle, product, and portrait formats, each shoot is built around a creative brief that ensures the imagery is purposeful, consistent, and ready to perform across every channel.',
-        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png',
+        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/imagehv.png',
         images: null,
     },
     {
@@ -207,72 +207,76 @@ function ArtSection() {
     return (
         <div className="art-subsections-wrapper">
             {artSubsections.map((sub, i) => (
-                <motion.div
-                    key={sub.id}
-                    className="art-subsection"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-60px' }}
-                    transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                >
-                    {/* Left — Image */}
-                    <div className="art-subsection-image">
-                        {sub.images ? (
-                            <div className="art-image-grid">
-                                {sub.images.map((src, idx) => (
-                                    <div key={idx} className="art-image-grid-cell">
-                                        <img src={src} alt={`${sub.heading || sub.title} ${idx + 1}`} loading="lazy" />
-                                    </div>
-                                ))}
-                            </div>
-                        ) : sub.image ? (
-                            <img src={sub.image} alt={sub.heading || sub.title} loading="lazy" />
-                        ) : (
-                            <div className="art-image-placeholder">
-                                <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                    <rect x="8" y="8" width="64" height="64" rx="6" />
-                                    <circle cx="28" cy="30" r="7" />
-                                    <path d="M8 56l18-18 14 14 10-10 22 22" strokeLinejoin="round" />
-                                </svg>
-                                <span>Image coming soon</span>
-                            </div>
-                        )}
-                    </div>
+                <div key={sub.id}>
+                    {/* Section heading — rendered above the first card of each group */}
+                    {sub.title && (
+                        <motion.div
+                            className="art-section-heading-row"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: '-40px' }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                            <h2 className="art-section-heading">{sub.title}</h2>
+                        </motion.div>
+                    )}
 
-                    {/* Right — Title + de-emphasised sub-items */}
-                    <div className="art-subsection-text">
-                        {sub.title && (
-                            <motion.h3
-                                className="art-subsection-title"
-                                initial={{ opacity: 0, y: 15 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: 0.25 }}
-                            >
-                                {sub.title}
-                            </motion.h3>
-                        )}
-
-                        <div className="art-subsection-body" style={{ marginTop: sub.title ? '1.2rem' : '0' }}>
-                            <motion.div
-                                className="art-body-item"
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: 0.35 }}
-                            >
-                                {sub.heading && (
-                                    <span className="art-body-heading">{sub.heading}</span>
-                                )}
-                                <p className="art-body-text">{sub.text}</p>
-                            </motion.div>
+                    {/* Card row — image left, text right */}
+                    <motion.div
+                        className="art-subsection"
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-60px' }}
+                        transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        {/* Left — Image */}
+                        <div className="art-subsection-image">
+                            {sub.images ? (
+                                <div className="art-image-grid">
+                                    {sub.images.map((src, idx) => (
+                                        <div key={idx} className="art-image-grid-cell">
+                                            <img src={src} alt={`${sub.heading || sub.title} ${idx + 1}`} loading="lazy" />
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : sub.image ? (
+                                <img src={sub.image} alt={sub.heading || sub.title} loading="lazy" />
+                            ) : (
+                                <div className="art-image-placeholder">
+                                    <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                        <rect x="8" y="8" width="64" height="64" rx="6" />
+                                        <circle cx="28" cy="30" r="7" />
+                                        <path d="M8 56l18-18 14 14 10-10 22 22" strokeLinejoin="round" />
+                                    </svg>
+                                    <span>Image coming soon</span>
+                                </div>
+                            )}
                         </div>
-                    </div>
-                </motion.div>
+
+                        {/* Right — subheading + description */}
+                        <div className="art-subsection-text">
+                            <div className="art-subsection-body">
+                                <motion.div
+                                    className="art-body-item"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6, delay: 0.25 }}
+                                >
+                                    {sub.heading && (
+                                        <span className="art-body-heading">{sub.heading}</span>
+                                    )}
+                                    <p className="art-body-text">{sub.text}</p>
+                                </motion.div>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
             ))}
         </div>
     );
 }
+
 
 /* ─── Main Works Page ────────────────────────────── */
 export default function Works({ compact = false }) {

@@ -743,13 +743,34 @@
     margin-bottom: 0.3rem;
 }
 
+/* ── Standalone section headings (Photography / Design / Campaigns) ── */
+.art-section-heading-row {
+    padding: 3.5rem 5% 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.art-section-heading-row:first-child {
+    border-top: none;
+    padding-top: 2rem;
+}
+
+.art-section-heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
 /* Each subsection row */
 .art-subsection {
     display: grid;
     grid-template-columns: 1.2fr 5fr;
     gap: 4rem;
     align-items: start;
-    padding: 4rem 5%;
+    padding: 2rem 5% 3rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -912,6 +933,23 @@
 
     .art-subsection-text {
         padding: 0;
+    }
+
+    .art-section-heading-row {
+        padding: 2rem 5% 0.4rem;
+    }
+
+    .art-section-heading {
+        font-size: 1.4rem;
+    }
+
+    .art-body-heading {
+        font-size: 0.9rem;
+    }
+
+    .art-body-text {
+        font-size: 0.85rem;
+        line-height: 1.55;
     }
 }
 
