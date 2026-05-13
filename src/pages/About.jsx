@@ -91,6 +91,7 @@ const stats = [
             'Homegrown Biotech',
             "Therefore I'm",
             'Carla',
+            'Brahmins',
             'Glowyoung'
         ],
     },

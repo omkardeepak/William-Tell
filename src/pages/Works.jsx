@@ -61,42 +61,42 @@ const artSubsections = [
 
 /* ─── All videos — flat, ordered as on YouTube channel ─── */
 const allVideos = [
-    { youtubeId: '3-1PyFj1h7Y' },
-    { youtubeId: 'Kkb-ogpelIo' },
-    { youtubeId: 'H9FNmeSnbQY' },
-    { youtubeId: 'NL9Wl0jAfM8' },
-    { youtubeId: 'fLrw2V4N_Vs' },
-    { youtubeId: '7zEUImqBxLY' },
-    { youtubeId: 'vdDbyddtEsE' },
-    { youtubeId: 'ON3CbgeviSs' },
-    { youtubeId: 'aSxR-I_OG1A' },
-    { youtubeId: 'hSU-_Gz_QGQ' },
-    { youtubeId: 'RfCXTA15bno' },
-    { youtubeId: 'en-z_aTVn30' },
-    { youtubeId: 'POX8SAX_eVQ' },
-    { youtubeId: 'B5dLCHgC21Q' },
-    { youtubeId: 'RoUvFpiaRro' },
-    { youtubeId: 'pY4sQVsJC3I' },
-    { youtubeId: 'MUVOx9CezRo' },
-    { youtubeId: 'e3H9h1nmV0g' },
-    { youtubeId: 'kuZgNuNMAxE' },
-    { youtubeId: 'MWepSouX1Es' },
-    { youtubeId: 'ubRXxLr08rY' },
-    { youtubeId: 'oJrqi2bThJs' },
-    { youtubeId: '86cB9Vm5QRQ' },
-    { youtubeId: '9iCMhKNMBbE' },
-    { youtubeId: '5lVBuUxjNZA' },
-    { youtubeId: 'XNgy1CugdwI' },
-    { youtubeId: 'Kv-zKigB9kY' },
-    { youtubeId: '6TcIzK_E4lQ' },
-    { youtubeId: 'ri3ylqx8xYQ' },
-    { youtubeId: 'X30KBVV9k4I' },
+    { youtubeId: '7zEUImqBxLY' },   // Kalyan silks onam ad
+    { youtubeId: '3-1PyFj1h7Y' },   // kalidas jayaram salve maria ad
+    { youtubeId: 'Kkb-ogpelIo' },   // jayaram kalidas salve maria ad
+    { youtubeId: 'H9FNmeSnbQY' },   // jayaram kalidas salve maria ad
+    { youtubeId: 'vdDbyddtEsE' },   // KALYAN ADI SALE AD
+    { youtubeId: 'MWepSouX1Es' },   // THEREFORE I'M ad film
+    { youtubeId: 'ubRXxLr08rY' },   // THEREFORE I'M ad film
+    { youtubeId: 'ON3CbgeviSs' },   // Fazyo fashion film
+    { youtubeId: 'aSxR-I_OG1A' },   // Fazyo fashion films
+    { youtubeId: '6TcIzK_E4lQ' },   // maharani silks onam ad
+    { youtubeId: 'NL9Wl0jAfM8' },   // salve maria ad
+    { youtubeId: 'fLrw2V4N_Vs' },   // salve maria ad film
+    { youtubeId: 'oJrqi2bThJs' },   // THEREFORE I'M AD FILM
+    { youtubeId: '86cB9Vm5QRQ' },   // thereforeI'm ad film
+    { youtubeId: 'Kv-zKigB9kY' },   // maharani silks ad
+    { youtubeId: 'hSU-_Gz_QGQ' },   // Fazyo fashion film street
     { youtubeId: 'GXlg5S4ASgs' },
+    { youtubeId: '9iCMhKNMBbE' },   // cadbury thank you campaign
     { youtubeId: 'Bba2IMvh3dc' },
+    { youtubeId: 'RfCXTA15bno' },   // fazyo fashion film cafe
+    { youtubeId: 'en-z_aTVn30' },   // fazyo fashion film beach
+    { youtubeId: 'POX8SAX_eVQ' },   // fazyo fashion film
+    { youtubeId: 'B5dLCHgC21Q' },   // fazyo fashion film
+    { youtubeId: 'RoUvFpiaRro' },   // fazyo fashion film
+    { youtubeId: 'pY4sQVsJC3I' },   // fashion film for fazyo
+    { youtubeId: 'MUVOx9CezRo' },   // fazyo fashion film
+    { youtubeId: 'e3H9h1nmV0g' },   // fazyo fashion film
     { youtubeId: 'OqWaih22a-c' },
+    { youtubeId: 'X30KBVV9k4I' },
+    { youtubeId: 'ri3ylqx8xYQ' },
+    { youtubeId: 'XNgy1CugdwI' },
     { youtubeId: 'qJ2JaafaTWE' },
     { youtubeId: 'f051D_Hg-BM' },
+    { youtubeId: 'kuZgNuNMAxE' },   // fazyo teaser
     { youtubeId: '4svjw9bicV0' },
+    { youtubeId: '5lVBuUxjNZA' },
 ];
 
 /* ─── Thumbnail quality fallback ────────────────── */
@@ -178,13 +178,6 @@ function VideoCard({ video, index = 0, onPlay }) {
                     onLoad={handleThumbLoad}
                     onError={handleThumbError}
                 />
-                <div className="yt-play-overlay">
-                    <div className="yt-play-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </div>
-                </div>
             </div>
         </motion.div>
     );
@@ -488,7 +481,7 @@ export default function Works({ compact = false }) {
                                             <>
                                                 <div className="works-section-label" style={{ borderBottom: 'none', paddingLeft: 0, paddingTop: 0 }}>
                                                     <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-                                                        Elevating brands through cinematic storytelling.
+                                                        — Elevating brands through cinematic storytelling.
                                                     </motion.span>
                                                 </div>
                                                 <div className="works-groups-container">
