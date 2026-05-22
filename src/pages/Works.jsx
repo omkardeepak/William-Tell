@@ -5,57 +5,86 @@ import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'fra
 import CurtainIntro from '../components/CurtainIntro';
 import './Works.css';
 
-/* ─── Art subsections ─────────────────────────────── */
-// Flat array of image-card rows. Main titles only appear on the first
-// card of each section. Subheadings are de-prioritised inside the body.
-const artSubsections = [
+/* ─── Art sections — exact Canva layout ───────── */
+const artSections = [
     {
-        id: 'photography',
-        title: 'Photography', // Main title
-        heading: null,
-        text: 'We stage and execute brand photoshoots at a standard that holds its own alongside category leaders. Working across lifestyle, product, and portrait formats, each shoot is built around a creative brief that ensures the imagery is purposeful, consistent, and ready to perform across every channel.',
-        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/imagehv.png',
-        images: null,
+        id: 'photoshoot',
+        layout: 'photoshoot',
+        title: 'Photoshoot',
+        body: 'We stage and execute brand photoshoots at a standard that holds its own alongside category leaders. Working across lifestyle, product, and portrait formats, each shoot is built around a creative brief that ensures the imagery is purposeful, consistent, and ready to perform across every channel.',
+        divider: 'solid',
+        photos: [
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/imagehv.png', caption: 'Maharani Silks' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png?updatedAt=1779371627653', caption: 'Glowyoung' },
+        ],
     },
     {
-        id: 'design-print',
-        title: 'Design', // Main title
-        heading: 'Print & Out-of-Home',
-        text: 'From full-scale hoardings to metro pillar installations and magazine placements, we produce OOH work built for impact at every size.',
-        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/2.jpg',
-        images: null,
+        id: 'designs',
+        layout: 'designs',
+        title: 'Designs',
+        subtitle: 'Print & Out-of-Home:',
+        body: 'From full-scale hoardings to metro pillar installations and magazine placements, we produce OOH print work built for impact at every size. Every format is designed with a provoking thought, starting with how it will actually be seen \u2014 in light, in motion, at a distance \u2014 so the work doesn\'t just fill a space, it owns it. Because outdoor is the only medium that doesn\'t ask for attention, it takes it. There are no skip buttons, no scroll, no algorithm deciding who sees it. Just the work, in the world, earning its place.',
+        divider: 'dotted',
+        photos: [
+            { src: '/images/design_billboard_1.png' },
+            { src: '/images/design_billboard_2.png' },
+            { src: '/images/design_billboard_3.png' },
+        ],
     },
     {
-        id: 'design-logo',
-        title: null, // No main title
-        heading: 'Logo, Brand Identity & Package Designing',
-        text: 'From original logos and full-scale rebranding to packaging design for oil labels, water bottles, cosmetic containers, and product boxes, we create visual identities that makes a brand stand out and be unignorable.',
-        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/4.jpg',
-        images: null,
+        id: 'campaigns',
+        layout: 'campaigns',
+        title: 'Campaigns and Case Studies',
+        divider: 'dotted',
+        caseStudies: [
+            {
+                id: 'therefor',
+                fullWidth: true,
+                image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/imageyou.png?updatedAt=1779389049738',
+                caption: 'You Decide You (Therefor I\'m)',
+                body: 'A campaign built on a single conviction: identity is self-determined. Not assigned by society, not inherited by expectation. This campaign by the brand Therefor I\'m was focused on giving people the language and the imagery to claim that, on their own terms.',
+            },
+            {
+                id: 'maharani',
+                fullWidth: false,
+                image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/1.jpg',
+                caption: 'Manam Naraye Onakodi (Maharani Silks)',
+                body: 'A campaign for Maharani Silks centred around the spirit of Onam \u2014 not the product, but the feeling of coming together. The campaign generated significant visibility across the region and marked a turning point in establishing Maharani Silks as a household name in Kerala, and a huge campaign success for the brand.',
+            },
+        ],
     },
     {
-        id: 'design-social',
-        title: null, // No main title
-        heading: 'Social Media',
-        text: 'We create and manage scroll-stopping content for brand pages — each post designed to serve a function, whether that is driving leads, building recognition, or deepening audience engagement.',
-        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/3.jpg',
-        images: null,
+        id: 'logo-design',
+        layout: 'logo-design',
+        label: 'Logo unit Design',
+        body: 'Some logos carry decades. Others launch them. We work across both, refining legacy identities that have earned their authority over time, and building new marks from scratch for products that need to own a space the moment they enter it. Every logo we create is designed to be immediately legible, endlessly versatile, and impossible to mistake for anything else.',
+        divider: 'dotted',
+        logos: [
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png', alt: 'Logo 1' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/bellaro.png?updatedAt=1779387321894', alt: 'Logo 2' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/aryas.png?updatedAt=1779387372441', alt: 'Logo 3' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/carla.png?updatedAt=1779387403117', alt: 'Logo 4' },
+        ],
     },
     {
-        id: 'campaign-therefor',
-        title: 'Campaigns & Case Studies', // Main title
-        heading: 'You Decide You — Therefor I\u2019m',
-        text: 'A campaign built on a single conviction: identity is self-determined. Not assigned by society, not inherited by expectation.',
-        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png?updatedAt=1778592997608',
-        images: null,
+        id: 'packaging',
+        layout: 'packaging',
+        label: 'Product Package Designs',
+        body: 'A product\'s packaging is its first salesperson. We design with that weight in mind \u2014 every label, every bottle, every box considered from the perspective of the person picking it up for the first time. From oil bottles with semi-transparent covers that make quality visible before a word is read, to sunscreen ranges built around a clean and confident shelf presence, the work is always in service of one thing: making the product impossible to put back down.',
+        divider: 'solid',
+        photos: [
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/aryas.png' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/crad.png' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/bm.png' },
+        ],
     },
     {
-        id: 'campaign-maharani',
-        title: null, // No main title
-        heading: 'Manam Naraye Onakodi — Maharani Silks',
-        text: 'A campaign centred around the spirit of Onam — not the product, but the feeling of coming together. It marked a turning point in establishing Maharani Silks as a household name in Kerala.',
-        image: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/1.jpg',
-        images: null,
+        id: 'brand-identity',
+        layout: 'brand-identity',
+        label: 'Brand Identity Designing',
+        body: 'Identity doesn\'t stop at a logo. It lives on the side of a vehicle, on a hoarding at a junction, under an umbrella at an event. We build visual systems designed to travel, coherent across every surface, every format, every context. So that wherever the brand appears, it\'s recognised. And wherever it\'s recognised, it\'s trusted.',
+        divider: 'none',
+        photo: { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/brand.png?updatedAt=1779388901021' },
     },
 ];
 
@@ -98,6 +127,46 @@ const allVideos = [
     { youtubeId: '4svjw9bicV0' },
     { youtubeId: '5lVBuUxjNZA' },
 ];
+
+/* ─── Video Titles Map ─────────────────────────── */
+const YT_VIDEO_TITLES = {
+  "7zEUImqBxLY": "Kalyan silks onam ad",
+  "3-1PyFj1h7Y": "kalidas jayaram salve maria ad",
+  "Kkb-ogpelIo": "jayaram kalidas salve maria ad",
+  "H9FNmeSnbQY": "jayaram kalidas salve maria ad",
+  "vdDbyddtEsE": "KALYAN ADI SALE AD",
+  "MWepSouX1Es": "THEREFORE I'M ad film",
+  "ubRXxLr08rY": "THEREFORE I'M ad film",
+  "ON3CbgeviSs": "Fazyo fashion film",
+  "aSxR-I_OG1A": "Fazyo fashion films",
+  "6TcIzK_E4lQ": "carla Commercial",
+  "NL9Wl0jAfM8": "salve maria ad",
+  "fLrw2V4N_Vs": "salve maria ad film",
+  "oJrqi2bThJs": "THEREFORE I'M AD FILM",
+  "86cB9Vm5QRQ": "thereforeI'm ad film",
+  "Kv-zKigB9kY": "maharani onam film",
+  "hSU-_Gz_QGQ": "Fazyo fashion film street",
+  "GXlg5S4ASgs": "nila soap digital ad film",
+  "9iCMhKNMBbE": "cadbury thank you campaign",
+  "Bba2IMvh3dc": "nila ayurveda soap arabic",
+  "RfCXTA15bno": "fazyo fashion film cafe",
+  "en-z_aTVn30": "fazyo fashion film beach",
+  "POX8SAX_eVQ": "fazyo fashion film",
+  "B5dLCHgC21Q": "fazyo fashion film",
+  "RoUvFpiaRro": "fazyo fashion film",
+  "pY4sQVsJC3I": "fashion film for fazyo",
+  "MUVOx9CezRo": "fazyo fashion film",
+  "e3H9h1nmV0g": "fazyo fashion film",
+  "OqWaih22a-c": "nila cream digital film",
+  "X30KBVV9k4I": "LDF election campaign film",
+  "ri3ylqx8xYQ": "oxygen student laptop digital film",
+  "XNgy1CugdwI": "myG kannur launch film",
+  "qJ2JaafaTWE": "YSR congress ad film",
+  "f051D_Hg-BM": "YSR congress ad film",
+  "kuZgNuNMAxE": "fazyo teaser",
+  "4svjw9bicV0": "showreel 2019",
+  "5lVBuUxjNZA": "cadbury ad"
+};
 
 /* ─── Thumbnail quality fallback ────────────────── */
 const YT_THUMB_QUALITIES = ['maxresdefault', 'hqdefault', 'mqdefault'];
@@ -171,13 +240,16 @@ function VideoCard({ video, index = 0, onPlay }) {
         >
             <div className="work-card-media">
                 <img
-                    className="yt-thumb"
+                    className={`yt-thumb ${YT_THUMB_QUALITIES[thumbQualityIdx] === 'hqdefault' ? 'hq-crop' : ''}`}
                     src={thumbSrc}
                     alt=""
                     loading="lazy"
                     onLoad={handleThumbLoad}
                     onError={handleThumbError}
                 />
+            </div>
+            <div className="work-card-title">
+                {YT_VIDEO_TITLES[video.youtubeId] || "William Tell Film"}
             </div>
         </motion.div>
     );
@@ -202,81 +274,135 @@ function FilmGrid() {
     );
 }
 
-/* ─── Art Section — flat image-card rows ─────────── */
+/* ─── Art Section — exact Canva layout ─── */
 function ArtSection() {
     return (
-        <div className="art-subsections-wrapper">
-            {artSubsections.map((sub, i) => (
-                <div key={sub.id}>
-                    {/* Section heading — rendered above the first card of each group */}
-                    {sub.title && (
-                        <motion.div
-                            className="art-section-heading-row"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: '-40px' }}
-                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                            <h2 className="art-section-heading">{sub.title}</h2>
-                        </motion.div>
-                    )}
-
-                    {/* Card row — image left, text right */}
-                    <motion.div
-                        className="art-subsection"
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: '-60px' }}
-                        transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                        {/* Left — Image */}
-                        <div className="art-subsection-image">
-                            {sub.images ? (
-                                <div className="art-image-grid">
-                                    {sub.images.map((src, idx) => (
-                                        <div key={idx} className="art-image-grid-cell">
-                                            <img src={src} alt={`${sub.heading || sub.title} ${idx + 1}`} loading="lazy" />
-                                        </div>
-                                    ))}
+        <div className="ca-wrap">
+            {artSections.map((sec) => (
+                <motion.div
+                    key={sec.id}
+                    className={`ca-block ${sec.divider !== 'none' ? `ca-div-${sec.divider}` : ''}`}
+                    style={sec.layout === 'logo-design' ? { paddingLeft: 0, paddingRight: 0 } : {}}
+                    initial={{ opacity: 0, y: 36 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                >
+                    {/* 1. PHOTOSHOOT — title left, full-width body, 2-col images + captions */}
+                    {sec.layout === 'photoshoot' && (<>
+                        <h2 className="ca-title ca-title-left">{sec.title}</h2>
+                        <p className="ca-body ca-body-full">{sec.body}</p>
+                        <div className="ca-photo-row">
+                            {sec.photos.map((p, i) => (
+                                <div key={i} className="ca-photo-cell">
+                                    <img src={p.src} alt={p.caption} loading="lazy" className="ca-img" />
+                                    {p.caption && <p className="ca-caption ca-caption-center">{p.caption}</p>}
                                 </div>
-                            ) : sub.image ? (
-                                <img src={sub.image} alt={sub.heading || sub.title} loading="lazy" />
-                            ) : (
-                                <div className="art-image-placeholder">
-                                    <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                        <rect x="8" y="8" width="64" height="64" rx="6" />
-                                        <circle cx="28" cy="30" r="7" />
-                                        <path d="M8 56l18-18 14 14 10-10 22 22" strokeLinejoin="round" />
-                                    </svg>
-                                    <span>Image coming soon</span>
-                                </div>
-                            )}
+                            ))}
                         </div>
+                    </>)}
 
-                        {/* Right — subheading + description */}
-                        <div className="art-subsection-text">
-                            <div className="art-subsection-body">
-                                <motion.div
-                                    className="art-body-item"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.6, delay: 0.25 }}
-                                >
-                                    {sub.heading && (
-                                        <span className="art-body-heading">{sub.heading}</span>
-                                    )}
-                                    <p className="art-body-text">{sub.text}</p>
-                                </motion.div>
+                    {/* 2. DESIGNS — title+subtitle right, text left 48%, images right 48% */}
+                    {sec.layout === 'designs' && (<>
+                        <div className="ca-title-blk ca-title-blk-right">
+                            <h2 className="ca-title ca-title-right">{sec.title}</h2>
+                            {sec.subtitle && <p className="ca-label">{sec.subtitle}</p>}
+                        </div>
+                        <div className="ca-cols ca-cols-designs">
+                            <div className="ca-col-text">
+                                <p className="ca-body">{sec.body}</p>
+                            </div>
+                            <div className="ca-col-imgs">
+                                {sec.photos.map((p, i) => (
+                                    <div key={i} className="ca-img-cell">
+                                        <img src={p.src} alt={sec.title} loading="lazy" className="ca-img" />
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    </motion.div>
-                </div>
+                    </>)}
+
+                    {/* 3. CAMPAIGNS — centered title, full-width first case, split second case */}
+                    {sec.layout === 'campaigns' && (<>
+                        <h2 className="ca-title ca-title-center">{sec.title}</h2>
+                        {sec.caseStudies.map((cs, ci) => (
+                            <motion.div
+                                key={cs.id}
+                                className={`ca-case ${cs.fullWidth ? 'ca-case-full' : 'ca-case-split'}`}
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-40px' }}
+                                transition={{ duration: 0.7, delay: ci * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                {cs.fullWidth ? (<>
+                                    <img src={cs.image} alt={cs.caption} loading="lazy" className="ca-img ca-img-wide" />
+                                    <p className="ca-caption ca-caption-left ca-caption-accent">{cs.caption}</p>
+                                    <p className="ca-body ca-body-full">{cs.body}</p>
+                                </>) : (
+                                    <div className="ca-cols ca-cols-case">
+                                        <div className="ca-col-img-left">
+                                            <img src={cs.image} alt={cs.caption} loading="lazy" className="ca-img" />
+                                        </div>
+                                        <div className="ca-col-text-right">
+                                            <p className="ca-body">{cs.body}</p>
+                                            <p className="ca-caption ca-caption-left ca-caption-bottom">{cs.caption}</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </motion.div>
+                        ))}
+                    </>)}
+
+                    {/* 4. LOGO UNIT DESIGN — full-viewport 2×2 grid, label + body indented */}
+                    {sec.layout === 'logo-design' && (<>
+                        <div className="ca-logo-grid">
+                            {sec.logos.map((logo, li) => (
+                                <div key={li} className="ca-logo-cell">
+                                    <img src={logo.src} alt={logo.alt} loading="lazy" className="ca-logo-img" />
+                                </div>
+                            ))}
+                        </div>
+                        <div style={{ padding: '0 5%' }}>
+                            <p className="ca-label ca-label-grid" style={{ padding: 0 }}>{sec.label}</p>
+                            <p className="ca-body ca-body-full">{sec.body}</p>
+                        </div>
+                    </>)}
+
+                    {/* 5. PACKAGING — images left 42%, label+body right 53% */}
+                    {sec.layout === 'packaging' && (
+                        <div className="ca-cols ca-cols-pkg">
+                            <div className="ca-col-imgs">
+                                {sec.photos.map((p, i) => (
+                                    <div key={i} className="ca-img-cell">
+                                        <img src={p.src} alt={sec.label} loading="lazy" className="ca-img" />
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="ca-col-text">
+                                <p className="ca-label">{sec.label}</p>
+                                <p className="ca-body">{sec.body}</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* 6. BRAND IDENTITY — body left 48%, image+label right 48% */}
+                    {sec.layout === 'brand-identity' && (
+                        <div className="ca-cols ca-cols-brand">
+                            <div className="ca-col-text">
+                                <p className="ca-body">{sec.body}</p>
+                            </div>
+                            <div className="ca-col-img-right">
+                                <img src={sec.photo.src} alt={sec.label} loading="lazy" className="ca-img" />
+                                <p className="ca-caption ca-caption-left">{sec.label}</p>
+                            </div>
+                        </div>
+                    )}
+
+                </motion.div>
             ))}
         </div>
     );
 }
-
 
 /* ─── Main Works Page ────────────────────────────── */
 export default function Works({ compact = false }) {

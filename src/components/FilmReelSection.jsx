@@ -470,10 +470,10 @@ const filmReelStyles = `
 .film-frame-inner {
     aspect-ratio: 16/9;
     background: #000;
-    border: 1px solid #333;
+    border: none;
     overflow: hidden;
     position: relative;
-    border-radius: 6px;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -481,15 +481,16 @@ const filmReelStyles = `
 /* Thumbnail — centered, covers frame */
 .film-frame-thumb {
     position: absolute;
-    inset: 0;
     width: 100%;
-    height: 100%;
+    height: 133.33% !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
     object-fit: cover;
-    object-position: center center;
     display: block;
     filter: grayscale(20%);
     transition: filter 0.4s ease;
-    border-radius: 5px;
+    border-radius: 0;
 }
 .film-frame-active .film-frame-thumb {
     filter: grayscale(0%);
@@ -512,7 +513,7 @@ const filmReelStyles = `
     background: rgba(0,0,0,0.45);
     z-index: 1;
     transition: background 0.4s ease;
-    border-radius: 5px;
+    border-radius: 0;
 }
 .film-frame:hover .film-frame-overlay {
     background: rgba(0,0,0,0.15);

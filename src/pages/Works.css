@@ -257,21 +257,28 @@
    VIDEO CARDS (Shared)
 ═══════════════════════════════════════════════════ */
 .work-card {
-    border-radius: 6px;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 0 !important;
     background: #111;
     cursor: pointer;
-    outline: 1px solid rgba(255, 255, 255, 0.05);
+    outline: none !important;
+    border: none !important;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-        outline-color 0.3s ease;
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: 300px;
+    /* reduced thumbnail width */
+    margin: 0 auto;
+    /* center within grid */
 }
 
 .work-card:hover {
     transform: translateY(-4px) scale(1.02);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
     z-index: 2;
-    outline-color: rgba(255, 255, 255, 0.2);
+    border-radius: 0 !important;
+    outline: none !important;
 }
 
 .work-card-media {
@@ -280,13 +287,41 @@
     height: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    border-radius: 0 !important;
 }
 
 .yt-thumb {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: border-radius 0.2s ease;
+    border-radius: 0 !important;
+    display: block;
+}
+
+.yt-thumb.hq-crop {
+    height: 133.33% !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.work-card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: left;
+    margin-top: 0.8rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+    text-transform: capitalize;
+    transition: color 0.3s ease;
+}
+
+.work-card:hover .work-card-title {
+    color: #fff;
 }
 
 .yt-play-overlay {
@@ -687,8 +722,753 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   ART SECTION — Split-Layout Subsections
+   ART SECTION — Canva exact layout (ca-* system)
 ═══════════════════════════════════════════════════ */
+
+/* ── Wrapper + Block ── */
+.ca-wrap {
+    width: 100%;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+}
+
+.ca-block {
+    padding: 4rem 5%;
+}
+
+.ca-div-solid {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ca-div-dotted {
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* ── Title — Alice (Canva font) ── */
+.ca-title {
+    font-family: 'Alice', Georgia, serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+    font-weight: 400;
+    color: rgba(160, 160, 160, 0.9);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.6rem;
+    text-transform: none;
+    /* override global h2 uppercase */
+}
+
+.ca-title-left {
+    text-align: left;
+}
+
+.ca-title-right {
+    text-align: right;
+    padding-right: 14%;
+}
+
+.ca-title-center {
+    text-align: center;
+}
+
+.ca-title-blk {
+    margin-bottom: 1.4rem;
+}
+
+.ca-title-blk-right {
+    text-align: right;
+    width: 34%;
+    /* matches ca-cols-designs image column width */
+    margin-left: auto;
+    /* pushes block to the right */
+}
+
+.ca-title-blk-right .ca-label {
+    padding-right: 14%;
+}
+
+/* ── Label — matches Photography/Design/Campaign label style ── */
+.ca-label {
+    font-family: 'DM Sans', 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: none;
+    /* no forced caps */
+    color: rgba(255, 255, 255, 0.38);
+    margin: 0 0 0.9rem;
+    display: block;
+}
+
+/* Label placed below the logo grid — left-aligned under grid */
+.ca-label-grid {
+    width: 100%;
+    margin: 0.5rem 0 1rem;
+    padding: 0 5%;
+}
+
+/* ── Body — matches .philosophy-body from About.css exactly ── */
+.ca-body {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.25rem, 2.4vw, 2rem);
+    font-weight: 300;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0 0 1rem;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.ca-body-full {
+    max-width: 100%;
+}
+
+/* ── Caption — matches Photography/Design/Campaign label style ── */
+.ca-caption {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: none;
+    color: rgba(255, 255, 255, 0.38);
+    margin: 0.4rem 0 0.6rem;
+    display: block;
+}
+
+.ca-caption-center {
+    text-align: center;
+}
+
+.ca-caption-left {
+    text-align: left;
+}
+
+/* Campaign caption — same colour as all other captions */
+.ca-caption-accent {
+    color: rgba(255, 255, 255, 0.38);
+}
+
+/* Caption pinned to bottom of right col in split case */
+.ca-caption-bottom {
+    margin-top: auto;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ── Images ── */
+.ca-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.ca-img-wide {
+    border-radius: 3px;
+}
+
+.ca-img-cell {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 0.7rem;
+}
+
+.ca-img-cell:last-child {
+    margin-bottom: 0;
+}
+
+/* ── 1. PHOTOSHOOT — 2-col equal photo row ── */
+.ca-photo-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8.2rem;
+    margin-top: 0.6rem;
+    width: 72%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ca-photo-cell {
+    display: flex;
+    flex-direction: column;
+}
+
+.ca-photo-cell .ca-img {
+    width: 100%;
+    height: auto;
+    object-fit: unset;
+    /* exact image ratio, no cropping */
+}
+
+/* ── 2. DESIGNS — text left 48% / images right 48% ── */
+.ca-cols {
+    display: flex;
+    gap: 2.8rem;
+    align-items: flex-start;
+}
+
+.ca-cols-designs .ca-col-text {
+    flex: 0 0 58%;
+}
+
+.ca-cols-designs .ca-col-imgs {
+    flex: 0 0 34%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+/* ── 3. CAMPAIGNS ── */
+.ca-case {
+    margin-bottom: 2.8rem;
+}
+
+.ca-case:last-child {
+    margin-bottom: 0;
+}
+
+.ca-case-full {
+    /* full-width: nothing special needed */
+}
+
+.ca-case-split .ca-cols-case {
+    display: flex;
+    gap: 2.4rem;
+    align-items: flex-start;
+}
+
+.ca-cols-case .ca-col-img-left {
+    flex: 0 0 43%;
+}
+
+.ca-cols-case .ca-col-text-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── 4. LOGO GRID — 2×2, laptop-exact layout ── */
+.ca-logo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    background: transparent;
+    width: 75%;
+    margin: 0 auto 0.5rem;
+    /* centred, matches screenshot margins */
+}
+
+.ca-logo-cell {
+    padding: 2rem;
+    overflow: hidden;
+    transition: background 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.ca-logo-img {
+    width: 100%;
+    height: auto;
+    /* exact natural ratio — no cropping */
+    display: block;
+}
+
+/* ── 5. PACKAGING — images left 40% / text right 56% ── */
+.ca-cols-pkg .ca-col-imgs {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.ca-cols-pkg .ca-col-text {
+    flex: 1;
+}
+
+/* ── 6. BRAND IDENTITY — text left 48% / image right 48% ── */
+.ca-cols-brand .ca-col-text {
+    flex: 0 0 47%;
+}
+
+.ca-cols-brand .ca-col-img-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Strictly preserve the brand identity image's exact natural ratio */
+.ca-cols-brand .ca-col-img-right .ca-img {
+    width: 100%;
+    height: auto;
+    object-fit: unset;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .ca-cols-designs .ca-col-text {
+        flex: 0 0 56%;
+    }
+
+    .ca-cols-designs .ca-col-imgs {
+        flex: 0 0 38%;
+    }
+
+    .ca-logo-grid {
+        width: 100%;
+    }
+
+    .ca-label-grid {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 680px) {
+    .ca-block {
+        padding: 3rem 5%;
+    }
+
+    .ca-title {
+        font-size: clamp(1.3rem, 6vw, 1.9rem);
+        margin-bottom: 1.2rem;
+    }
+
+    .ca-body {
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    /* All multi-col layouts stack vertically */
+    .ca-cols,
+    .ca-case-split .ca-cols-case {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .ca-cols-designs .ca-col-text,
+    .ca-cols-designs .ca-col-imgs,
+    .ca-cols-pkg .ca-col-imgs,
+    .ca-cols-pkg .ca-col-text,
+    .ca-cols-brand .ca-col-text,
+    .ca-cols-brand .ca-col-img-right,
+    .ca-cols-case .ca-col-img-left,
+    .ca-cols-case .ca-col-text-right {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+
+    .ca-photo-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .ca-logo-grid {
+        width: 100%;
+    }
+
+    .ca-label-grid {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .ca-title-right,
+    .ca-title-center {
+        text-align: left;
+    }
+
+    .ca-title-blk-right {
+        text-align: left;
+    }
+}
+
+@media (max-width: 420px) {
+    .ca-block {
+        padding: 2.5rem 5%;
+    }
+}
+
+/* ═══════════════════════════════════════════════════
+   ART SECTION — Canva Float-Wrap Layout
+═══════════════════════════════════════════════════ */
+
+/* Outer wrapper */
+.canva-art-wrapper {
+    width: 100%;
+    padding: 0 0 4rem;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Each section block */
+.canva-art-block {
+    padding: 4rem 5%;
+}
+
+/* Dividers */
+.canva-divider-solid {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.canva-divider-dotted {
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+/* ── Title ── */
+.canva-art-title-block {
+    margin-bottom: 1.8rem;
+}
+
+.canva-title-left {
+    text-align: left;
+}
+
+.canva-title-right {
+    text-align: right;
+}
+
+.canva-title-center {
+    text-align: center;
+}
+
+.canva-art-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+    font-weight: 400 !important;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0 0 0.4rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-transform: none !important;
+}
+
+/* Subtitle — matches About's section-label style */
+.canva-art-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.38);
+    margin: 0;
+}
+
+/* ── Body text — matches philosophy-body from About.css ── */
+.canva-art-body {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1rem, 1.8vw, 1.3rem);
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0 0 1rem;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* Full-width body (Photoshoot, Logo) */
+.canva-body-full {
+    max-width: 100%;
+}
+
+/* ── Photoshoot: 2-col photo row ── */
+.canva-photos-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.canva-photo-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* ── Shared image style ── */
+.canva-photo-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+/* Photo caption — matches director-signature italic style */
+.canva-photo-caption {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.38);
+    text-align: center;
+    margin: 0.35rem 0 0;
+    letter-spacing: 0.02em;
+}
+
+/* ════════════════════════════════════════
+   FLOAT CONTAINERS
+   The float siblings (canva-float-left /
+   canva-float-right) must come FIRST in
+   the DOM so text flows naturally beside them.
+   canva-clearfix clears floats at block end.
+════════════════════════════════════════ */
+.canva-float-block {
+    overflow: hidden;
+}
+
+/* BFC — contains floats */
+
+/* Images float LEFT  →  text wraps RIGHT
+   Packaging: images ~38%, text ~59%
+   (canva-case-float-img overrides for campaign cards) */
+.canva-float-left {
+    float: left;
+    width: 38%;
+    margin: 0 2.4rem 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+/* Images float RIGHT  →  text wraps LEFT
+   Designs + Brand Identity: images ~48%, text ~48% */
+.canva-float-right {
+    float: right;
+    width: 48%;
+    margin: 0 0 1rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.canva-clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+/* Stacked image cells inside float containers */
+.canva-stack-img-cell {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+/* ── Logo unit Design: centred 2×2 grid + full-width body ── */
+.canva-logo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+    /* Match screenshot: grid is ~62% wide, centred */
+    width: 62%;
+    margin: 0 auto 0.7rem;
+}
+
+.canva-logo-cell {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.6rem 1.2rem;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    transition: background 0.25s ease;
+}
+
+.canva-logo-cell:hover {
+    background: #f2f2f2;
+}
+
+.canva-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    max-height: 72px;
+}
+
+/* ── Mixed case-studies layout ── */
+.canva-mixed-cases {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 0.5rem;
+}
+
+/* Full-width first case study */
+.canva-case-full {
+    margin-bottom: 2.8rem;
+    padding-bottom: 2.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.canva-case-full-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 3px;
+    margin-bottom: 0.55rem;
+}
+
+/* Italic accent caption below full-width image */
+.canva-case-full-caption {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 600;
+    font-style: italic;
+    color: rgba(200, 160, 65, 0.92);
+    display: block;
+    margin: 0 0 0.9rem;
+    letter-spacing: 0.02em;
+}
+
+/* Float-left card for non-full-width cases */
+.canva-case-card {
+    padding: 2.2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+}
+
+.canva-case-card:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+/* Image floats left inside each case card — Maharani: ~43% */
+.canva-case-float-img {
+    width: 43%;
+    margin: 0 2.4rem 0.6rem 0;
+}
+
+/* Small section label below images/grids — matches About's section-label */
+.canva-img-section-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.38);
+    margin: 0.6rem 0 1rem;
+    display: block;
+}
+
+/* Case label that sits below the clearfix (Maharani heading) */
+.canva-case-label-below {
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════ */
+
+/* Tablet: maintain proportions, slightly tighter */
+@media (max-width: 900px) {
+    .canva-float-left {
+        width: 42%;
+    }
+
+    .canva-float-right {
+        width: 48%;
+    }
+
+    .canva-logo-grid {
+        width: 80%;
+    }
+
+    .canva-case-float-img {
+        width: 46%;
+    }
+}
+
+/* Mobile: clear all floats, stack vertically */
+@media (max-width: 680px) {
+    .canva-art-block {
+        padding: 3rem 5%;
+    }
+
+    .canva-art-title {
+        font-size: clamp(1.4rem, 6vw, 2rem);
+    }
+
+    .canva-art-body {
+        font-size: 0.88rem;
+        text-align: left;
+    }
+
+    /* Kill all floats — stack images above text */
+    .canva-float-left,
+    .canva-float-right,
+    .canva-case-float-img {
+        float: none;
+        width: 100%;
+        margin: 0 0 1.2rem 0;
+    }
+
+    /* Full-width case study: keep as-is (already 100% wide) */
+    .canva-case-full-img {
+        border-radius: 2px;
+    }
+
+    .canva-case-full-caption {
+        font-size: 0.72rem;
+    }
+
+    .canva-photos-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .canva-logo-grid {
+        width: 100%;
+        margin-bottom: 1.2rem;
+    }
+
+    .canva-logo-cell {
+        padding: 1.1rem 0.8rem;
+    }
+
+    .canva-logo-img {
+        max-height: 56px;
+    }
+
+    .canva-case-card {
+        padding: 2rem 0;
+    }
+
+    .canva-art-body {
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    /* On mobile, all titles align left */
+    .canva-title-right,
+    .canva-title-center {
+        text-align: left;
+    }
+}
+
+@media (max-width: 420px) {
+    .canva-art-block {
+        padding: 2.5rem 5%;
+    }
+
+    .canva-art-title {
+        font-size: 1.3rem;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   ART SECTION — Split-Layout Subsections (legacy, kept for reference)
+═══════════════════════════════════════════════════ */
+
 
 .art-subsections-wrapper {
     display: flex;
@@ -956,15 +1736,14 @@
 
 /* ── VIDEO CARDS (shared) ────────────────────── */
 .work-card {
-    border-radius: 12px;
-    overflow: hidden;
-    background: #111;
-    cursor: pointer;
-    transition: transform 0.2s ease, border-radius 0.2s ease;
+    border-radius: 0 !important;
+    outline: none !important;
+    border: none !important;
 }
 
 .work-card:hover {
-    border-radius: 0px; /* Optional: YouTube reduces border-radius on hover */
+    border-radius: 0 !important;
+    outline: none !important;
 }
 
 @media (max-width: 768px) {

@@ -261,8 +261,9 @@ const CSS = `
 .vg-card-slot {
     flex-shrink: 0;
     width: 210px;
+    aspect-ratio: 16/9;
     position: relative;
-    border-radius: 10px;
+    border-radius: 0;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
@@ -273,12 +274,16 @@ const CSS = `
 }
 .vg-rail-img {
     width: 100%;
-    aspect-ratio: 16/9;
+    height: 133.33%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     object-fit: cover;
     display: block;
     filter: saturate(0.7) brightness(0.75);
     transition: filter 0.4s ease;
-    border-radius: 10px;
+    border-radius: 0;
 }
 .vg-card-slot:hover .vg-rail-img {
     filter: saturate(1.1) brightness(0.95);
@@ -287,7 +292,7 @@ const CSS = `
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
-    border-radius: 10px;
+    border-radius: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
