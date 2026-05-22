@@ -762,8 +762,8 @@
 }
 
 .ca-title-right {
-    text-align: right;
-    padding-right: 14%;
+    text-align: left;
+    padding-right: 0;
 }
 
 .ca-title-center {
@@ -775,15 +775,31 @@
 }
 
 .ca-title-blk-right {
-    text-align: right;
-    width: 34%;
-    /* matches ca-cols-designs image column width */
-    margin-left: auto;
-    /* pushes block to the right */
+    text-align: left;
+    width: 100%;
+    margin-left: 0;
 }
 
 .ca-title-blk-right .ca-label {
-    padding-right: 14%;
+    padding-right: 0;
+}
+
+/* ── Laptop only: right-align Designs title + subtitle ── */
+@media (min-width: 901px) {
+    .ca-title-right {
+        text-align: right;
+        padding-right: 14%;
+    }
+
+    .ca-title-blk-right {
+        text-align: right;
+        width: 34%;
+        margin-left: auto;
+    }
+
+    .ca-title-blk-right .ca-label {
+        padding-right: 14%;
+    }
 }
 
 /* ── Label — matches Photography/Design/Campaign label style ── */
@@ -1036,6 +1052,16 @@
         margin-bottom: 1.2rem;
     }
 
+    .ca-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+    }
+
+    .ca-caption {
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+    }
+
     .ca-body {
         font-size: 1rem;
         text-align: left;
@@ -1067,6 +1093,7 @@
 
     .ca-logo-grid {
         width: 100%;
+        gap: 0;
     }
 
     .ca-label-grid {
@@ -1772,6 +1799,10 @@
     .films-flat-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
+    }
+
+    .ca-cols-brand .ca-col-img-right {
+        padding-top: 1rem;
     }
 }
 

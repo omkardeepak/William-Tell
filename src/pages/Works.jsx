@@ -15,7 +15,7 @@ const artSections = [
         divider: 'solid',
         photos: [
             { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/imagehv.png', caption: 'Maharani Silks' },
-            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png?updatedAt=1779371627653', caption: 'Glowyoung' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/gy.png', caption: 'Glowyoung' },
         ],
     },
     {
@@ -26,9 +26,9 @@ const artSections = [
         body: 'From full-scale hoardings to metro pillar installations and magazine placements, we produce OOH print work built for impact at every size. Every format is designed with a provoking thought, starting with how it will actually be seen \u2014 in light, in motion, at a distance \u2014 so the work doesn\'t just fill a space, it owns it. Because outdoor is the only medium that doesn\'t ask for attention, it takes it. There are no skip buttons, no scroll, no algorithm deciding who sees it. Just the work, in the world, earning its place.',
         divider: 'dotted',
         photos: [
-            { src: '/images/design_billboard_1.png' },
-            { src: '/images/design_billboard_2.png' },
-            { src: '/images/design_billboard_3.png' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/bb1.png?updatedAt=1779453519331' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/bb2.png?updatedAt=1779453561074' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/bb3.png?updatedAt=1779453540445' },
         ],
     },
     {
@@ -60,7 +60,7 @@ const artSections = [
         body: 'Some logos carry decades. Others launch them. We work across both, refining legacy identities that have earned their authority over time, and building new marks from scratch for products that need to own a space the moment they enter it. Every logo we create is designed to be immediately legible, endlessly versatile, and impossible to mistake for anything else.',
         divider: 'dotted',
         logos: [
-            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/image.png', alt: 'Logo 1' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/jaccimage.png', alt: 'Logo 1' },
             { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/bellaro.png?updatedAt=1779387321894', alt: 'Logo 2' },
             { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/aryas.png?updatedAt=1779387372441', alt: 'Logo 3' },
             { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/carla.png?updatedAt=1779387403117', alt: 'Logo 4' },
@@ -130,42 +130,42 @@ const allVideos = [
 
 /* ─── Video Titles Map ─────────────────────────── */
 const YT_VIDEO_TITLES = {
-  "7zEUImqBxLY": "Kalyan silks onam ad",
-  "3-1PyFj1h7Y": "kalidas jayaram salve maria ad",
-  "Kkb-ogpelIo": "jayaram kalidas salve maria ad",
-  "H9FNmeSnbQY": "jayaram kalidas salve maria ad",
-  "vdDbyddtEsE": "KALYAN ADI SALE AD",
-  "MWepSouX1Es": "THEREFORE I'M ad film",
-  "ubRXxLr08rY": "THEREFORE I'M ad film",
-  "ON3CbgeviSs": "Fazyo fashion film",
-  "aSxR-I_OG1A": "Fazyo fashion films",
-  "6TcIzK_E4lQ": "carla Commercial",
-  "NL9Wl0jAfM8": "salve maria ad",
-  "fLrw2V4N_Vs": "salve maria ad film",
-  "oJrqi2bThJs": "THEREFORE I'M AD FILM",
-  "86cB9Vm5QRQ": "thereforeI'm ad film",
-  "Kv-zKigB9kY": "maharani onam film",
-  "hSU-_Gz_QGQ": "Fazyo fashion film street",
-  "GXlg5S4ASgs": "nila soap digital ad film",
-  "9iCMhKNMBbE": "cadbury thank you campaign",
-  "Bba2IMvh3dc": "nila ayurveda soap arabic",
-  "RfCXTA15bno": "fazyo fashion film cafe",
-  "en-z_aTVn30": "fazyo fashion film beach",
-  "POX8SAX_eVQ": "fazyo fashion film",
-  "B5dLCHgC21Q": "fazyo fashion film",
-  "RoUvFpiaRro": "fazyo fashion film",
-  "pY4sQVsJC3I": "fashion film for fazyo",
-  "MUVOx9CezRo": "fazyo fashion film",
-  "e3H9h1nmV0g": "fazyo fashion film",
-  "OqWaih22a-c": "nila cream digital film",
-  "X30KBVV9k4I": "LDF election campaign film",
-  "ri3ylqx8xYQ": "oxygen student laptop digital film",
-  "XNgy1CugdwI": "myG kannur launch film",
-  "qJ2JaafaTWE": "YSR congress ad film",
-  "f051D_Hg-BM": "YSR congress ad film",
-  "kuZgNuNMAxE": "fazyo teaser",
-  "4svjw9bicV0": "showreel 2019",
-  "5lVBuUxjNZA": "cadbury ad"
+    "7zEUImqBxLY": "Kalyan silks onam ad",
+    "3-1PyFj1h7Y": "kalidas jayaram salve maria ad",
+    "Kkb-ogpelIo": "jayaram kalidas salve maria ad",
+    "H9FNmeSnbQY": "jayaram kalidas salve maria ad",
+    "vdDbyddtEsE": "KALYAN ADI SALE AD",
+    "MWepSouX1Es": "THEREFORE I'M ad film",
+    "ubRXxLr08rY": "THEREFORE I'M ad film",
+    "ON3CbgeviSs": "Fazyo fashion film",
+    "aSxR-I_OG1A": "Fazyo fashion films",
+    "6TcIzK_E4lQ": "carla Commercial",
+    "NL9Wl0jAfM8": "salve maria ad",
+    "fLrw2V4N_Vs": "salve maria ad film",
+    "oJrqi2bThJs": "THEREFORE I'M AD FILM",
+    "86cB9Vm5QRQ": "thereforeI'm ad film",
+    "Kv-zKigB9kY": "maharani onam film",
+    "hSU-_Gz_QGQ": "Fazyo fashion film street",
+    "GXlg5S4ASgs": "nila soap digital ad film",
+    "9iCMhKNMBbE": "cadbury thank you campaign",
+    "Bba2IMvh3dc": "nila ayurveda soap arabic",
+    "RfCXTA15bno": "fazyo fashion film cafe",
+    "en-z_aTVn30": "fazyo fashion film beach",
+    "POX8SAX_eVQ": "fazyo fashion film",
+    "B5dLCHgC21Q": "fazyo fashion film",
+    "RoUvFpiaRro": "fazyo fashion film",
+    "pY4sQVsJC3I": "fashion film for fazyo",
+    "MUVOx9CezRo": "fazyo fashion film",
+    "e3H9h1nmV0g": "fazyo fashion film",
+    "OqWaih22a-c": "nila cream digital film",
+    "X30KBVV9k4I": "LDF election campaign film",
+    "ri3ylqx8xYQ": "oxygen student laptop digital film",
+    "XNgy1CugdwI": "myG kannur launch film",
+    "qJ2JaafaTWE": "YSR congress ad film",
+    "f051D_Hg-BM": "YSR congress ad film",
+    "kuZgNuNMAxE": "fazyo teaser",
+    "4svjw9bicV0": "showreel 2019",
+    "5lVBuUxjNZA": "cadbury ad"
 };
 
 /* ─── Thumbnail quality fallback ────────────────── */
@@ -392,7 +392,7 @@ function ArtSection() {
                                 <p className="ca-body">{sec.body}</p>
                             </div>
                             <div className="ca-col-img-right">
-                                <img src={sec.photo.src} alt={sec.label} loading="lazy" className="ca-img" />
+                                <img src={sec.photo.src} alt={sec.label} loading="lazy" className="ca-img lg:pt-16" />
                                 <p className="ca-caption ca-caption-left">{sec.label}</p>
                             </div>
                         </div>
