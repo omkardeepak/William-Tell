@@ -62,7 +62,7 @@ const artSections = [
         logos: [
             { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/jaccimage.png', alt: 'Logo 1' },
             { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/bellaro.png?updatedAt=1779387321894', alt: 'Logo 2' },
-            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/aryas.png?updatedAt=1779387372441', alt: 'Logo 3' },
+            { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/aryasimage.png', alt: 'Logo 3' },
             { src: 'https://ik.imagekit.io/r70knk9pu/William%20Tell/carla.png?updatedAt=1779387403117', alt: 'Logo 4' },
         ],
     },
@@ -258,16 +258,30 @@ function VideoCard({ video, index = 0, onPlay }) {
 /* ─── Flat Film Grid ─────────────────────────────── */
 function FilmGrid() {
     const [activeVideo, setActiveVideo] = useState(null);
-    // Stable reference so VideoModal's useEffect doesn't re-run on every render
+
     const handleClose = useCallback(() => setActiveVideo(null), []);
+
     return (
         <>
             {activeVideo && (
-                <VideoModal video={activeVideo} onClose={handleClose} />
+                <VideoModal
+                    video={activeVideo}
+                    onClose={handleClose}
+                />
             )}
+
             <div className="films-flat-grid">
                 {allVideos.map((video, i) => (
-                    <VideoCard key={video.youtubeId} video={video} index={i} onPlay={setActiveVideo} />
+                    <div
+                        className="films-grid-item"
+                        key={video.youtubeId}
+                    >
+                        <VideoCard
+                            video={video}
+                            index={i}
+                            onPlay={setActiveVideo}
+                        />
+                    </div>
                 ))}
             </div>
         </>
@@ -609,10 +623,9 @@ export default function Works({ compact = false }) {
                                     <div className="works-accordion-inner">
                                         {sec.id === 'film' && (
                                             <>
-                                                <div className="works-section-label" style={{ borderBottom: 'none', paddingLeft: 0, paddingTop: 0 }}>
-                                                    <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-                                                        — Elevating brands through cinematic storytelling.
-                                                    </motion.span>
+                                                <div className="works-section-label works-section-label-film">                                                    <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+                                                    — Elevating brands through cinematic storytelling.
+                                                </motion.span>
                                                 </div>
                                                 <div className="works-groups-container">
                                                     <FilmGrid />
@@ -621,10 +634,9 @@ export default function Works({ compact = false }) {
                                         )}
                                         {sec.id === 'art' && (
                                             <div className="works-gallery-section" style={{ paddingBottom: '4rem' }}>
-                                                <div className="works-section-label" style={{ borderBottom: 'none', paddingLeft: 0, paddingTop: 0 }}>
-                                                    <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-                                                        — Photography &nbsp;&nbsp; Design &nbsp;&nbsp; Campaign &nbsp;&nbsp; Case Studies
-                                                    </motion.span>
+                                                <div className="works-section-label works-section-label-art">                                                    <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+                                                    — Photography &nbsp;&nbsp; Design &nbsp;&nbsp; Campaign &nbsp;&nbsp; Case Studies
+                                                </motion.span>
                                                 </div>
                                                 <ArtSection />
                                             </div>

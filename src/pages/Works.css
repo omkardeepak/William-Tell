@@ -177,9 +177,8 @@
 ═══════════════════════════════════════════════════ */
 .works-groups-container {
     padding: 0;
-    /* Remove top padding so the first group can act a bit like a bleed if wanted, 
-       but we will add padding-bottom. */
-    padding-bottom: 6rem;
+    padding-bottom: 2rem;
+    overflow: hidden;
 }
 
 /* Individual Group wrapper */
@@ -261,16 +260,13 @@
     flex-direction: column;
     align-items: flex-start;
     border-radius: 0 !important;
-    background: #111;
+    background: transparent;
     cursor: pointer;
     outline: none !important;
     border: none !important;
+    width: 100%;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
         box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    max-width: 300px;
-    /* reduced thumbnail width */
-    margin: 0 auto;
-    /* center within grid */
 }
 
 .work-card:hover {
@@ -641,7 +637,10 @@
    ACCORDION SECTIONS
 ═══════════════════════════════════════════════════ */
 .works-accordion-container {
-    padding: 2rem 5% 6rem;
+    padding: 2rem 0 6rem;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .works-accordion-item {
@@ -663,7 +662,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2.5rem 0;
+    padding: 2.5rem 5%;
     background: none;
     border: none;
     cursor: pointer;
@@ -710,6 +709,7 @@
 
 .works-accordion-inner {
     padding-bottom: 2rem;
+    overflow: hidden;
 }
 
 .works-placeholder {
@@ -867,7 +867,6 @@
 .ca-caption-bottom {
     margin-top: auto;
     padding-top: 1.2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 /* ── Images ── */
@@ -1358,7 +1357,6 @@
 /* Float-left card for non-full-width cases */
 .canva-case-card {
     padding: 2.2rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
     overflow: hidden;
 }
 
@@ -1786,37 +1784,122 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   FLAT FILM GRID  —  Continuous 4-column layout
+   FLAT FILM GRID — FINAL RESPONSIVE FIX
 ═══════════════════════════════════════════════════ */
-.films-flat-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    padding: 0 0 6rem;
+
+.works-groups-container {
+    width: 100%;
+    overflow-x: hidden;
 }
 
-@media (max-width: 1024px) {
+.films-flat-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    padding: 0 5% 6rem;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.films-grid-item {
+    width: 100%;
+    min-width: 0;
+}
+
+.work-card {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.work-card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 0 !important;
+}
+
+.yt-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Fix thumbnail overflow on responsive shrink */
+.yt-thumb.hq-crop {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    inset: 0 !important;
+    transform: none !important;
+    object-fit: cover !important;
+}
+
+.work-card-title {
+    width: 100%;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: left;
+    margin-top: 0.8rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.45;
+    letter-spacing: 0.03em;
+    text-transform: capitalize;
+    overflow-wrap: break-word;
+}
+
+/* ───────────── DESKTOP ───────────── */
+@media (max-width: 1280px) {
     .films-flat-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* ───────────── TABLET ───────────── */
+@media (max-width: 900px) {
+    .films-flat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+}
+
+/* ───────────── MOBILE ───────────── */
+@media (max-width: 600px) {
+    .films-flat-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 0 4% 4rem;
+    }
+
+    .work-card-title {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+}
+
+/* ───────────── SMALL MOBILE ───────────── */
+@media (max-width: 420px) {
+    .films-flat-grid {
         gap: 12px;
     }
 
+    .work-card-title {
+        font-size: 0.82rem;
+    }
+}
+
+/* Laptop brand-identity padding kept at 1024 */
+@media (max-width: 1024px) {
     .ca-cols-brand .ca-col-img-right {
         padding-top: 1rem;
-    }
-}
-
-@media (max-width: 680px) {
-    .films-flat-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-}
-
-@media (max-width: 400px) {
-    .films-flat-grid {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 16px;
     }
 }
 
