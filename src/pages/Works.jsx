@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import CurtainIntro from '../components/CurtainIntro';
+import SEO from '../components/SEO';
 import './Works.css';
 
 /* ─── Art sections — exact Canva layout ───────── */
@@ -508,6 +509,10 @@ export default function Works({ compact = false }) {
 
     return (
         <div className="works-page" id="works">
+            <SEO 
+                title="Our Works | William Tell Productions" 
+                description="Explore the commercial films, brand campaigns, photoshoots, and product packaging design projects created by William Tell Creatives." 
+            />
             {/* Cinematic curtain intro */}
             <CurtainIntro />
 

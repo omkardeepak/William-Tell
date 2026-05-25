@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Plus, Minus } from 'lucide-react';
 import ClientsSection from '../components/ClientsSection';
 import CurtainIntro from '../components/CurtainIntro';
+import SEO from '../components/SEO';
 import './About.css';
 
 /* ─── Cinematic page-intro curtain ──────────────────────────────── */
@@ -298,6 +299,10 @@ export default function About() {
 
     return (
         <div className="about-page">
+            <SEO 
+                title="About Us | William Tell Productions" 
+                description="William Tell Creatives is a film production house, founded by a bunch of creative people who has seen and done it all in their respective corporate careers with media houses and large production houses." 
+            />
             {/* Cinematic curtain intro */}
             <CurtainIntro />
 

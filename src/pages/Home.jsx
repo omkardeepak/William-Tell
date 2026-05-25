@@ -7,6 +7,7 @@ import { WordPullUp } from '../components/ui/word-pull-up';
 import Works from './Works';
 import HeroFilmsSection from '../components/HeroFilmsSection';
 import HeroSeam from '../components/HeroSeam';
+import SEO from '../components/SEO';
 
 const sampleMediaContent = {
     video: {
@@ -100,16 +101,7 @@ const ABOUT_CSS = `
     position: relative;
     overflow: hidden;
 }
-/* faint grid lines echoing the hero grid */
-.as-root::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 100% 80px;
-    pointer-events: none;
-}
+
 .as-inner {
     max-width: 1100px;
     margin: 0 auto;
@@ -392,6 +384,10 @@ const Demo = () => {
 
     return (
         <div style={{ background: '#0a0a0a', minHeight: '100vh' }}>
+            <SEO 
+                title="William Tell Productions | Premium Film Production" 
+                description="William Tell Creatives is a film production house, founded by a bunch of creative people who has seen and done it all in their respective corporate careers with media houses and large production houses." 
+            />
             {/* ── Grand Hero: Kinetic Velocity Grid ── */}
             <HeroFilmsSection />
 

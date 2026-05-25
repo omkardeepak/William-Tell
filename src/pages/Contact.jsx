@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 import './Contact.css';
 
 export default function Contact() {
@@ -10,6 +11,10 @@ export default function Contact() {
             animate={{ y: 0 }}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
         >
+            <SEO 
+                title="Contact Us | William Tell Productions" 
+                description="Get in touch with William Tell Productions in Kochi, Kerala. Let's collaborate to build something iconic." 
+            />
             <div className="mega-overlay-inner">
                 {/* Top Hero Section */}
                 <div className="mega-hero">
