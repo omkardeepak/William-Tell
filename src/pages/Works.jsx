@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import CurtainIntro from '../components/CurtainIntro';
 import SEO from '../components/SEO';
+import ArtSection from '../components/ArtSection';
+import About from './About';
 import './Works.css';
 
 /* ─── Art sections — exact Canva layout ───────── */
@@ -289,135 +291,7 @@ function FilmGrid() {
     );
 }
 
-/* ─── Art Section — exact Canva layout ─── */
-function ArtSection() {
-    return (
-        <div className="ca-wrap">
-            {artSections.map((sec) => (
-                <motion.div
-                    key={sec.id}
-                    className={`ca-block ${sec.divider !== 'none' ? `ca-div-${sec.divider}` : ''}`}
-                    style={sec.layout === 'logo-design' ? { paddingLeft: 0, paddingRight: 0 } : {}}
-                    initial={{ opacity: 0, y: 36 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-60px' }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                >
-                    {/* 1. PHOTOSHOOT — title left, full-width body, 2-col images + captions */}
-                    {sec.layout === 'photoshoot' && (<>
-                        <h2 className="ca-title ca-title-left">{sec.title}</h2>
-                        <p className="ca-body ca-body-full">{sec.body}</p>
-                        <div className="ca-photo-row">
-                            {sec.photos.map((p, i) => (
-                                <div key={i} className="ca-photo-cell">
-                                    <img src={p.src} alt={p.caption} loading="lazy" className="ca-img" />
-                                    {p.caption && <p className="ca-caption ca-caption-center">{p.caption}</p>}
-                                </div>
-                            ))}
-                        </div>
-                    </>)}
 
-                    {/* 2. DESIGNS — title+subtitle right, text left 48%, images right 48% */}
-                    {sec.layout === 'designs' && (<>
-                        <div className="ca-title-blk ca-title-blk-right">
-                            <h2 className="ca-title ca-title-right">{sec.title}</h2>
-                            {sec.subtitle && <p className="ca-label">{sec.subtitle}</p>}
-                        </div>
-                        <div className="ca-cols ca-cols-designs">
-                            <div className="ca-col-text">
-                                <p className="ca-body">{sec.body}</p>
-                            </div>
-                            <div className="ca-col-imgs">
-                                {sec.photos.map((p, i) => (
-                                    <div key={i} className="ca-img-cell">
-                                        <img src={p.src} alt={sec.title} loading="lazy" className="ca-img" />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </>)}
-
-                    {/* 3. CAMPAIGNS — centered title, full-width first case, split second case */}
-                    {sec.layout === 'campaigns' && (<>
-                        <h2 className="ca-title ca-title-center">{sec.title}</h2>
-                        {sec.caseStudies.map((cs, ci) => (
-                            <motion.div
-                                key={cs.id}
-                                className={`ca-case ${cs.fullWidth ? 'ca-case-full' : 'ca-case-split'}`}
-                                initial={{ opacity: 0, y: 24 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: '-40px' }}
-                                transition={{ duration: 0.7, delay: ci * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                                {cs.fullWidth ? (<>
-                                    <img src={cs.image} alt={cs.caption} loading="lazy" className="ca-img ca-img-wide" />
-                                    <p className="ca-caption ca-caption-left ca-caption-accent">{cs.caption}</p>
-                                    <p className="ca-body ca-body-full">{cs.body}</p>
-                                </>) : (
-                                    <div className="ca-cols ca-cols-case">
-                                        <div className="ca-col-img-left">
-                                            <img src={cs.image} alt={cs.caption} loading="lazy" className="ca-img" />
-                                        </div>
-                                        <div className="ca-col-text-right">
-                                            <p className="ca-body">{cs.body}</p>
-                                            <p className="ca-caption ca-caption-left ca-caption-bottom">{cs.caption}</p>
-                                        </div>
-                                    </div>
-                                )}
-                            </motion.div>
-                        ))}
-                    </>)}
-
-                    {/* 4. LOGO UNIT DESIGN — full-viewport 2×2 grid, label + body indented */}
-                    {sec.layout === 'logo-design' && (<>
-                        <div className="ca-logo-grid">
-                            {sec.logos.map((logo, li) => (
-                                <div key={li} className="ca-logo-cell">
-                                    <img src={logo.src} alt={logo.alt} loading="lazy" className="ca-logo-img" />
-                                </div>
-                            ))}
-                        </div>
-                        <div style={{ padding: '0 5%' }}>
-                            <p className="ca-label ca-label-grid" style={{ padding: 0 }}>{sec.label}</p>
-                            <p className="ca-body ca-body-full">{sec.body}</p>
-                        </div>
-                    </>)}
-
-                    {/* 5. PACKAGING — images left 42%, label+body right 53% */}
-                    {sec.layout === 'packaging' && (
-                        <div className="ca-cols ca-cols-pkg">
-                            <div className="ca-col-imgs">
-                                {sec.photos.map((p, i) => (
-                                    <div key={i} className="ca-img-cell">
-                                        <img src={p.src} alt={sec.label} loading="lazy" className="ca-img" />
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="ca-col-text">
-                                <p className="ca-label">{sec.label}</p>
-                                <p className="ca-body">{sec.body}</p>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* 6. BRAND IDENTITY — body left 48%, image+label right 48% */}
-                    {sec.layout === 'brand-identity' && (
-                        <div className="ca-cols ca-cols-brand">
-                            <div className="ca-col-text">
-                                <p className="ca-body">{sec.body}</p>
-                            </div>
-                            <div className="ca-col-img-right">
-                                <img src={sec.photo.src} alt={sec.label} loading="lazy" className="ca-img lg:pt-16" />
-                                <p className="ca-caption ca-caption-left">{sec.label}</p>
-                            </div>
-                        </div>
-                    )}
-
-                </motion.div>
-            ))}
-        </div>
-    );
-}
 
 /* ─── Main Works Page ────────────────────────────── */
 export default function Works({ compact = false }) {
@@ -481,6 +355,7 @@ export default function Works({ compact = false }) {
     const sections = [
         { id: 'film', title: 'FILM' },
         { id: 'art', title: 'ART' },
+        { id: 'about', title: 'ABOUT' },
     ];
 
     const handleSectionClick = (id) => {
@@ -646,7 +521,11 @@ export default function Works({ compact = false }) {
                                                 <ArtSection />
                                             </div>
                                         )}
-
+                                        {sec.id === 'about' && (
+                                            <div className="works-about-section">
+                                                <About isSection={true} />
+                                            </div>
+                                        )}
                                     </div>
                                 </motion.div>
                             )}

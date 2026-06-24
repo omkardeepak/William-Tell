@@ -14,7 +14,7 @@ export default function Navbar() {
     const isHome = location.pathname === '/';
     const navColumns = [
         { primary: { name: 'Work', path: '/#works' } },
-        { primary: { name: 'About', path: '/about' } },
+        { primary: { name: 'About', path: '/#about' } },
         { primary: { name: 'Contact', path: '/contact' } },
     ];
 
@@ -51,23 +51,29 @@ export default function Navbar() {
     }, [mobileMenuOpen]);
 
     const handleAnchorLinkClick = (e, path) => {
+        if (path.includes('#')) {
+            const hash = path.substring(path.indexOf('#'));
+            const targetId = hash.replace('#', '');
 
+            if (hash === '#stories-in-motion') {
+                // Re-dispatch event to ensure hero is expanded
+                window.dispatchEvent(new Event('forceExpandHero'));
+            }
 
-        if (path.includes('#stories-in-motion')) {
-            // Re-dispatch event to ensure hero is expanded
-            window.dispatchEvent(new Event('forceExpandHero'));
-
-            if (location.pathname === '/') {
+            if (location.pathname === '/' && path.startsWith('/#')) {
                 e.preventDefault();
-                const target = document.getElementById('stories-in-motion');
-                if (target && window.__lenis) {
-                    window.__lenis.scrollTo(target, {
-                        offset: -80,
-                        duration: 1.2,
-                        easing: (t) => 1 - Math.pow(1 - t, 4)
-                    });
-                } else if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                const target = document.getElementById(targetId);
+                if (target) {
+                    if (window.__lenis) {
+                        window.__lenis.scrollTo(target, {
+                            offset: -80,
+                            duration: 1.2,
+                            easing: (t) => 1 - Math.pow(1 - t, 4)
+                        });
+                    } else {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    window.history.pushState(null, '', path);
                 }
             }
         }

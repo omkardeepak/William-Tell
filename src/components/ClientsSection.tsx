@@ -51,7 +51,7 @@ const ClientsSection: React.FC = () => {
     const doubledClients = [...clients, ...clients];
 
     return (
-        <section className="relative w-full py-24 lg:py-32 bg-[#060606] overflow-hidden text-[#f0f0f0] font-['Outfit']">
+        <section className="relative w-full py-24 lg:py-32 bg-[#0a0a0a] overflow-hidden text-[#f0f0f0] font-['Outfit']">
             <style>
                 {`
           @keyframes marquee {

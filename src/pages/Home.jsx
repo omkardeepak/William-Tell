@@ -8,6 +8,7 @@ import Works from './Works';
 import HeroFilmsSection from '../components/HeroFilmsSection';
 import HeroSeam from '../components/HeroSeam';
 import SEO from '../components/SEO';
+import AboutPage from './About';
 
 const sampleMediaContent = {
     video: {
@@ -284,6 +285,7 @@ export const VideoExpansionTextBlend = () => {
             >
                 <AboutSection />
                 <Works />
+                <AboutPage isSection={true} />
             </ScrollExpandMedia>
         </div>
     );
@@ -314,6 +316,7 @@ export const ImageExpansionTextBlend = () => {
             >
                 <AboutSection />
                 <Works />
+                <AboutPage isSection={true} />
             </ScrollExpandMedia>
         </div>
     );

@@ -293,18 +293,20 @@ const StatsCarousel = ({ stats }) => {
 
 
 /* ─── Main Component ─────────────────────────────────────────────── */
-export default function About() {
+export default function About({ isSection = false }) {
     // Track which accordion row is open on mobile (one at a time)
     const [openMobileIndex, setOpenMobileIndex] = useState(null);
 
     return (
-        <div className="about-page">
-            <SEO 
-                title="About Us | William Tell Productions" 
-                description="William Tell Creatives is a film production house, founded by a bunch of creative people who has seen and done it all in their respective corporate careers with media houses and large production houses." 
-            />
+        <div className={`about-page ${isSection ? 'is-section' : ''}`} id="about">
+            {!isSection && (
+                <SEO 
+                    title="About Us | William Tell Productions" 
+                    description="William Tell Creatives is a film production house, founded by a bunch of creative people who has seen and done it all in their respective corporate careers with media houses and large production houses." 
+                />
+            )}
             {/* Cinematic curtain intro */}
-            <CurtainIntro />
+            {!isSection && <CurtainIntro />}
 
             {/* ── HERO ────────────────────────────────────────── */}
             <section className="about-hero">
