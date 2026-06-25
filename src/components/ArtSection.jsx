@@ -44,10 +44,7 @@ const ArtSection = () => {
 
                     <motion.div className="hero-bottom-row" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
                         <div className="hero-desc">
-                            <p>From full-scale hoardings to metro pillar installations and magazine placements, we produce OOH print work built for impact at every size. Every format is designed with a provoking thought, starting with how it will actually be seen — in light, in motion, at a distance — so the work doesn't just fill a space, it owns it. Because outdoor is the only medium that doesn't ask for attention, it takes it. There are no skip buttons, no scroll, no algorithm deciding who sees it. Just the work, in the world, earning its place.</p>
-                            <button className="btn-primary" onClick={() => {
-                                document.getElementById('page-2')?.scrollIntoView({ behavior: 'smooth' });
-                            }}>VIEW ALL WORKS</button>
+                            From full-scale hoardings to metro pillar installations and magazine placements, we produce OOH print work built for impact at every size. Every format is designed with a provoking thought, starting with how it will actually be seen — in light, in motion, at a distance — so the work doesn't just fill a space, it owns it. Because outdoor is the only medium that doesn't ask for attention, it takes it. There are no skip buttons, no scroll, no algorithm deciding who sees it. Just the work, in the world, earning its place.
                         </div>
                     </motion.div>
                 </div>
@@ -60,11 +57,9 @@ const ArtSection = () => {
                 <div className="middle-left">
                     <motion.div className="middle-small-images" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
                         <div className="small-img-wrap">
-                            <span className="img-num">01</span>
                             <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/gy.png?updatedAt=1779439230714" alt="Campaign" />
                         </div>
                         <div className="small-img-wrap">
-                            <span className="img-num">02</span>
                             <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/imagehv.png?updatedAt=1778664021584" alt="Production" />
                         </div>
                     </motion.div>
@@ -82,22 +77,6 @@ const ArtSection = () => {
 
             </div>
 
-            {/* STATS SECTION */}
-            <motion.div className="art-stats" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeUp}>
-                <div className="stat-item">
-                    <h3>10+</h3>
-                    <p>YEARS OF EXPERIENCE</p>
-                </div>
-                <div className="stat-item">
-                    <h3>500+</h3>
-                    <p>HAPPY CLIENTS</p>
-                </div>
-                <div className="stat-item">
-                    <h3>200+</h3>
-                    <p>PROJECTS</p>
-                </div>
-            </motion.div>
-
             {/* BOTTOM SECTION */}
             <div className="art-bottom-redesigned">
                 <div className="bottom-layout-grid">
@@ -105,11 +84,9 @@ const ArtSection = () => {
                         
                         <div className="bottom-staggered-images">
                             <div className="stagger-img-wrap">
-                                <span className="img-num">01</span>
                                 <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/jaccimage.png?updatedAt=1779453396427" alt="Logo 1" />
                             </div>
                             <div className="stagger-img-wrap staggered-down">
-                                <span className="img-num">02</span>
                                 <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/aryasimage.png?updatedAt=1779455897494" alt="Logo 2" />
                             </div>
                         </div>
@@ -126,12 +103,10 @@ const ArtSection = () => {
                         </h2>
                         <div className="bottom-staggered-images">
                             <div className="stagger-img-wrap">
-                                <span className="img-num">03</span>
                                 <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/carla.png?updatedAt=1779387403117" alt="Logo 3" />
                             </div>
                             <div className="stagger-img-wrap staggered-down">
-                                <span className="img-num">04</span>
-                                <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/bellaro.png?updatedAt=1779387321894" alt="Logo 4" />
+                                <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/canbean.png" alt="Logo 4" />
                             </div>
                         </div>
                     </motion.div>
@@ -145,14 +120,9 @@ const ArtSection = () => {
                 <div className="package-left">
                     <motion.div className="campaign-mobile-img" style={{ width: '75%' }} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
                         <div className="stagger-img-wrap" style={{ width: '100%' }}>
-                            <span className="img-num">01</span>
                             <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/1.jpg?updatedAt=1778657767795" alt="Campaign" />
                         </div>
                     </motion.div>
-
-                    <motion.h2 className="standard-title" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
-                        <span style={{ display: 'block', textAlign: 'left' }}><span className="script-letter">C</span>AMPAIGNS</span>
-                    </motion.h2>
                     
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
                         <h4 className="title-sans" style={{ marginBottom: '0.2rem', fontSize: '1.1rem', letterSpacing: '0.05em' }}>
@@ -165,11 +135,11 @@ const ArtSection = () => {
                 </div>
 
                 <motion.div className="package-right" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
-                    <h2 className="standard-title">
-                        <span style={{ display: 'block', textAlign: 'left' }}><span className="script-letter">C</span>ASE STUDIES</span>
-                    </h2>
-                    
-                    <div>
+                    <motion.h2 className="standard-title" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
+                        <span style={{ display: 'block', textAlign: 'left' }}><span className="script-letter">C</span>AMPAIGNS & <br /> CASE STUDIES</span>
+                    </motion.h2>
+
+                    <div style={{ marginTop: '2.5rem' }}>
                         <h4 className="title-sans" style={{ marginBottom: '0.2rem', fontSize: '1.1rem', letterSpacing: '0.05em' }}>
                             YOU DECIDE YOU (THEREFOR I'M)
                         </h4>
@@ -186,15 +156,12 @@ const ArtSection = () => {
                 <div className="package-left">
                     <motion.div className="package-small-images" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
                         <div className="stagger-img-wrap">
-                            <span className="img-num">01</span>
                             <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/bm.png?updatedAt=1779388746092" alt="Package 1" />
                         </div>
                         <div className="stagger-img-wrap staggered-down">
-                            <span className="img-num">02</span>
                             <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/crad.png?updatedAt=1779388745825" alt="Package 2" />
                         </div>
                         <div className="stagger-img-wrap">
-                            <span className="img-num">03</span>
                             <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/aryas.png?updatedAt=1779388746580" alt="Package 3" />
                         </div>
                     </motion.div>
@@ -319,10 +286,13 @@ const artRedesignStyles = `
 
 .hero-desc {
     flex: 1;
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.6);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.1rem, 2.3vw, 1.45rem);
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.78);
     max-width: 600px;
+    text-align: justify;
 }
 
 .btn-primary {
@@ -400,11 +370,14 @@ const artRedesignStyles = `
 }
 
 .middle-desc {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.6);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.1rem, 2.3vw, 1.45rem);
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.78);
     max-width: 85%;
     margin: 0;
+    text-align: justify;
 }
 
 
@@ -493,11 +466,14 @@ const artRedesignStyles = `
 }
 
 .bottom-desc-new {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.6);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.1rem, 2.3vw, 1.45rem);
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.78);
     margin: 0;
     max-width: 95%;
+    text-align: justify;
 }
 
 .bottom-right-col {
@@ -601,6 +577,7 @@ const artRedesignStyles = `
         grid-template-columns: 1fr; 
     }
     .small-img-wrap { width: 100% !important; }
+    .small-img-wrap img { filter: none !important; }
 
     /* 3rd Page Reorder */
     .bottom-layout-grid {
