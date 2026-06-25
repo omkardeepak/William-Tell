@@ -80,32 +80,40 @@ const ArtSection = () => {
             {/* BOTTOM SECTION */}
             <div className="art-bottom-redesigned">
                 <div className="bottom-layout-grid">
+                    <motion.h2 className="standard-title mobile-logo-title" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
+                        <span style={{ display: 'block', textAlign: 'left' }}><span className="script-letter">D</span>EFINING</span>
+                        <span style={{ display: 'block', textAlign: 'right', marginTop: '-0.15em' }}>THE MARK</span>
+                    </motion.h2>
+                    
                     <motion.div className="bottom-left-col" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
                         
                         <div className="bottom-staggered-images">
                             <div className="stagger-img-wrap">
                                 <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/jaccimage.png?updatedAt=1779453396427" alt="Logo 1" />
                             </div>
-                            <div className="stagger-img-wrap staggered-down">
+                            <div className="stagger-img-wrap">
                                 <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/aryasimage.png?updatedAt=1779455897494" alt="Logo 2" />
                             </div>
                         </div>
                         
                         <p className="bottom-desc-new">
-                            Some logos carry decades. Others launch them. We work across both, refining legacy identities that have earned their authority over time, and building new marks from scratch for products that need to own a space the moment they enter it. Every logo we create is designed to be immediately legible, endlessly versatile, and impossible to mistake for anything else.
+                            Some logos carry decades. Others launch them. We work across both, refining legacy identities that have earned their authority over time, and building new marks from scratch for products that need to own a space the moment they enter it.
                         </p>
                     </motion.div>
 
                     <motion.div className="bottom-right-col" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
-                        <h2 className="standard-title">
+                        <h2 className="standard-title desktop-logo-title">
                             <span style={{ display: 'block', textAlign: 'left' }}><span className="script-letter">D</span>EFINING</span>
                             <span style={{ display: 'block', textAlign: 'right', marginTop: '-0.15em' }}>THE MARK</span>
                         </h2>
+                        <p className="bottom-desc-new" style={{ marginTop: '1rem', marginBottom: '2.5rem' }}>
+                            Every logo we create is designed to be immediately legible, endlessly versatile, and impossible to mistake for anything else.
+                        </p>
                         <div className="bottom-staggered-images">
                             <div className="stagger-img-wrap">
                                 <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/carla.png?updatedAt=1779387403117" alt="Logo 3" />
                             </div>
-                            <div className="stagger-img-wrap staggered-down">
+                            <div className="stagger-img-wrap">
                                 <img src="https://ik.imagekit.io/r70knk9pu/William%20Tell/canbean.png" alt="Logo 4" />
                             </div>
                         </div>
@@ -117,6 +125,9 @@ const ArtSection = () => {
 
             {/* CAMPAIGNS & CASE STUDIES SECTION */}
             <div className="art-package-identity">
+                <motion.h2 className="standard-title mobile-campaign-title" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
+                    <span style={{ display: 'block', textAlign: 'left' }}><span className="script-letter">C</span>AMPAIGNS & <br /> CASE STUDIES</span>
+                </motion.h2>
                 <div className="package-left">
                     <motion.div className="campaign-mobile-img" style={{ width: '75%' }} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
                         <div className="stagger-img-wrap" style={{ width: '100%' }}>
@@ -135,7 +146,7 @@ const ArtSection = () => {
                 </div>
 
                 <motion.div className="package-right" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
-                    <motion.h2 className="standard-title" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
+                    <motion.h2 className="standard-title desktop-campaign-title" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp}>
                         <span style={{ display: 'block', textAlign: 'left' }}><span className="script-letter">C</span>AMPAIGNS & <br /> CASE STUDIES</span>
                     </motion.h2>
 
@@ -416,7 +427,6 @@ const artRedesignStyles = `
     flex-direction: column;
     align-items: center;
     gap: 6rem;
-    padding-bottom: 2rem;
     width: 100%;
 }
 
@@ -452,6 +462,11 @@ const artRedesignStyles = `
     height: auto;
     object-fit: cover;
     border-radius: 2px;
+}
+
+.bottom-staggered-images .stagger-img-wrap img {
+    height: 100%;
+    aspect-ratio: 1.4;
 }
 
 .standard-title {
@@ -490,8 +505,12 @@ const artRedesignStyles = `
     grid-template-columns: 1.2fr 1fr;
     gap: 8%;
     align-items: center;
-    padding: 6rem 0;
     width: 100%;
+}
+
+.mobile-campaign-title,
+.mobile-logo-title {
+    display: none;
 }
 
 .package-left {
@@ -539,8 +558,8 @@ const artRedesignStyles = `
 
 @media (max-width: 768px) {
     .art-redesign-wrapper {
-        gap: 5rem;
-        padding: 5rem 5% 2rem;
+        gap: 4.5rem;
+        padding: 4.5rem 5% 2rem;
     }
     .art-hero {
         display: flex;
@@ -555,7 +574,16 @@ const artRedesignStyles = `
     }
     .art-package-identity {
         grid-template-columns: 1fr;
-        gap: 4rem;
+        gap: 2rem;
+    }
+    .mobile-campaign-title,
+    .mobile-logo-title {
+        display: block;
+        margin-bottom: 0;
+    }
+    .desktop-campaign-title,
+    .desktop-logo-title {
+        display: none !important;
     }
     .hero-img-main {
         aspect-ratio: 16/10;
@@ -570,8 +598,8 @@ const artRedesignStyles = `
         flex-direction: column;
         gap: 2rem;
     }
-    .middle-left .standard-title { order: 1; }
-    .middle-left .bottom-desc-new { order: 2; }
+    .middle-left .middle-title { order: 1; margin: 0; }
+    .middle-left .middle-desc { order: 2; }
     .middle-small-images { 
         order: 3; 
         grid-template-columns: 1fr; 
@@ -582,10 +610,13 @@ const artRedesignStyles = `
     /* 3rd Page Reorder */
     .bottom-layout-grid {
         grid-template-columns: 1fr;
+        gap: 3rem;
     }
-    .bottom-left-col {
+    .bottom-left-col, .bottom-right-col {
         display: flex;
         flex-direction: column;
+        gap: 2rem;
+        justify-content: flex-start;
     }
     .bottom-left-col .standard-title { order: 1; }
     .bottom-left-col .bottom-desc-new { order: 2; }
@@ -598,9 +629,11 @@ const artRedesignStyles = `
     .staggered-down { margin-top: 0 !important; }
 
     /* 4th & 5th Page Reorder */
-    .package-left {
+    .package-left, .package-right {
         display: flex;
         flex-direction: column;
+        gap: 2rem;
+        justify-content: flex-start;
     }
     .package-left .standard-title { order: 1; }
     .package-left > div:not(.package-small-images):not(.campaign-mobile-img) { order: 2; }

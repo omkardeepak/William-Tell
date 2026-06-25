@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { X, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
@@ -50,6 +50,8 @@ export default function Navbar() {
         return () => { document.body.style.overflow = ''; };
     }, [mobileMenuOpen]);
 
+    const navigate = useNavigate();
+
     const handleAnchorLinkClick = (e, path) => {
         if (path.includes('#')) {
             const hash = path.substring(path.indexOf('#'));
@@ -58,6 +60,18 @@ export default function Navbar() {
             if (hash === '#stories-in-motion') {
                 // Re-dispatch event to ensure hero is expanded
                 window.dispatchEvent(new Event('forceExpandHero'));
+            }
+
+            // Handle accordion sections in Works.jsx
+            if (['about', 'art', 'film'].includes(targetId)) {
+                e.preventDefault();
+                if (location.pathname !== '/') {
+                    navigate('/', { state: { expandSection: targetId } });
+                } else {
+                    window.dispatchEvent(new CustomEvent('wt:expandSection', { detail: targetId }));
+                    window.history.pushState(null, '', path);
+                }
+                return;
             }
 
             if (location.pathname === '/' && path.startsWith('/#')) {
