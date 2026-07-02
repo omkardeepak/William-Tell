@@ -636,7 +636,8 @@ const artRedesignStyles = `
         justify-content: flex-start;
     }
     .package-left .standard-title { order: 1; }
-    .package-left > div:not(.package-small-images):not(.campaign-mobile-img) { order: 2; }
+    .package-left > div:not(.package-small-images):not(.campaign-mobile-img),
+    .package-left > p { order: 2; }
     .package-small-images, .campaign-mobile-img { 
         order: 3; 
         width: 100% !important;
